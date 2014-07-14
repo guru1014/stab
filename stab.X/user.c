@@ -11,7 +11,8 @@
 /******************************************************************************/
 /* User Functions                                                             */
 /******************************************************************************/
-
+#define PERIOD  614   // 20 KHz
+//#define PERIOD  682   // 18 KHz
 /* <Initialize variables in user.h and insert code for user algorithms.> */
 void ADC_Init(void);
 void PWM_Init(void);
@@ -19,9 +20,15 @@ void PWM_Init(void);
 
 void InitApp(void)
 {
-    TRISB = 0x07;
-    PORTB =0x10;
-    TRISE = 0x00;
+    TRISB = 0x0007;
+    TRISC = 0x0000;
+    TRISD = 0x0002;
+    TRISE = 0x0100;
+    TRISF = 0x0000;
+    BSTLED = 1;
+    BKLED  = 1;
+    FLTLED = 1;
+   
     
     /* Setup analog functionality and port direction */
     ADC_Init();
@@ -98,16 +105,17 @@ void ADC_Init(void)
 //PWM_Init() is used to configure PWM
 void PWM_Init(void)
 {
-     PTPER = 682;            /* PWM period of approx. 500 nsec
-                               PWM Period = PTPER*1.05nsec = 537.6 nsec */
+   //  PTPER = 682;            /* PWM period of approx. 500 nsec
+    PTPER = PERIOD;            /* PWM period of approx. 50 usec
+                               PWM Period = PTPER*81.38nsec = 49999.872 nsec */
 
-    PDC1 = 682;             /* PWM1 pulse width of 250 nsec
+    PDC1 = PERIOD/2;             /* PWM1 pulse width of 250 nsec
                                Duty Cycle = PDC1*1.05nsec = 268.8 nsec */
 
-    PDC2 = 682;             /* PWM2 pulse width of 250 nsec
+    PDC2 = PERIOD/2;             /* PWM2 pulse width of 250 nsec
                                Duty Cycle = PDC2*1.05nsec = 268.8 nsec */
 
-PDC3 = 682;             /* PWM2 pulse width of 250 nsec
+PDC3 = PERIOD/2;             /* PWM2 pulse width of 250 nsec
                                Duty Cycle = PDC2*1.05nsec = 268.8 nsec */
 
     /* Note that a pulse appears only on every other PWM cycle. So in push-pull

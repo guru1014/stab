@@ -1,6 +1,9 @@
 /******************************************************************************/
 /* User Level #define Macros                                                  */
 /******************************************************************************/
+#define BSTLED _RB4
+#define BKLED  _RB5
+#define FLTLED _RD0
 
 /* TODO Application specific user parameters used in user.c may go here */
 
