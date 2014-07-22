@@ -66,10 +66,22 @@
 /* TODO Add interrupt routine code here. */
 unsigned int ADResult1 = 0;
 unsigned int ADResult2 = 0;
+unsigned int ADResult3 = 0;
+unsigned int ADResult4 = 0;
+
+#define BKLED _RB4
+#define BSTLED  _RB5
+#define BYPASSLED _RD0
+#define FLTLED _RE8
+
+uint16_t inputvoltage=0;
+uint16_t outputvoltage=0;
+uint16_t outputcurrent=0;
 
 //Functions and Variables with Global Scope:
 
 void __attribute__((__interrupt__)) _ADCInterrupt(void);
+void __attribute__((__interrupt__)) _IC2Interrupt(void);
 
 
 
@@ -78,8 +90,13 @@ void __attribute__((__interrupt__)) _ADCInterrupt(void);
 //The ISR name is chosen from the device linker script.
 void __attribute__((interrupt, no_auto_psv)) _ADCInterrupt(void)
 {
-	ADResult1 = ADCBUF0;
-	ADResult2 = ADCBUF1;
+	//ADResult1 = ADCBUF0;
+    inputvoltage = ADCBUF0;
+    outputvoltage = ADCBUF1;
+    outputcurrent = ADCBUF2;
+//	ADResult2 = ADCBUF1;
+  //      ADResult3 = ADCBUF2;
+        ADResult4 = ADCBUF3;
 
         //Clear the A/D Interrupt flag bit or else the CPU will
         //keep vectoring back to the ISR
@@ -88,3 +105,10 @@ void __attribute__((interrupt, no_auto_psv)) _ADCInterrupt(void)
 
 }
 
+void __attribute__((interrupt, no_auto_psv)) _IC2Interrupt(void)
+{
+    
+    BSTLED = ~BSTLED;
+
+    _IC2IF=0;
+}

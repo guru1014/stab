@@ -11,11 +11,11 @@
 /******************************************************************************/
 /* User Functions                                                             */
 /******************************************************************************/
-#define PERIOD  614   // 20 KHz
-//#define PERIOD  682   // 18 KHz
+
 /* <Initialize variables in user.h and insert code for user algorithms.> */
 void ADC_Init(void);
 void PWM_Init(void);
+void InitTMR3(void);
 /* TODO Initialize User Ports/Peripherals/Project here */
 
 void InitApp(void)
@@ -28,11 +28,13 @@ void InitApp(void)
     BSTLED = 1;
     BKLED  = 1;
     FLTLED = 1;
+    BYPASSLED =1;
    
     
     /* Setup analog functionality and port direction */
     ADC_Init();
     PWM_Init();
+    Capture_Init();
     /* Initialize peripherals */
 }
 
@@ -61,6 +63,7 @@ void ADC_Init(void)
         //All other bits to their default state
         ADCON2bits.SMPI = 1;
         ADCON2bits.CHPS = 3;
+        ADCON2bits.BUFM = 0;
 	//ADCON2bits.VCFG = 3; //Ideally use external references
 
         //ADCON3 Register
@@ -105,38 +108,49 @@ void ADC_Init(void)
 //PWM_Init() is used to configure PWM
 void PWM_Init(void)
 {
+    //OVDCON=0;
    //  PTPER = 682;            /* PWM period of approx. 500 nsec
-    PTPER = PERIOD;            /* PWM period of approx. 50 usec
-                               PWM Period = PTPER*81.38nsec = 49999.872 nsec */
+ //   PTPER = PERIOD;            /* PWM period of approx. 50 usec
+   //                            PWM Period = PTPER*81.38nsec = 49999.872 nsec */
+    PTPER = period>>1;	// Compute Period based on CPU speed and
+                                    // required PWM frequency (see defines)
 
-    PDC1 = PERIOD/2;             /* PWM1 pulse width of 250 nsec
-                               Duty Cycle = PDC1*1.05nsec = 268.8 nsec */
 
-    PDC2 = PERIOD/2;             /* PWM2 pulse width of 250 nsec
-                               Duty Cycle = PDC2*1.05nsec = 268.8 nsec */
+    //PDC1 = PERIOD/2;             /* PWM1 pulse width of 250 nsec
+     //                          Duty Cycle = PDC1*1.05nsec = 268.8 nsec */
 
-PDC3 = PERIOD/2;             /* PWM2 pulse width of 250 nsec
-                               Duty Cycle = PDC2*1.05nsec = 268.8 nsec */
+    //PDC2 = PERIOD/2;             /* PWM2 pulse width of 250 nsec
+     //                          Duty Cycle = PDC2*1.05nsec = 268.8 nsec */
+
+//PDC3 = PERIOD/2;             /* PWM2 pulse width of 250 nsec
+  //                             Duty Cycle = PDC2*1.05nsec = 268.8 nsec */
+    PDC1 =(2 * PTPER)*0.7;
+    PDC2 = (2 * PTPER)*0.7;
+    PDC3 = (2 * PTPER)*0.7;
 
     /* Note that a pulse appears only on every other PWM cycle. So in push-pull
        mode, the effective duty cycle is 25% */
 
+    //Dead Time   = 81.380 ns  * 31 *1 = 2522 ns
+    PWMCON1 = 0x0000;
     DTCON1bits.DTAPS = 0;
-    DTCON1bits.DTA  =2;/* 33.6 nsec dead time
+    DTCON1bits.DTA  =31;/* 33.6 nsec dead time
                                Dead-time = DTR1*1.05nsec = 33.6 nsec */
 
     DTCON1bits.DTBPS = 0;
 
-    DTCON1bits.DTB  =2;/* 33.6 nsec dead time
+    DTCON1bits.DTB  =31;/* 33.6 nsec dead time
                                Dead-time = DTR2*1.05nsec = 33.6 nsec */
-//    PTCONbits.PTCKPS = 3;
-    PTCONbits.PTMOD = 0;
+    PTCONbits.PTCKPS = 0;
+    PTCONbits.PTMOD = 2;
+   // PTCONbits.PTCKPS = 0;
+    PWMCON2 = 0x0F02;
     _PEN1L=1;
     _PEN1H=1;
     _PEN2L=1;
     _PEN2H=1;
-    _PEN3L=1;
-    _PEN3H=1;
+    _PEN3L=0;
+    _PEN3H=0;
 
 
 
@@ -165,6 +179,47 @@ _POUT3H=1;
   //  IOCON2bits.PENL = 1;    /* PWM2L output controlled by PWM */
   //  IOCON2bits.PMOD = 2;    /* Select Push-Pull PWM mode */
 
-    PTCONbits.PTEN = 1;     /* Turn ON PWM module */
+   PTCONbits.PTEN = 1;     /* Turn ON PWM module */
+}
+void Capture_Init(void)
+{
+    _IC2IP=7;
+    IC2CON = 0x0001;
+    //IC2CONbits.ICSIDL =0;
+   // IC2CONbits.ICTMR = 0;
+   // IC2CONbits.ICI=0;
+    _IC2IF=0;
+    _IC2IE=1;
+    
+
+
+}
+void InitTMR3(void)
+{
+	T3CON = 0x0020;			// internal Tcy/64 clock
+	TMR3 = 0;
+	PR3 = 0xFFFF;
+	T3CONbits.TON = 1;		// turn on timer 3
+	return;
 }
 
+void stab(void)
+{
+
+    //Read_ADC();
+    if ((inputvoltage <=300)&&(inputvoltage>=100))
+    {
+      //  Run_PWM();
+    }
+
+}
+
+void Read_ADC(void)
+{
+
+}
+void Run_PWM(void)
+{
+PTCONbits.PTEN = 1;     /* Turn ON PWM module */
+
+}
