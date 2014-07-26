@@ -34,6 +34,7 @@ void InitApp(void)
     /* Setup analog functionality and port direction */
     ADC_Init();
     PWM_Init();
+    InitTMR3();
     Capture_Init();
     /* Initialize peripherals */
 }
@@ -183,13 +184,25 @@ _POUT3H=1;
 }
 void Capture_Init(void)
 {
-    _IC2IP=7;
-    IC2CON = 0x0001;
+ IC2CONbits.ICM = 0;
+    IC2CONbits.ICTMR = 0;
+    IC2CONbits.ICSIDL=0;
+    IC2CONbits.ICOV=0;
+    IC2CONbits.ICBNE=0;
+    IC2CONbits.ICI=0;
+    IC2CONbits.ICM = 1;
+//IC2CON = 0x0001;
+    IPC1bits.IC2IP=1;
+    IFS0bits.IC2IF=0;
+    IEC0bits.IC2IE=1;
+
+  //  _IC2IP=7;
+    //IC2CON = 0x0001;
     //IC2CONbits.ICSIDL =0;
    // IC2CONbits.ICTMR = 0;
    // IC2CONbits.ICI=0;
-    _IC2IF=0;
-    _IC2IE=1;
+    //_IC2IF=0;
+    //_IC2IE=1;
     
 
 
@@ -199,6 +212,9 @@ void InitTMR3(void)
 	T3CON = 0x0020;			// internal Tcy/64 clock
 	TMR3 = 0;
 	PR3 = 0xFFFF;
+        IPC1bits.T3IP=1;
+        IFS0bits.T3IF=0;
+        IEC0bits.T3IE=1;
 	T3CONbits.TON = 1;		// turn on timer 3
 	return;
 }
