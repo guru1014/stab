@@ -77,6 +77,7 @@ unsigned int ADResult4 = 0;
 uint16_t inputvoltage=0;
 uint16_t outputvoltage=0;
 uint16_t outputcurrent=0;
+uint16_t t1=0;
 
 //Functions and Variables with Global Scope:
 
@@ -109,6 +110,6 @@ void __attribute__((interrupt, no_auto_psv)) _IC2Interrupt(void)
 {
     
     BSTLED = ~BSTLED;
-
+    t1=IC2BUF;
     _IC2IF=0;
 }
