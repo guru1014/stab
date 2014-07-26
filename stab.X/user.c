@@ -25,10 +25,10 @@ void InitApp(void)
     TRISD = 0x0002;
     TRISE = 0x0100;
     TRISF = 0x0000;
-    BSTLED = 1;
-    BKLED  = 1;
-    FLTLED = 1;
-    BYPASSLED =1;
+   // BSTLED = 1;
+   // BKLED  = 1;
+   // FLTLED = 1;
+  //  BYPASSLED =1;
    
     
     /* Setup analog functionality and port direction */
@@ -209,7 +209,7 @@ void Capture_Init(void)
 }
 void InitTMR3(void)
 {
-	T3CON = 0x0020;			// internal Tcy/64 clock
+	T3CON = 0x0030;			// internal Tcy/64 clock
 	TMR3 = 0;
 	PR3 = 0xFFFF;
         IPC1bits.T3IP=1;

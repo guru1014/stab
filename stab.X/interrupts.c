@@ -109,8 +109,8 @@ void __attribute__((interrupt, no_auto_psv)) _ADCInterrupt(void)
 }
 void __attribute__((interrupt, no_auto_psv)) _T3Interrupt(void)
 {
-    FLTLED=1;
-    BYPASSLED=1;
+   // FLTLED=1;
+   // BYPASSLED=1;
     IFS0bits.T3IF=0;
 }
 void __attribute__((interrupt, no_auto_psv)) _IC2Interrupt(void)
@@ -120,14 +120,20 @@ void __attribute__((interrupt, no_auto_psv)) _IC2Interrupt(void)
     //t1=IC2BUF;
     //_IC2IF=0;
     unsigned int t1,t2;
+
 t1=IC2BUF;
 t2=IC2BUF;
 BSTLED = ~BSTLED;
+//BYPASSLED = PORTDbits.RD1^BYPASSLED;
 IFS0bits.IC2IF=0;
 if(t2>t1)
 timePeriod[i] = t2-t1;
 else
 timePeriod[i] = (PR3 - t1) + t2;
+if((timePeriod[i] >=0xFA00)&&(timePeriod[i]<=0xFB00))
+{
+  BYPASSLED=~BYPASSLED;  
+}
 i++;
 if(i>10)
     i=0;
