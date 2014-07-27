@@ -25,6 +25,7 @@ void InitApp(void)
     TRISD = 0x0002;
     TRISE = 0x0100;
     TRISF = 0x0000;
+    //_RC14=1;
    // BSTLED = 1;
    // BKLED  = 1;
    // FLTLED = 1;
@@ -36,6 +37,7 @@ void InitApp(void)
     PWM_Init();
     InitTMR3();
     Capture_Init();
+    ExtINT2_Init();
     /* Initialize peripherals */
 }
 
@@ -192,7 +194,7 @@ void Capture_Init(void)
     IC2CONbits.ICI=0;
     IC2CONbits.ICM = 1;
 //IC2CON = 0x0001;
-    IPC1bits.IC2IP=1;
+    IPC1bits.IC2IP=6;
     IFS0bits.IC2IF=0;
     IEC0bits.IC2IE=1;
 
@@ -228,6 +230,13 @@ void stab(void)
       //  Run_PWM();
     }
 
+}
+void ExtINT2_Init(void)
+{
+    INTCON2bits.INT2EP =0;
+    IFS1bits.INT2IF = 0;
+    IPC5bits.INT2IP = 7;
+    IEC1bits.INT2IE = 1;
 }
 
 void Read_ADC(void)

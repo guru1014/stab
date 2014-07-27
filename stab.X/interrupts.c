@@ -72,6 +72,7 @@ unsigned int ADResult4 = 0;
 #define BKLED _RB4
 #define BSTLED  _RB5
 #define BYPASSLED _RD0
+#define OLLED _RC13
 #define FLTLED _RE8
 
 uint16_t inputvoltage=0;
@@ -85,6 +86,7 @@ uint16_t i=0;
 void __attribute__((__interrupt__)) _ADCInterrupt(void);
 void __attribute__((__interrupt__)) _IC2Interrupt(void);
 void __attribute__((__interrupt__)) _T3Interrupt(void);
+void __attribute__((__interrupt__)) _INT2Interrupt(void);
 
 
 
@@ -120,7 +122,7 @@ void __attribute__((interrupt, no_auto_psv)) _IC2Interrupt(void)
     //t1=IC2BUF;
     //_IC2IF=0;
     unsigned int t1,t2;
-
+OLLED=~OLLED;
 t1=IC2BUF;
 t2=IC2BUF;
 BSTLED = ~BSTLED;
@@ -130,15 +132,16 @@ if(t2>t1)
 timePeriod[i] = t2-t1;
 else
 timePeriod[i] = (PR3 - t1) + t2;
-if((timePeriod[i] >=0xFA00)&&(timePeriod[i]<=0xFB00))
+//if((timePeriod[i] >=0xFA00)&&(timePeriod[i]<=0xFB00))
 {
-  BYPASSLED=~BYPASSLED;
+ // BYPASSLED=~BYPASSLED;
+    
     if(BYPASSLED)
   {
       
       if(!PTCONbits.PTEN) PTCONbits.PTEN = 1;     /* Turn ON PWM module */
       OVDCONbits.POVD1H = 0;    //override
-      OVDCONbits.POVD2H = 0;    //override
+      OVDCONbits.POVD2H = 1;    //override
       //OVDCONbits.POVD1L =1;
       //OVDCONbits.POVD2L = 1;
     //  _PEN1L = 1;
@@ -147,7 +150,7 @@ if((timePeriod[i] >=0xFA00)&&(timePeriod[i]<=0xFB00))
   else
   {
       OVDCONbits.POVD1H = 1;
-      OVDCONbits.POVD2H = 1;
+      OVDCONbits.POVD2H = 0;
       //OVDCONbits.POVD1L =0;
      // OVDCONbits.POVD2L = 0;
   }
@@ -155,4 +158,20 @@ if((timePeriod[i] >=0xFA00)&&(timePeriod[i]<=0xFB00))
 i++;
 if(i>10)
     i=0;
+}
+void __attribute__((interrupt, no_auto_psv)) _INT2Interrupt(void)
+{
+    if(INTCON2bits.INT2EP)
+    {
+        INTCON2bits.INT2EP=0;
+        BYPASSLED=0;
+    }
+    else
+    {
+        INTCON2bits.INT2EP=1;
+        BYPASSLED=1;
+    }
+    IFS1bits.INT2IF=0;
+
+
 }

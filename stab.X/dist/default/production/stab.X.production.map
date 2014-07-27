@@ -1,4 +1,4 @@
-Microchip Technology Inc, vpÅß
+Microchip Technology Inc, vpÅ{
 
 Tool Name:
   c:\program files (x86)\microchip\xc16\v1.20\bin\bin\..\bin/elf-ld.exe
@@ -97,11 +97,11 @@ Program Memory  [Origin = 0x100, Length = 0x1efe]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x100               0x352           0x4fb  (1275)
-.text                        0x452               0x1b0           0x288  (648)
-.dinit                       0x602                0x24            0x36  (54)
-.text                        0x626                0x10            0x18  (24)
+.text                        0x452               0x1c8           0x2ac  (684)
+.dinit                       0x61a                0x24            0x36  (54)
+.text                        0x63e                0x10            0x18  (24)
 
-                     Total program memory used (bytes):          0x7d1  (2001) 16%
+                     Total program memory used (bytes):          0x7f5  (2037) 17%
 
 
 Data Memory  [Origin = 0x800, Length = 0x200]
@@ -157,6 +157,7 @@ External Symbols in Program Memory (by address):
                   0x000194                  __ADCInterrupt
                   0x0001b0                  __T3Interrupt
                   0x0001b8                  __IC2Interrupt
+                  0x00025a                  __INT2Interrupt
                   0x000278                  __OscillatorFail
                   0x00027e                  __AddressError
                   0x000284                  __StackError
@@ -177,27 +178,29 @@ External Symbols in Program Memory (by address):
                   0x000444                  __fbopExit
                   0x00044c                  __fbopReturnNaN
                   0x000452                  _InitApp
-                  0x000474                  _ADC_Init
-                  0x0004ca                  _PWM_Init
-                  0x000594                  _Capture_Init
-                  0x0005cc                  _InitTMR3
-                  0x0005ee                  _stab
-                  0x0005f4                  _Read_ADC
-                  0x0005fa                  _Run_PWM
-                  0x000626                  _main
-                  0x000630                  _ConfigureOscillator
+                  0x000476                  _ADC_Init
+                  0x0004cc                  _PWM_Init
+                  0x000596                  _Capture_Init
+                  0x0005ce                  _InitTMR3
+                  0x0005f0                  _stab
+                  0x0005f6                  _ExtINT2_Init
+                  0x00060c                  _Read_ADC
+                  0x000612                  _Run_PWM
+                  0x00063e                  _main
+                  0x000648                  _ConfigureOscillator
                   0xf8000a                  __FGS.sec
 
 External Symbols in Program Memory (by name):
 
-                  0x000474                  _ADC_Init
-                  0x000594                  _Capture_Init
-                  0x000630                  _ConfigureOscillator
+                  0x000476                  _ADC_Init
+                  0x000596                  _Capture_Init
+                  0x000648                  _ConfigureOscillator
+                  0x0005f6                  _ExtINT2_Init
                   0x000452                  _InitApp
-                  0x0005cc                  _InitTMR3
-                  0x0004ca                  _PWM_Init
-                  0x0005f4                  _Read_ADC
-                  0x0005fa                  _Run_PWM
+                  0x0005ce                  _InitTMR3
+                  0x0004cc                  _PWM_Init
+                  0x00060c                  _Read_ADC
+                  0x000612                  _Run_PWM
                   0x000194                  __ADCInterrupt
                   0x00027e                  __AddressError
                   0x000296                  __AltAddressError
@@ -207,6 +210,7 @@ External Symbols in Program Memory (by name):
                   0x0002a8                  __DefaultInterrupt
                   0xf8000a                  __FGS.sec
                   0x0001b8                  __IC2Interrupt
+                  0x00025a                  __INT2Interrupt
                   0x00028a                  __MathError
                   0x000278                  __OscillatorFail
                   0x000284                  __StackError
@@ -225,8 +229,8 @@ External Symbols in Program Memory (by name):
                   0x000422                  __funpack2
                   0x000126                  __psv_init
                   0x000100                  __resetPRI
-                  0x000626                  _main
-                  0x0005ee                  _stab
+                  0x00063e                  _main
+                  0x0005f0                  _stab
 
 Memory Configuration
 
@@ -303,6 +307,7 @@ LOAD c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib/dsPIC30F\libp
                   0x000194                  __ADCInterrupt
                   0x0001b0                  __T3Interrupt
                   0x0001b8                  __IC2Interrupt
+                  0x00025a                  __INT2Interrupt
  .isr.text        0x000278         0x34 build/default/production/traps.o
                   0x000278                  __OscillatorFail
                   0x00027e                  __AddressError
@@ -395,47 +400,47 @@ userdata
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x25e3
+.debug_info       0x000000       0x2a9f
  *(.debug_info)
  .debug_info      0x000000        0x10a build/default/production/configuration_bits.o
- .debug_info      0x00010a        0x8eb build/default/production/interrupts.o
- .debug_info      0x0009f5        0x154 build/default/production/main.o
- .debug_info      0x000b49        0x12d build/default/production/system.o
- .debug_info      0x000c76        0x302 build/default/production/traps.o
- .debug_info      0x000f78       0x166b build/default/production/user.o
+ .debug_info      0x00010a        0xad7 build/default/production/interrupts.o
+ .debug_info      0x000be1        0x154 build/default/production/main.o
+ .debug_info      0x000d35        0x12d build/default/production/system.o
+ .debug_info      0x000e62        0x302 build/default/production/traps.o
+ .debug_info      0x001164       0x193b build/default/production/user.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x35d
+.debug_abbrev     0x000000        0x3a5
  *(.debug_abbrev)
  .debug_abbrev    0x000000         0x30 build/default/production/configuration_bits.o
- .debug_abbrev    0x000030        0x141 build/default/production/interrupts.o
- .debug_abbrev    0x000171         0x54 build/default/production/main.o
- .debug_abbrev    0x0001c5         0x34 build/default/production/system.o
- .debug_abbrev    0x0001f9         0x7d build/default/production/traps.o
- .debug_abbrev    0x000276         0xe7 build/default/production/user.o
+ .debug_abbrev    0x000030        0x165 build/default/production/interrupts.o
+ .debug_abbrev    0x000195         0x54 build/default/production/main.o
+ .debug_abbrev    0x0001e9         0x34 build/default/production/system.o
+ .debug_abbrev    0x00021d         0x7d build/default/production/traps.o
+ .debug_abbrev    0x00029a        0x10b build/default/production/user.o
 
-.debug_line       0x000000        0x8e2
+.debug_line       0x000000        0x96c
  *(.debug_line)
  .debug_line      0x000000         0x7f build/default/production/configuration_bits.o
- .debug_line      0x00007f        0x1eb build/default/production/interrupts.o
- .debug_line      0x00026a         0xae build/default/production/main.o
- .debug_line      0x000318         0x4a build/default/production/system.o
- .debug_line      0x000362        0x1b4 build/default/production/traps.o
- .debug_line      0x000516        0x3cc build/default/production/user.o
+ .debug_line      0x00007f        0x22d build/default/production/interrupts.o
+ .debug_line      0x0002ac         0xae build/default/production/main.o
+ .debug_line      0x00035a         0x4a build/default/production/system.o
+ .debug_line      0x0003a4        0x1b4 build/default/production/traps.o
+ .debug_line      0x000558        0x414 build/default/production/user.o
 
-.debug_frame      0x000000        0x1c4
+.debug_frame      0x000000        0x1e4
  *(.debug_frame)
- .debug_frame     0x000000         0x44 build/default/production/interrupts.o
- .debug_frame     0x000044         0x24 build/default/production/main.o
- .debug_frame     0x000068         0x24 build/default/production/system.o
- .debug_frame     0x00008c         0xa4 build/default/production/traps.o
- .debug_frame     0x000130         0x94 build/default/production/user.o
+ .debug_frame     0x000000         0x54 build/default/production/interrupts.o
+ .debug_frame     0x000054         0x24 build/default/production/main.o
+ .debug_frame     0x000078         0x24 build/default/production/system.o
+ .debug_frame     0x00009c         0xa4 build/default/production/traps.o
+ .debug_frame     0x000140         0xa4 build/default/production/user.o
 
-.debug_str        0x000000         0xfb
+.debug_str        0x000000        0x141
  *(.debug_str)
- .debug_str       0x000000         0x65 build/default/production/interrupts.o
- .debug_str       0x000065          0xc build/default/production/traps.o
- .debug_str       0x000071         0x8a build/default/production/user.o
+ .debug_str       0x000000         0x84 build/default/production/interrupts.o
+ .debug_str       0x000084          0xc build/default/production/traps.o
+ .debug_str       0x000090         0xb1 build/default/production/user.o
 
 .debug_loc
  *(.debug_loc)
@@ -444,20 +449,20 @@ userdata
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x27c
+                  0x000000        0x2a0
  *(.debug_pubnames)
  .debug_pubnames
                   0x000000         0x3c build/default/production/configuration_bits.o
  .debug_pubnames
-                  0x00003c         0xba build/default/production/interrupts.o
+                  0x00003c         0xcd build/default/production/interrupts.o
  .debug_pubnames
-                  0x0000f6         0x26 build/default/production/main.o
+                  0x000109         0x26 build/default/production/main.o
  .debug_pubnames
-                  0x00011c         0x2a build/default/production/system.o
+                  0x00012f         0x2a build/default/production/system.o
  .debug_pubnames
-                  0x000146         0xbe build/default/production/traps.o
+                  0x000159         0xbe build/default/production/traps.o
  .debug_pubnames
-                  0x000204         0x78 build/default/production/user.o
+                  0x000217         0x89 build/default/production/user.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -507,7 +512,7 @@ userdata
                   0x00003c          0x4 LONG 0x2a8 DEFINED (__OC4Interrupt)?ABSOLUTE (__OC4Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00003e          0x4 LONG 0x2a8 DEFINED (__T4Interrupt)?ABSOLUTE (__T4Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000040          0x4 LONG 0x2a8 DEFINED (__T5Interrupt)?ABSOLUTE (__T5Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x000042          0x4 LONG 0x2a8 DEFINED (__INT2Interrupt)?ABSOLUTE (__INT2Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000042          0x4 LONG 0x25a DEFINED (__INT2Interrupt)?ABSOLUTE (__INT2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000044          0x4 LONG 0x2a8 DEFINED (__U2RXInterrupt)?ABSOLUTE (__U2RXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000046          0x4 LONG 0x2a8 DEFINED (__U2TXInterrupt)?ABSOLUTE (__U2TXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000048          0x4 LONG 0x2a8 DEFINED (__SPI2Interrupt)?ABSOLUTE (__SPI2Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -571,7 +576,7 @@ userdata
                   0x0000bc          0x4 LONG 0x2a8 DEFINED (__AltOC4Interrupt)?ABSOLUTE (__AltOC4Interrupt):DEFINED (__OC4Interrupt)?ABSOLUTE (__OC4Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x0000be          0x4 LONG 0x2a8 DEFINED (__AltT4Interrupt)?ABSOLUTE (__AltT4Interrupt):DEFINED (__T4Interrupt)?ABSOLUTE (__T4Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x0000c0          0x4 LONG 0x2a8 DEFINED (__AltT5Interrupt)?ABSOLUTE (__AltT5Interrupt):DEFINED (__T5Interrupt)?ABSOLUTE (__T5Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x0000c2          0x4 LONG 0x2a8 DEFINED (__AltINT2Interrupt)?ABSOLUTE (__AltINT2Interrupt):DEFINED (__INT2Interrupt)?ABSOLUTE (__INT2Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000c2          0x4 LONG 0x25a DEFINED (__AltINT2Interrupt)?ABSOLUTE (__AltINT2Interrupt):DEFINED (__INT2Interrupt)?ABSOLUTE (__INT2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x0000c4          0x4 LONG 0x2a8 DEFINED (__AltU2RXInterrupt)?ABSOLUTE (__AltU2RXInterrupt):DEFINED (__U2RXInterrupt)?ABSOLUTE (__U2RXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x0000c6          0x4 LONG 0x2a8 DEFINED (__AltU2TXInterrupt)?ABSOLUTE (__AltU2TXInterrupt):DEFINED (__U2TXInterrupt)?ABSOLUTE (__U2TXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x0000c8          0x4 LONG 0x2a8 DEFINED (__AltSPI2Interrupt)?ABSOLUTE (__AltSPI2Interrupt):DEFINED (__SPI2Interrupt)?ABSOLUTE (__SPI2Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -1063,54 +1068,54 @@ LOAD FGS
 LOAD data_init
 
 .debug_pubtypes
-                  0x000078        0x2e8
+                  0x000078        0x3c1
  .debug_pubtypes
                   0x000078         0x12 build/default/production/configuration_bits.o
  .debug_pubtypes
-                  0x00008a         0xba build/default/production/interrupts.o
+                  0x00008a        0x119 build/default/production/interrupts.o
  .debug_pubtypes
-                  0x000144         0x2b build/default/production/main.o
+                  0x0001a3         0x2b build/default/production/main.o
  .debug_pubtypes
-                  0x00016f         0x12 build/default/production/system.o
+                  0x0001ce         0x12 build/default/production/system.o
  .debug_pubtypes
-                  0x000181         0x35 build/default/production/traps.o
+                  0x0001e0         0x35 build/default/production/traps.o
  .debug_pubtypes
-                  0x0001b6        0x1aa build/default/production/user.o
+                  0x000215        0x224 build/default/production/user.o
 
 __c30_signature
-                  0x000360         0x60
+                  0x00043a         0x60
  __c30_signature
-                  0x000360          0x6 build/default/production/configuration_bits.o
+                  0x00043a          0x6 build/default/production/configuration_bits.o
  __c30_signature
-                  0x000366          0x6 build/default/production/interrupts.o
+                  0x000440          0x6 build/default/production/interrupts.o
  __c30_signature
-                  0x00036c          0x6 build/default/production/main.o
+                  0x000446          0x6 build/default/production/main.o
  __c30_signature
-                  0x000372          0x6 build/default/production/system.o
+                  0x00044c          0x6 build/default/production/system.o
  __c30_signature
-                  0x000378          0x6 build/default/production/traps.o
+                  0x000452          0x6 build/default/production/traps.o
  __c30_signature
-                  0x00037e          0x6 build/default/production/user.o
+                  0x000458          0x6 build/default/production/user.o
  __c30_signature
-                  0x000384          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o)
+                  0x00045e          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o)
  __c30_signature
-                  0x00038a          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libpic30-elf.a(data_init_standard.o)
+                  0x000464          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libpic30-elf.a(data_init_standard.o)
  __c30_signature
-                  0x000390          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fixunssfsi.eo)
+                  0x00046a          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fixunssfsi.eo)
  __c30_signature
-                  0x000396          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(floatunsisf.eo)
+                  0x000470          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(floatunsisf.eo)
  __c30_signature
-                  0x00039c          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(funpack.eo)
+                  0x000476          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(funpack.eo)
  __c30_signature
-                  0x0003a2          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(mulsf3.eo)
+                  0x00047c          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(mulsf3.eo)
  __c30_signature
-                  0x0003a8          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(floatundisf.eo)
+                  0x000482          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(floatundisf.eo)
  __c30_signature
-                  0x0003ae          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fpack.eo)
+                  0x000488          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fpack.eo)
  __c30_signature
-                  0x0003b4          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(funpack2.eo)
+                  0x00048e          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(funpack2.eo)
  __c30_signature
-                  0x0003ba          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(futil.eo)
+                  0x000494          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(futil.eo)
 
 .nbss               0x0800         0x14
  .nbss              0x0800         0x14 build/default/production/interrupts.o
@@ -1128,22 +1133,23 @@ __c30_signature
  .ndata             0x0824          0x4 build/default/production/main.o
                     0x0824                  _period
 
-.text             0x000452        0x1b0
- .text            0x000452        0x1b0 build/default/production/user.o
+.text             0x000452        0x1c8
+ .text            0x000452        0x1c8 build/default/production/user.o
                   0x000452                  _InitApp
-                  0x000474                  _ADC_Init
-                  0x0004ca                  _PWM_Init
-                  0x000594                  _Capture_Init
-                  0x0005cc                  _InitTMR3
-                  0x0005ee                  _stab
-                  0x0005f4                  _Read_ADC
-                  0x0005fa                  _Run_PWM
+                  0x000476                  _ADC_Init
+                  0x0004cc                  _PWM_Init
+                  0x000596                  _Capture_Init
+                  0x0005ce                  _InitTMR3
+                  0x0005f0                  _stab
+                  0x0005f6                  _ExtINT2_Init
+                  0x00060c                  _Read_ADC
+                  0x000612                  _Run_PWM
 
-.dinit            0x000602         0x24
- .dinit           0x000602         0x24 data_init
+.dinit            0x00061a         0x24
+ .dinit           0x00061a         0x24 data_init
 
-.text             0x000626         0x10
- .text            0x000626          0xa build/default/production/main.o
-                  0x000626                  _main
- .text            0x000630          0x6 build/default/production/system.o
-                  0x000630                  _ConfigureOscillator
+.text             0x00063e         0x10
+ .text            0x00063e          0xa build/default/production/main.o
+                  0x00063e                  _main
+ .text            0x000648          0x6 build/default/production/system.o
+                  0x000648                  _ConfigureOscillator

@@ -28,6 +28,7 @@ void InitApp(void); /* I/O and Peripheral Initialization */
 void Run_PWM(void);
 void Read_ADC(void);
 void Capture_Init(void);
+void ExtINT2_Init(void);
 
 
 extern uint16_t inputvoltage;
