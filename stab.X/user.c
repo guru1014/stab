@@ -146,21 +146,21 @@ void PWM_Init(void)
     PTCONbits.PTMOD = 2;
    // PTCONbits.PTCKPS = 0;
     PWMCON2 = 0x0F02;
-    _PEN1L=1;
-    _PEN1H=1;
-    _PEN2L=1;
-    _PEN2H=1;
-    _PEN3L=0;
-    _PEN3H=0;
+    PWMCON1bits.PEN1L=1;
+    PWMCON1bits.PEN1H=1;
+    PWMCON1bits.PEN2L=1;
+    PWMCON1bits.PEN2H=1;
+    PWMCON1bits.PEN3L=0;
+    PWMCON1bits.PEN3H=0;
 
 
 
-_POUT1L=0;
-_POUT1H=1;
-_POUT2L=0;
-_POUT2H=1;
-_POUT3L=0;
-_POUT3H=1;
+OVDCONbits.POUT1L=0;
+OVDCONbits.POUT1H=1;
+OVDCONbits.POUT2L=0;
+OVDCONbits.POUT2H=1;
+OVDCONbits.POUT3L=0;
+OVDCONbits.POUT3H=1;
 
    // ALTDTR1 = 32;           /* 33.6 nsec dead time
      //                          Alt Dead-time = ALTDTR1*1.05nsec = 33.6 nsec */

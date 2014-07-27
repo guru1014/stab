@@ -132,7 +132,25 @@ else
 timePeriod[i] = (PR3 - t1) + t2;
 if((timePeriod[i] >=0xFA00)&&(timePeriod[i]<=0xFB00))
 {
-  BYPASSLED=~BYPASSLED;  
+  BYPASSLED=~BYPASSLED;
+    if(BYPASSLED)
+  {
+      
+      if(!PTCONbits.PTEN) PTCONbits.PTEN = 1;     /* Turn ON PWM module */
+      OVDCONbits.POVD1H = 0;    //override
+      OVDCONbits.POVD2H = 0;    //override
+      //OVDCONbits.POVD1L =1;
+      //OVDCONbits.POVD2L = 1;
+    //  _PEN1L = 1;
+    //  _PEN2L = 1;
+  }
+  else
+  {
+      OVDCONbits.POVD1H = 1;
+      OVDCONbits.POVD2H = 1;
+      //OVDCONbits.POVD1L =0;
+     // OVDCONbits.POVD2L = 0;
+  }
 }
 i++;
 if(i>10)
