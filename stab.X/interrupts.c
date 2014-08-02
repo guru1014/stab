@@ -84,8 +84,11 @@ uint32_t outputcurrent=0;
 static uint16_t timePeriod[10];
 uint16_t i=0,j=0;
 
+unsigned char PWM_Halfcycle_chk=0;
+unsigned char PWM_BstBk_chk=0;
+
 uint16_t seccounter=0;
-unsigned char dutycycle_check=0;
+unsigned char dutycycle_chk=0;
 
 //Functions and Variables with Global Scope:
 
@@ -137,7 +140,7 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)
     if(seccounter>100)
     {
         seccounter=0;
-        dutycycle_check=1;
+        dutycycle_chk=1;
     }
     IFS0bits.T1IF=0;
 }
@@ -168,13 +171,14 @@ timePeriod[i] = (PR3 - t1) + t2;
 //if((timePeriod[i] >=0xFA00)&&(timePeriod[i]<=0xFB00))
 {
  // BYPASSLED=~BYPASSLED;
-    
-    if(BYPASSLED)
+   if(PWM_BstBk_chk)
+   {
+    if(PWM_Halfcycle_chk)
   {
       
       if(!PTCONbits.PTEN) PTCONbits.PTEN = 1;     /* Turn ON PWM module */
-      OVDCONbits.POVD1H = 0;    //override
-      OVDCONbits.POVD2H = 1;    //override
+      OVDCONbits.POVD1L = 0;    //override
+      OVDCONbits.POVD2L = 1;    //override
       //OVDCONbits.POVD1L =1;
       //OVDCONbits.POVD2L = 1;
     //  _PEN1L = 1;
@@ -182,11 +186,35 @@ timePeriod[i] = (PR3 - t1) + t2;
   }
   else
   {
-      OVDCONbits.POVD1H = 1;
-      OVDCONbits.POVD2H = 0;
+
+      OVDCONbits.POVD1L = 1;
+      OVDCONbits.POVD2L = 0;
       //OVDCONbits.POVD1L =0;
      // OVDCONbits.POVD2L = 0;
   }
+   }
+  else
+   {
+    if(PWM_Halfcycle_chk)
+  {
+
+      if(!PTCONbits.PTEN) PTCONbits.PTEN = 1;     /* Turn ON PWM module */
+      OVDCONbits.POVD1L = 1;    //override
+      OVDCONbits.POVD2L = 0;    //override
+      //OVDCONbits.POVD1L =1;
+      //OVDCONbits.POVD2L = 1;
+    //  _PEN1L = 1;
+    //  _PEN2L = 1;
+  }
+  else
+  {
+
+      OVDCONbits.POVD1L = 0;
+      OVDCONbits.POVD2L = 1;
+      //OVDCONbits.POVD1L =0;
+     // OVDCONbits.POVD2L = 0;
+  }
+   }
 }
 i++;
 if(i>10)
@@ -198,11 +226,13 @@ void __attribute__((interrupt, no_auto_psv)) _INT2Interrupt(void)
     {
         INTCON2bits.INT2EP=0;
         BYPASSLED=0;
+        PWM_Halfcycle_chk=0;
     }
     else
     {
         INTCON2bits.INT2EP=1;
         BYPASSLED=1;
+        PWM_Halfcycle_chk=1;
     }
     IFS1bits.INT2IF=0;
 

@@ -32,6 +32,6 @@ int16_t main(void)
 
     while(1)
     {
-        stab();
+     stab();
     }
 }

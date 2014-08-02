@@ -45,6 +45,7 @@ extern uint32_t inputvoltage;
 extern uint32_t outputvoltage;
 extern uint32_t outputcurrent;
 extern uint32_t period;
-extern unsigned char dutycycle_check;
+extern unsigned char dutycycle_chk;
+extern unsigned char PWM_BstBk_chk;
 
 

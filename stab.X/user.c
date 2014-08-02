@@ -152,8 +152,8 @@ void PWM_Init(void)
 
 //PDC3 = PERIOD/2;             /* PWM2 pulse width of 250 nsec
   //                             Duty Cycle = PDC2*1.05nsec = 268.8 nsec */
-    PDC1 =(2 * PTPER)*0.1;
-    PDC2 = (2 * PTPER)*0.1;
+    PDC1 =(2 * PTPER)*0.7;
+    PDC2 = (2 * PTPER)*0.7;
     //PDC3 = (2 * PTPER)*0.7;
 
     /* Note that a pulse appears only on every other PWM cycle. So in push-pull
@@ -182,12 +182,12 @@ void PWM_Init(void)
 
 
 
-OVDCONbits.POUT1L=0;
-OVDCONbits.POUT1H=1;
-OVDCONbits.POUT2L=0;
-OVDCONbits.POUT2H=1;
-OVDCONbits.POUT3L=0;
-OVDCONbits.POUT3H=1;
+OVDCONbits.POUT1L=1;
+OVDCONbits.POUT1H=0;
+OVDCONbits.POUT2L=1;
+OVDCONbits.POUT2H=0;
+//OVDCONbits.POUT3L=0;
+//OVDCONbits.POUT3H=1;
 
    // ALTDTR1 = 32;           /* 33.6 nsec dead time
      //                          Alt Dead-time = ALTDTR1*1.05nsec = 33.6 nsec */
@@ -260,11 +260,32 @@ void InitTMR3(void)
 
 void stab(void)
 {
-
-    //Read_ADC();
+    if(((inputvoltage>>2)>=LowInVolt)&&((inputvoltage>>2)<=MaxInVolt))
+    {
+    if (((inputvoltage>>2)>=SetOutVolt)&&((inputvoltage>>2)<=MaxInVolt))
+    {
+        BKLED=1;
+        BSTLED=0;
+        PWM_BstBk_chk=0;
+    }
+    if (((inputvoltage>>2)<=SetOutVolt)&&((inputvoltage>>2)>=LowInVolt))
+    {
+        BKLED=0;
+        BSTLED=1;
+        PWM_BstBk_chk=1;
+    }
+    }
+    else
+    {
+        BKLED=0;
+        BSTLED=0;
+        PTCONbits.PTEN = 0;     /* Turn ON PWM module */
+    
+    }
+    /*
     //if ((inputvoltage >=LowInVolt)&&(inputvoltage<=MaxInVolt))
     {
-        if(dutycycle_check)
+        if(dutycycle_chk)
         {
           
             Run_PWM();
@@ -276,8 +297,8 @@ void stab(void)
                PDC2=PDC2+10;
                if(PDC2>((2*PTPER)*.9))
                       PDC2=((2*PTPER)*.9);
-dutycycle_check=0;
-BSTLED=~BSTLED;
+dutycycle_chk=0;
+//BSTLED=~BSTLED;
             }
            if (((outputvoltage>>2)>=SetOutVolt)&&((outputvoltage>>2)<=MaxOutVolt))
             {
@@ -287,13 +308,13 @@ BSTLED=~BSTLED;
                PDC2=PDC2-10;
                if(PDC2<((2*PTPER)*.1))
                       PDC2=((2*PTPER)*.1);
-dutycycle_check=0;
-BSTLED=~BSTLED;
+dutycycle_chk=0;
+//BSTLED=~BSTLED;
             }
         }
 
       //  Run_PWM();
-    }
+    }*/
 
 }
 void ExtINT2_Init(void)
