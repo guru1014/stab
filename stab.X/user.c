@@ -16,8 +16,10 @@
 void ADC_Init(void);
 void PWM_Init(void);
 void InitTMR3(void);
+void Read_ADC(void);
 /* TODO Initialize User Ports/Peripherals/Project here */
-
+const uint16_t *ADC16ptr;
+uint16_t count;
 void InitApp(void)
 {
     TRISB = 0x0007;
@@ -41,6 +43,27 @@ void InitApp(void)
     /* Initialize peripherals */
 }
 
+void ADC_Init(void)
+{
+    ADPCFG = 0xFFF0; // RB0,RB1,RB2 & RB3 = analog
+ADCON1 = 0x00EC; // SIMSAM bit = 1 implies ...
+// simultaneous sampling
+// ASAM = 1 for auto sample after convert
+// SSRC = 111 for 3Tad sample time
+ADCHS = 0x0003; // Connect AN3 as CH0 input
+ADCSSL = 0;
+ADCON3 = 0x0302; // Auto Sampling 3 Tad, Tad = internal 2 Tcy
+ADCON2 = 0x030C; // CHPS = 1x implies simultaneous ...
+ IFS0bits.ADIF = 0;
+
+        //Set the A/D interrupt enable bit
+        IEC0bits.ADIE = 1;
+
+// sample CH0 to CH3
+// SMPI = 0011 for interrupt after 4 converts
+ADCON1bits.ADON = 1; // turn ADC ON
+}
+/*
 //Functions:
 //ADC_Init() is used to configure A/D to convert 16 samples of 1 input
 //channel per interrupt. The A/D is set up for a sampling rate of 1MSPS
@@ -64,10 +87,10 @@ void ADC_Init(void)
         //Set up A/D for interrupting after 2 samples get filled in the buffer
         //Set up to sample on 2 S/H amplifiers - CH0, CH1, CH2 and CH3
         //All other bits to their default state
-        ADCON2bits.SMPI = 1;
+        ADCON2bits.SMPI = 2;
         ADCON2bits.CHPS = 3;
         ADCON2bits.BUFM = 0;
-	//ADCON2bits.VCFG = 3; //Ideally use external references
+	ADCON2bits.VCFG = 0; //Ideally use external references
 
         //ADCON3 Register
         //We would like to set up a sampling rate of 1 MSPS
@@ -77,17 +100,17 @@ void ADC_Init(void)
         //So for ~1 MSPS we need to have Tad close to 83.3ns
         //Using equaion in the Family Reference Manual we have
         //ADCS = 2*Tad/Tcy - 1
-        ADCON3bits.SAMC = 0;
+        ADCON3bits.SAMC = 3;
         ADCON3bits.ADCS = 4;
 
         //ADCHS Register
         //Set up A/D Channel Select Register to convert AN3 on Mux A input
         //of CH0 and CH1 S/H amplifiers
-        ADCHS = 0x0000;
+        ADCHS = 0x0002;
 
         //ADCSSL Register
         //Channel Scanning is disabled. All bits left to their default state
-        ADCSSL = 0x0000;
+        ADCSSL = 0x000F;
 
         //ADPCFG Register
         //Set up channels AN7 as analog input and configure rest as digital
@@ -106,7 +129,7 @@ void ADC_Init(void)
         //This is typically done after configuring other registers
         ADCON1bits.ADON = 1;
 
-}
+}*/
 //Functions:
 //PWM_Init() is used to configure PWM
 void PWM_Init(void)
@@ -225,7 +248,7 @@ void stab(void)
 {
 
     //Read_ADC();
-    if ((inputvoltage <=300)&&(inputvoltage>=100))
+    //if ((inputvoltage <=300)&&(inputvoltage>=100))
     {
       //  Run_PWM();
     }
@@ -241,6 +264,16 @@ void ExtINT2_Init(void)
 
 void Read_ADC(void)
 {
+    ADC16ptr = &ADCBUF0;
+    IFS0bits.ADIF=0;
+    while(IFS0bits.ADIF)
+
+        for(count = 0;count<3;count++)
+        {
+            inputvoltage= *ADC16ptr++;
+
+        }
+    count=0;
 
 }
 void Run_PWM(void)

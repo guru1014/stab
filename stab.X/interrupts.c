@@ -75,11 +75,14 @@ unsigned int ADResult4 = 0;
 #define OLLED _RC13
 #define FLTLED _RE8
 
-uint16_t inputvoltage=0;
-uint16_t outputvoltage=0;
-uint16_t outputcurrent=0;
+#define SAMPLE 2
+
+uint32_t inputvoltage=0;
+uint32_t outputvoltage=0;
+static uint32_t out1[20],out2[20],in1[20];
+uint32_t outputcurrent=0;
 static uint16_t timePeriod[10];
-uint16_t i=0;
+uint16_t i=0,j=0;
 
 //Functions and Variables with Global Scope:
 
@@ -96,12 +99,21 @@ void __attribute__((__interrupt__)) _INT2Interrupt(void);
 void __attribute__((interrupt, no_auto_psv)) _ADCInterrupt(void)
 {
 	//ADResult1 = ADCBUF0;
-    inputvoltage = ADCBUF0;
-    outputvoltage = ADCBUF1;
-    outputcurrent = ADCBUF2;
-//	ADResult2 = ADCBUF1;
+    inputvoltage = inputvoltage - (inputvoltage>>SAMPLE)+(uint32_t)ADCBUF1;
+    outputvoltage =outputvoltage - (outputvoltage>>SAMPLE)+ (uint32_t)ADCBUF2;
+    outputcurrent = outputcurrent - (outputcurrent>>SAMPLE)+(uint32_t)ADCBUF3;
+    //dcdc_avg1= dcdc_avg1 - (dcdc_avg1>>DCDCVOLT_AVG) + DCDC_Out1;
+    //outputvoltage >>=2;
+    in1[j]=inputvoltage>>2;
+    out1[j]=outputvoltage>>2;
+    out2[j]=outputcurrent>>2;
+    j++;
+    if(j>20)
+        j=0;
+    outputcurrent = ADCBUF3;
+	ADResult2 = ADCBUF0;
   //      ADResult3 = ADCBUF2;
-        ADResult4 = ADCBUF3;
+       // ADResult4 = ADCBUF3;
 
         //Clear the A/D Interrupt flag bit or else the CPU will
         //keep vectoring back to the ISR
