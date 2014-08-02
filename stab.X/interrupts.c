@@ -84,12 +84,16 @@ uint32_t outputcurrent=0;
 static uint16_t timePeriod[10];
 uint16_t i=0,j=0;
 
+uint16_t seccounter=0;
+unsigned char dutycycle_check=0;
+
 //Functions and Variables with Global Scope:
 
 void __attribute__((__interrupt__)) _ADCInterrupt(void);
 void __attribute__((__interrupt__)) _IC2Interrupt(void);
 void __attribute__((__interrupt__)) _T3Interrupt(void);
 void __attribute__((__interrupt__)) _INT2Interrupt(void);
+void __attribute__((__interrupt__)) _T1Interrupt(void);
 
 
 
@@ -108,9 +112,9 @@ void __attribute__((interrupt, no_auto_psv)) _ADCInterrupt(void)
     out1[j]=outputvoltage>>2;
     out2[j]=outputcurrent>>2;
     j++;
-    if(j>20)
+    if(j>19)
         j=0;
-    outputcurrent = ADCBUF3;
+    //outputcurrent = ADCBUF3;
 	ADResult2 = ADCBUF0;
   //      ADResult3 = ADCBUF2;
        // ADResult4 = ADCBUF3;
@@ -121,6 +125,23 @@ void __attribute__((interrupt, no_auto_psv)) _ADCInterrupt(void)
 
 
 }
+void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)
+{
+   // FLTLED=1;
+   // BYPASSLED=1;
+
+    // 100 us timer
+
+    OLLED=~OLLED;
+    seccounter++;
+    if(seccounter>100)
+    {
+        seccounter=0;
+        dutycycle_check=1;
+    }
+    IFS0bits.T1IF=0;
+}
+
 void __attribute__((interrupt, no_auto_psv)) _T3Interrupt(void)
 {
    // FLTLED=1;
@@ -134,10 +155,10 @@ void __attribute__((interrupt, no_auto_psv)) _IC2Interrupt(void)
     //t1=IC2BUF;
     //_IC2IF=0;
     unsigned int t1,t2;
-OLLED=~OLLED;
+//OLLED=~OLLED;
 t1=IC2BUF;
 t2=IC2BUF;
-BSTLED = ~BSTLED;
+//BSTLED = ~BSTLED;
 //BYPASSLED = PORTDbits.RD1^BYPASSLED;
 IFS0bits.IC2IF=0;
 if(t2>t1)

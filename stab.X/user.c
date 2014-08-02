@@ -16,7 +16,8 @@
 void ADC_Init(void);
 void PWM_Init(void);
 void InitTMR3(void);
-void Read_ADC(void);
+void InitTMR1(void);
+//void Read_ADC(void);
 /* TODO Initialize User Ports/Peripherals/Project here */
 const uint16_t *ADC16ptr;
 uint16_t count;
@@ -37,6 +38,7 @@ void InitApp(void)
     /* Setup analog functionality and port direction */
     ADC_Init();
     PWM_Init();
+    InitTMR1();
     InitTMR3();
     Capture_Init();
     ExtINT2_Init();
@@ -150,9 +152,9 @@ void PWM_Init(void)
 
 //PDC3 = PERIOD/2;             /* PWM2 pulse width of 250 nsec
   //                             Duty Cycle = PDC2*1.05nsec = 268.8 nsec */
-    PDC1 =(2 * PTPER)*0.7;
-    PDC2 = (2 * PTPER)*0.7;
-    PDC3 = (2 * PTPER)*0.7;
+    PDC1 =(2 * PTPER)*0.1;
+    PDC2 = (2 * PTPER)*0.1;
+    //PDC3 = (2 * PTPER)*0.7;
 
     /* Note that a pulse appears only on every other PWM cycle. So in push-pull
        mode, the effective duty cycle is 25% */
@@ -205,7 +207,7 @@ OVDCONbits.POUT3H=1;
   //  IOCON2bits.PENL = 1;    /* PWM2L output controlled by PWM */
   //  IOCON2bits.PMOD = 2;    /* Select Push-Pull PWM mode */
 
-   PTCONbits.PTEN = 1;     /* Turn ON PWM module */
+   //PTCONbits.PTEN = 1;     /* Turn ON PWM module */
 }
 void Capture_Init(void)
 {
@@ -232,6 +234,17 @@ void Capture_Init(void)
 
 
 }
+void InitTMR1(void)
+{
+	T1CON = 0x0000;			// internal Tcy/64 clock
+	TMR1 = 0;
+	PR1 = 1234;
+        IPC0bits.T1IP=1;
+        IFS0bits.T1IF=0;
+        IEC0bits.T1IE=1;
+	T1CONbits.TON = 1;		// turn on timer 3
+	return;
+}
 void InitTMR3(void)
 {
 	T3CON = 0x0030;			// internal Tcy/64 clock
@@ -244,12 +257,41 @@ void InitTMR3(void)
 	return;
 }
 
+
 void stab(void)
 {
 
     //Read_ADC();
-    //if ((inputvoltage <=300)&&(inputvoltage>=100))
+    //if ((inputvoltage >=LowInVolt)&&(inputvoltage<=MaxInVolt))
     {
+        if(dutycycle_check)
+        {
+          
+            Run_PWM();
+            if (((outputvoltage>>2)<=SetOutVolt)&&((outputvoltage>>2)>=LowOutVolt))
+            {
+               PDC1=PDC1+10;
+               if(PDC1>((2*PTPER)*.9))
+                      PDC1=((2*PTPER)*.9);
+               PDC2=PDC2+10;
+               if(PDC2>((2*PTPER)*.9))
+                      PDC2=((2*PTPER)*.9);
+dutycycle_check=0;
+BSTLED=~BSTLED;
+            }
+           if (((outputvoltage>>2)>=SetOutVolt)&&((outputvoltage>>2)<=MaxOutVolt))
+            {
+               PDC1=PDC1-10;
+               if(PDC1<((2*PTPER)*.1))
+                      PDC1=((2*PTPER)*.1);
+               PDC2=PDC2-10;
+               if(PDC2<((2*PTPER)*.1))
+                      PDC2=((2*PTPER)*.1);
+dutycycle_check=0;
+BSTLED=~BSTLED;
+            }
+        }
+
       //  Run_PWM();
     }
 
@@ -261,7 +303,7 @@ void ExtINT2_Init(void)
     IPC5bits.INT2IP = 7;
     IEC1bits.INT2IE = 1;
 }
-
+/*
 void Read_ADC(void)
 {
     ADC16ptr = &ADCBUF0;
@@ -275,9 +317,10 @@ void Read_ADC(void)
         }
     count=0;
 
-}
+}*/
 void Run_PWM(void)
 {
+    if(PTCONbits.PTEN)
 PTCONbits.PTEN = 1;     /* Turn ON PWM module */
 
 }

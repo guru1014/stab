@@ -17,6 +17,16 @@
 #define HiIPVolt 600
 #define LoIPVolt 300
 #define NormalOPVolt 512
+
+
+#define MaxInVolt 614
+#define LowInVolt 205
+
+#define MaxOutVolt 501
+#define LowOutVolt  420
+#define SetOutVolt 470
+
+#define OverLoad 614
 /* TODO Application specific user parameters used in user.c may go here */
 /******************************************************************************/
 /* User Function Prototypes                                                   */
@@ -31,7 +41,10 @@ void Capture_Init(void);
 void ExtINT2_Init(void);
 
 
-extern uint16_t inputvoltage;
-extern uint16_t outputvoltage;
-extern uint16_t outputcurrent;
+extern uint32_t inputvoltage;
+extern uint32_t outputvoltage;
+extern uint32_t outputcurrent;
 extern uint32_t period;
+extern unsigned char dutycycle_check;
+
+
