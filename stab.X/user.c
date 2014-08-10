@@ -34,7 +34,7 @@ void InitApp(void)
    // BSTLED = 1;
    // BKLED  = 1;
    // FLTLED = 1;
-  //  BYPASSLED =1;
+  //  NORMALLED =1;
     
     
   
@@ -52,6 +52,27 @@ void InitApp(void)
     Capture_Init();
     ExtINT2_Init();
     Self_Test();
+    if(_RB3==0)
+    {
+        if(_RB3==0)
+        {
+           // NORMALLED=1;
+            sw=true;
+            BUZZER=0;
+            PTCONbits.PTEN = 1;
+        }
+    }
+    else
+    {
+        if(_RB3==1)
+        {
+         //   NORMALLED=0;
+            sw=false;
+            BUZZER=1;
+
+            PTCONbits.PTEN = 1;
+        }
+    }
     /* Initialize peripherals */
 }
 
@@ -162,8 +183,10 @@ void PWM_Init(void)
 
 //PDC3 = PERIOD/2;             /* PWM2 pulse width of 250 nsec
   //                             Duty Cycle = PDC2*1.05nsec = 268.8 nsec */
-    PDC1 =(2 * PTPER)*0.7;
-    PDC2 = (2 * PTPER)*0.7;
+    PDC1 =(2 * PTPER)*0.1;
+    PDC2 = (2 * PTPER)*0.1;
+    //PDC1=0;
+    //PDC2=0;
     //PDC3 = (2 * PTPER)*0.7;
 
     /* Note that a pulse appears only on every other PWM cycle. So in push-pull
@@ -276,7 +299,7 @@ void Self_Test(void)
     {
        for(j=0;j<10;j++)
         {
-        BYPASSLED=~BYPASSLED;
+        NORMALLED=~NORMALLED;
      while(!sec_chk){sec_chk=0;}
         }
     }
@@ -292,7 +315,7 @@ void Self_Test(void)
     }*/
 
 
-        for(k=0;k<2;k++)
+        //for(k=0;k<2;k++)
         {
         BKLED=1;
         sec_chk=false;
@@ -300,27 +323,27 @@ void Self_Test(void)
 
         }
     //BKLED=0;
-        for(k=0;k<2;k++)
+       // for(k=0;k<2;k++)
         {
         BSTLED=1;
        sec_chk=false;
      while(sec_chk==false){}
         }
     //BSTLED=0;
-        for(k=0;k<2;k++)
+        //for(k=0;k<2;k++)
         {
-      //  BYPASSLED=1;
+        OLLED=1;
         sec_chk=false;
      while(sec_chk==false){}
         }
-    //BYPASSLED=0;
-     for(k=0;k<2;k++)
+    //NORMALLED=0;
+    // for(k=0;k<2;k++)
         {
-        FLTLED=1;
+        NORMALLED=1;
         sec_chk=false;
      while(sec_chk==false){}
       }
-        BKLED=0;BSTLED=0;BYPASSLED=0;FLTLED=0;
+        BKLED=0;BSTLED=0;NORMALLED=0;OLLED=0;
 
 
 
@@ -331,54 +354,80 @@ void stab(void)
 {
     if(sw==true)
     {
-    if(((inputvoltage>>2)>=LowInVolt)&&((inputvoltage>>2)<=MaxInVolt))
-    {
-    if (((inputvoltage>>2)>=SetOutVolt)&&((inputvoltage>>2)<=MaxInVolt))
-    {
-        BKLED=1;
-        BSTLED=0;
-        PWM_BstBk_chk=0;
-    }
-    if (((inputvoltage>>2)<=SetOutVolt)&&((inputvoltage>>2)>=LowInVolt))
-    {
-        BKLED=0;
-        BSTLED=1;
-        PWM_BstBk_chk=1;
-    }
+        if(((inputvoltage>>2)>=LowInVolt)&&((inputvoltage>>2)<=MaxInVolt))
+        {
+            if (((inputvoltage>>2)>=SetInVolt2)&&((inputvoltage>>2)<=MaxInVolt))
+            {
+                BKLED=1;
+                BSTLED=0;
+                NORMALLED=0;
+                bypass_chk=false;
+                PWM_BstBk_chk=0;
+            }
+            if (((inputvoltage>>2)<=SetInVolt1)&&((inputvoltage>>2)>=LowInVolt))
+            {
+                BKLED=0;
+                BSTLED=1;
+                NORMALLED=0;
+                bypass_chk=false;
+                PWM_BstBk_chk=1;
+            }
+            if (((inputvoltage>>2)>=SetInVolt1)&&((inputvoltage>>2)<=SetInVolt2))
+            {
+                BKLED=0;
+                BSTLED=0;
+                NORMALLED=1;
+                bypass_chk=true;
+                // PTCONbits.PTEN = 0;     /* Turn ON PWM module */
+                OVDCONbits.POVD1L = 0;
+                OVDCONbits.POVD2L = 0;
+                //PDC1 =(2 * PTPER)*0.1;
+                //PDC2 = (2 * PTPER)*0.1;
+            }
+        }
+        else
+        {
+            BKLED=0;
+            BSTLED=0;
+            NORMALLED=0;
+        //    OVDCONbits.POVD1L = 1;
+          //  OVDCONbits.POVD2L = 1;
+            OVDCONbits.POVD1L = 0;
+                OVDCONbits.POVD2L = 0;
+            PDC1 =0;
+            PDC2 = 0;
+        }
     }
     else
     {
+        NORMALLED=0;
         BKLED=0;
         BSTLED=0;
-        PTCONbits.PTEN = 0;     /* Turn ON PWM module */
-    
-    }
-    }
-    else
-    {
-        BKLED=0;
-        BSTLED=0;
+        OVDCONbits.POVD1L = 0;
+                OVDCONbits.POVD2L = 0;
+        PDC1 =0;
+        PDC2 = 0;
     }
     
-    if ((inputvoltage >=LowInVolt)&&(inputvoltage<=MaxInVolt))
+    if (((inputvoltage>>2) >=LowInVolt)&&((inputvoltage>>2)<=MaxInVolt))
     {
         if(dutycycle_chk)
         {
-            if(PWM_BstBk_chk)
+            //if(PWM_BstBk_chk)
             {
      //       Run_PWM();
-            if (((outputvoltage>>2)<=SetOutVolt)&&((outputvoltage>>2)>=LowOutVolt))
+            //if (((outputvoltage>>2)<=SetOutVolt)&&((outputvoltage>>2)>=LowOutVolt))
             {
-               PDC1=PDC1+10;
+               PDC1=PDC1+2;
                if(PDC1>((2*PTPER)*.9))
                       PDC1=((2*PTPER)*.9);
-               PDC2=PDC2+10;
+               PDC2=PDC2+2;
                if(PDC2>((2*PTPER)*.9))
                       PDC2=((2*PTPER)*.9);
 dutycycle_chk=0;
 //BSTLED=~BSTLED;
             }
-           if (((outputvoltage>>2)>=SetOutVolt)&&((outputvoltage>>2)<=MaxOutVolt))
+           /*if (((outputvoltage>>2)>=SetOutVolt)&&((outputvoltage>>2)<=MaxOutVolt))
             {
                PDC1=PDC1-10;
                if(PDC1<((2*PTPER)*.1))
@@ -388,7 +437,7 @@ dutycycle_chk=0;
                       PDC2=((2*PTPER)*.1);
 dutycycle_chk=0;
 //BSTLED=~BSTLED;
-            }
+            }*/
             }
             
         }

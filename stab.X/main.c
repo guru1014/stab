@@ -21,7 +21,7 @@ uint32_t period = (uint32_t)((float)((float)49152000/4)/18000)-1;
 
 int16_t main(void)
 {
-    unsigned char chk;
+    
 
     /* Configure the oscillator for the device */
     ConfigureOscillator();

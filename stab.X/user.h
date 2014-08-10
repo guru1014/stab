@@ -11,7 +11,8 @@
 //#define PERIOD  682   // 18 KHz
 #define BKLED _RB4
 #define BSTLED  _RB5
-#define BYPASSLED _RD0
+#define NORMALLED _RD0
+#define OLLED _RC13
 #define FLTLED _RE8
 
 //#define SW _RB3
@@ -20,13 +21,18 @@
 #define LoIPVolt 300
 #define NormalOPVolt 512
 
-
+// ADC count values
 #define MaxInVolt 614
 #define LowInVolt 205
+
+#define SetInVolt1 465
+#define SetInVolt2 475
 
 #define MaxOutVolt 501
 #define LowOutVolt  420
 #define SetOutVolt 470
+
+#define BUZZER _RC14
 
 #define OverLoad 614
 /* TODO Application specific user parameters used in user.c may go here */
@@ -51,4 +57,5 @@ extern volatile bool dutycycle_chk;
 extern volatile bool sec_chk;
 extern unsigned char PWM_BstBk_chk;
 extern bool sw;
+extern bool bypass_chk;
 

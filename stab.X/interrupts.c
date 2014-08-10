@@ -71,7 +71,7 @@ unsigned int ADResult4 = 0;
 
 #define BKLED _RB4
 #define BSTLED  _RB5
-#define BYPASSLED _RD0
+#define NORMALLED _RD0
 #define OLLED _RC13
 #define FLTLED _RE8
 
@@ -87,7 +87,7 @@ uint16_t i=0,j=0;
 
 unsigned char PWM_Halfcycle_chk=0;
 unsigned char PWM_BstBk_chk=0;
-
+volatile bool bypass_chk=false;
 uint16_t seccount=0,mseccount=0;
 volatile bool dutycycle_chk=false;
 volatile bool sec_chk=false;
@@ -139,21 +139,21 @@ void __attribute__((__interrupt__, no_auto_psv)) _CNInterrupt(void)
     {
         if(_RB3==0)
         {
-           // BYPASSLED=1;
+           // NORMALLED=1;
             sw=true;
-            BUZZER=1;
+            BUZZER=0;
             PTCONbits.PTEN = 1;
         }
     }
-    if(_RB3==1)
+    else
     {
         if(_RB3==1)
         {
-         //   BYPASSLED=0;
+         //   NORMALLED=0;
             sw=false;
-            BUZZER=0;
+            BUZZER=1;
 
-            PTCONbits.PTEN = 0;
+            PTCONbits.PTEN = 1;
         }
     }
 
@@ -162,7 +162,7 @@ void __attribute__((__interrupt__, no_auto_psv)) _CNInterrupt(void)
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)
 {
    // FLTLED=1;
-   // BYPASSLED=1;
+   // NORMALLED=1;
 
     // 100 us timer
 
@@ -185,7 +185,7 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)
 void __attribute__((interrupt, no_auto_psv)) _T3Interrupt(void)
 {
    // FLTLED=1;
-   // BYPASSLED=1;
+   // NORMALLED=1;
     IFS0bits.T3IF=0;
 }
 void __attribute__((interrupt, no_auto_psv)) _IC2Interrupt(void)
@@ -199,7 +199,7 @@ void __attribute__((interrupt, no_auto_psv)) _IC2Interrupt(void)
 t1=IC2BUF;
 t2=IC2BUF;
 //BSTLED = ~BSTLED;
-//BYPASSLED = PORTDbits.RD1^BYPASSLED;
+//NORMALLED = PORTDbits.RD1^NORMALLED;
 IFS0bits.IC2IF=0;
 if(t2>t1)
 timePeriod[i] = t2-t1;
@@ -207,7 +207,9 @@ else
 timePeriod[i] = (PR3 - t1) + t2;
 //if((timePeriod[i] >=0xFA00)&&(timePeriod[i]<=0xFB00))
 {
- // BYPASSLED=~BYPASSLED;
+ // NORMALLED=~NORMALLED;
+    if(bypass_chk==false)
+    {
    if(PWM_BstBk_chk)
    {
     if(PWM_Halfcycle_chk)
@@ -252,6 +254,7 @@ timePeriod[i] = (PR3 - t1) + t2;
      // OVDCONbits.POVD2L = 0;
   }
    }
+    }
 }
 i++;
 if(i>10)
@@ -262,13 +265,13 @@ void __attribute__((interrupt, no_auto_psv)) _INT2Interrupt(void)
     if(INTCON2bits.INT2EP)
     {
         INTCON2bits.INT2EP=0;
-      //  BYPASSLED=0;
+      //  NORMALLED=0;
         PWM_Halfcycle_chk=0;
     }
     else
     {
         INTCON2bits.INT2EP=1;
-        //BYPASSLED=1;
+        //NORMALLED=1;
         PWM_Halfcycle_chk=1;
     }
     IFS1bits.INT2IF=0;
