@@ -77,6 +77,7 @@ unsigned int ADResult4 = 0;
 
 #define SAMPLE 2
 
+#define BUZZER _RC14
 uint32_t inputvoltage=0;
 uint32_t outputvoltage=0;
 static uint32_t out1[20],out2[20],in1[20];
@@ -87,8 +88,10 @@ uint16_t i=0,j=0;
 unsigned char PWM_Halfcycle_chk=0;
 unsigned char PWM_BstBk_chk=0;
 
-uint16_t seccounter=0;
-unsigned char dutycycle_chk=0;
+uint16_t seccount=0,mseccount=0;
+volatile bool dutycycle_chk=false;
+volatile bool sec_chk=false;
+volatile bool sw=false;
 
 //Functions and Variables with Global Scope:
 
@@ -97,6 +100,7 @@ void __attribute__((__interrupt__)) _IC2Interrupt(void);
 void __attribute__((__interrupt__)) _T3Interrupt(void);
 void __attribute__((__interrupt__)) _INT2Interrupt(void);
 void __attribute__((__interrupt__)) _T1Interrupt(void);
+void __attribute__((__interrupt__)) _CNInterrupt(void);
 
 
 
@@ -128,6 +132,33 @@ void __attribute__((interrupt, no_auto_psv)) _ADCInterrupt(void)
 
 
 }
+void __attribute__((__interrupt__, no_auto_psv)) _CNInterrupt(void)
+{
+    
+    if(_RB3==0)
+    {
+        if(_RB3==0)
+        {
+           // BYPASSLED=1;
+            sw=true;
+            BUZZER=1;
+            PTCONbits.PTEN = 1;
+        }
+    }
+    if(_RB3==1)
+    {
+        if(_RB3==1)
+        {
+         //   BYPASSLED=0;
+            sw=false;
+            BUZZER=0;
+
+            PTCONbits.PTEN = 0;
+        }
+    }
+
+    _CNIF=0;
+}
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)
 {
    // FLTLED=1;
@@ -135,12 +166,18 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)
 
     // 100 us timer
 
-    OLLED=~OLLED;
-    seccounter++;
-    if(seccounter>100)
+    //OLLED=~OLLED;
+    mseccount++;
+    if(mseccount>100)
     {
-        seccounter=0;
-        dutycycle_chk=1;
+        mseccount=0;
+        dutycycle_chk=true;
+        seccount++;
+        if(seccount>100)
+        {
+            seccount=0;
+            sec_chk=true;
+        }
     }
     IFS0bits.T1IF=0;
 }
@@ -176,7 +213,7 @@ timePeriod[i] = (PR3 - t1) + t2;
     if(PWM_Halfcycle_chk)
   {
       
-      if(!PTCONbits.PTEN) PTCONbits.PTEN = 1;     /* Turn ON PWM module */
+      //if(!PTCONbits.PTEN) PTCONbits.PTEN = 1;     /* Turn ON PWM module */
       OVDCONbits.POVD1L = 0;    //override
       OVDCONbits.POVD2L = 1;    //override
       //OVDCONbits.POVD1L =1;
@@ -198,7 +235,7 @@ timePeriod[i] = (PR3 - t1) + t2;
     if(PWM_Halfcycle_chk)
   {
 
-      if(!PTCONbits.PTEN) PTCONbits.PTEN = 1;     /* Turn ON PWM module */
+      //if(!PTCONbits.PTEN) PTCONbits.PTEN = 1;     /* Turn ON PWM module */
       OVDCONbits.POVD1L = 1;    //override
       OVDCONbits.POVD2L = 0;    //override
       //OVDCONbits.POVD1L =1;
@@ -225,13 +262,13 @@ void __attribute__((interrupt, no_auto_psv)) _INT2Interrupt(void)
     if(INTCON2bits.INT2EP)
     {
         INTCON2bits.INT2EP=0;
-        BYPASSLED=0;
+      //  BYPASSLED=0;
         PWM_Halfcycle_chk=0;
     }
     else
     {
         INTCON2bits.INT2EP=1;
-        BYPASSLED=1;
+        //BYPASSLED=1;
         PWM_Halfcycle_chk=1;
     }
     IFS1bits.INT2IF=0;

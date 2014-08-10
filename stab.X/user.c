@@ -17,13 +17,15 @@ void ADC_Init(void);
 void PWM_Init(void);
 void InitTMR3(void);
 void InitTMR1(void);
+void Self_Test(void);
 //void Read_ADC(void);
 /* TODO Initialize User Ports/Peripherals/Project here */
 const uint16_t *ADC16ptr;
 uint16_t count;
+int k=0;
 void InitApp(void)
 {
-    TRISB = 0x0007;
+    TRISB = 0x000F;
     TRISC = 0x0000;
     TRISD = 0x0002;
     TRISE = 0x0100;
@@ -33,7 +35,14 @@ void InitApp(void)
    // BKLED  = 1;
    // FLTLED = 1;
   //  BYPASSLED =1;
-   
+    
+    
+  
+   _CN5IE=1;
+   _CNIP=7;
+   _CN5PUE=1;
+   _CNIF=0;
+   _CNIE=1;
     
     /* Setup analog functionality and port direction */
     ADC_Init();
@@ -42,12 +51,13 @@ void InitApp(void)
     InitTMR3();
     Capture_Init();
     ExtINT2_Init();
+    Self_Test();
     /* Initialize peripherals */
 }
 
 void ADC_Init(void)
 {
-    ADPCFG = 0xFFF0; // RB0,RB1,RB2 & RB3 = analog
+    ADPCFG = 0xFFF8; // RB0,RB1,RB2 & RB3 = analog
 ADCON1 = 0x00EC; // SIMSAM bit = 1 implies ...
 // simultaneous sampling
 // ASAM = 1 for auto sample after convert
@@ -256,10 +266,71 @@ void InitTMR3(void)
 	T3CONbits.TON = 1;		// turn on timer 3
 	return;
 }
+void Self_Test(void)
+{
+   
+    /*for(j=0;j<5;j++)
+    {
+        while(!sec_chk){sec_chk=0;}
+    if(((inputvoltage>>2)>=LowInVolt)&&((inputvoltage>>2)<=MaxInVolt))
+    {
+       for(j=0;j<10;j++)
+        {
+        BYPASSLED=~BYPASSLED;
+     while(!sec_chk){sec_chk=0;}
+        }
+    }
+    else
+    {
+       for(j=0;j<10;j++)
+        {
+        FLTLED=~FLTLED;
+     while(!sec_chk){sec_chk=0;}
+       }
+
+    }
+    }*/
+
+
+        for(k=0;k<2;k++)
+        {
+        BKLED=1;
+        sec_chk=false;
+     while(sec_chk==false){}
+
+        }
+    //BKLED=0;
+        for(k=0;k<2;k++)
+        {
+        BSTLED=1;
+       sec_chk=false;
+     while(sec_chk==false){}
+        }
+    //BSTLED=0;
+        for(k=0;k<2;k++)
+        {
+      //  BYPASSLED=1;
+        sec_chk=false;
+     while(sec_chk==false){}
+        }
+    //BYPASSLED=0;
+     for(k=0;k<2;k++)
+        {
+        FLTLED=1;
+        sec_chk=false;
+     while(sec_chk==false){}
+      }
+        BKLED=0;BSTLED=0;BYPASSLED=0;FLTLED=0;
+
+
+
+}
 
 
 void stab(void)
 {
+    if(sw==true)
+    {
     if(((inputvoltage>>2)>=LowInVolt)&&((inputvoltage>>2)<=MaxInVolt))
     {
     if (((inputvoltage>>2)>=SetOutVolt)&&((inputvoltage>>2)<=MaxInVolt))
@@ -282,13 +353,20 @@ void stab(void)
         PTCONbits.PTEN = 0;     /* Turn ON PWM module */
     
     }
-    /*
-    //if ((inputvoltage >=LowInVolt)&&(inputvoltage<=MaxInVolt))
+    }
+    else
+    {
+        BKLED=0;
+        BSTLED=0;
+    }
+    
+    if ((inputvoltage >=LowInVolt)&&(inputvoltage<=MaxInVolt))
     {
         if(dutycycle_chk)
         {
-          
-            Run_PWM();
+            if(PWM_BstBk_chk)
+            {
+     //       Run_PWM();
             if (((outputvoltage>>2)<=SetOutVolt)&&((outputvoltage>>2)>=LowOutVolt))
             {
                PDC1=PDC1+10;
@@ -311,10 +389,12 @@ dutycycle_chk=0;
 dutycycle_chk=0;
 //BSTLED=~BSTLED;
             }
+            }
+            
         }
 
       //  Run_PWM();
-    }*/
+    }
 
 }
 void ExtINT2_Init(void)
