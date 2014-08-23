@@ -208,6 +208,8 @@ timePeriod[i] = (PR3 - t1) + t2;
 //if((timePeriod[i] >=0xFA00)&&(timePeriod[i]<=0xFB00))
 {
  // NORMALLED=~NORMALLED;
+    if(sw==true)
+    {
     if(bypass_chk==false)
     {
    if(PWM_BstBk_chk)
@@ -255,6 +257,7 @@ timePeriod[i] = (PR3 - t1) + t2;
   }
    }
     }
+}
 }
 i++;
 if(i>10)

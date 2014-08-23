@@ -22,8 +22,8 @@
 #define NormalOPVolt 512
 
 // ADC count values
-#define MaxInVolt 614
-#define LowInVolt 205
+#define MaxInVolt 634                          // 614 - 2.85 V, 634 - 2.95 v
+#define LowInVolt 200                            //  205 - 1.0 v ,165 - 0.8 v
 
 #define SetInVolt1 465
 #define SetInVolt2 475

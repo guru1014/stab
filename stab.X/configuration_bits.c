@@ -23,7 +23,7 @@
 #if 1
 
 _FOSC(XT_PLL8 & CSW_FSCM_ON); /* Enables internal oscillator and clock sw/mon */
-_FBORPOR(PWRT_OFF & BORV_27 & PBOR_OFF & MCLR_EN ); /* Ext MCLR, no brownout ,PWM H L low*/
+_FBORPOR(PWRT_64 & BORV_45 & PBOR_ON & MCLR_EN ); /* Ext MCLR, no brownout ,PWM H L low*/
 _FWDT(WDT_OFF); /* Turns off watchdog timer */
 //_ICD(ICS_PGD1); /* Selects debug channel channel */
 _FGS(CODE_PROT_OFF);

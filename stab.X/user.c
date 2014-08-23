@@ -5,7 +5,8 @@
 #include <p30Fxxxx.h>        /* Device header file                            */
 #include <stdint.h>          /* For uint32_t definition                       */
 #include <stdbool.h>         /* For true/false definition                     */
-
+#include <dsp.h>
+#include <libq.h>
 #include "user.h"            /* variables/params used by user.c               */
 
 /******************************************************************************/
@@ -18,11 +19,48 @@ void PWM_Init(void);
 void InitTMR3(void);
 void InitTMR1(void);
 void Self_Test(void);
+void InitPID(void);
 //void Read_ADC(void);
 /* TODO Initialize User Ports/Peripherals/Project here */
 const uint16_t *ADC16ptr;
 uint16_t count;
 int k=0;
+
+/* Declare a PID Data Structure named, stabPID */
+tPID stabPID;
+
+/* The fooPID data structure contains a pointer to derived coefficients in X-space and */
+/* pointer to controler state (history) samples in Y-space. So declare variables for the */
+/* derived coefficients and the controller history samples */
+fractional abcCoefficient[3] __attribute__ ((section (".xbss, bss, xmemory")));
+fractional controlHistory[3] __attribute__ ((section (".ybss, bss, ymemory")));
+/* The abcCoefficients referenced by the fooPID data structure */
+/* are derived from the gain coefficients, Kp, Ki and Kd */
+/* So, declare Kp, Ki and Kd in an array */
+fractional kCoeffs[] = {0,0,0};
+void InitPID(void)
+{
+    /*
+Step 1: Initialize the PID data structure, fooPID
+*/
+        stabPID.abcCoefficients = &abcCoefficient[0];    /*Set up pointer to derived coefficients */
+        stabPID.controlHistory = &controlHistory[0];     /*Set up pointer to controller history samples */
+        //PIDInit(&stabPID);                               /*Clear the controler history and the controller output */
+	kCoeffs[0] = Q15(0.7);
+	kCoeffs[1] = Q15(0.2);
+	kCoeffs[2] = Q15(0.07);
+      //  PIDCoeffCalc(&kCoeffs[0], &stabPID);             /*Derive the a,b, & c coefficients from the Kp, Ki & Kd */
+
+/*
+Step 2: Use the PID Controller
+*/
+        stabPID.controlReference = Q15(0.74) ;           /*Set the Reference Input for your controller */
+        stabPID.measuredOutput = Q15(0.453) ;            /*Typically the measuredOutput variable is a plant response*/
+                                                        /*measured from an A/D input or a sensor. */
+                                                        /*In this example we manually set it to some value for */
+                                                        /*demonstration but the user should note that this value will */
+                                                        /*keep changing in a real application*/
+}
 void InitApp(void)
 {
     TRISB = 0x000F;
@@ -52,6 +90,7 @@ void InitApp(void)
     Capture_Init();
     ExtINT2_Init();
     Self_Test();
+    InitPID();
     if(_RB3==0)
     {
         if(_RB3==0)
@@ -183,8 +222,8 @@ void PWM_Init(void)
 
 //PDC3 = PERIOD/2;             /* PWM2 pulse width of 250 nsec
   //                             Duty Cycle = PDC2*1.05nsec = 268.8 nsec */
-    PDC1 =(2 * PTPER)*0.1;
-    PDC2 = (2 * PTPER)*0.1;
+    PDC1 =0;//(2 * PTPER)*0.1;
+    PDC2 =0;// (2 * PTPER)*0.1;
     //PDC1=0;
     //PDC2=0;
     //PDC3 = (2 * PTPER)*0.7;
@@ -214,11 +253,14 @@ void PWM_Init(void)
     PWMCON1bits.PEN3H=0;
 
 
+//OVDCONbits.POVD1L = 0;
+  //              OVDCONbits.POVD2L = 0;
 
 OVDCONbits.POUT1L=1;
 OVDCONbits.POUT1H=0;
 OVDCONbits.POUT2L=1;
 OVDCONbits.POUT2H=0;
+
 //OVDCONbits.POUT3L=0;
 //OVDCONbits.POUT3H=1;
 
@@ -372,7 +414,7 @@ void stab(void)
                 bypass_chk=false;
                 PWM_BstBk_chk=1;
             }
-            if (((inputvoltage>>2)>=SetInVolt1)&&((inputvoltage>>2)<=SetInVolt2))
+            if (((inputvoltage>>2)>=SetInVolt1)&&((inputvoltage>>2)<=SetInVolt2))  //Normal mode
             {
                 BKLED=0;
                 BSTLED=0;
@@ -381,11 +423,14 @@ void stab(void)
                 // PTCONbits.PTEN = 0;     /* Turn ON PWM module */
                 OVDCONbits.POVD1L = 0;
                 OVDCONbits.POVD2L = 0;
+
+                PDC1=0;
+                PDC1=0;
                 //PDC1 =(2 * PTPER)*0.1;
                 //PDC2 = (2 * PTPER)*0.1;
             }
         }
-        else
+        else   //Over voltage and UNder voltage for input
         {
             BKLED=0;
             BSTLED=0;
@@ -398,7 +443,7 @@ void stab(void)
             PDC2 = 0;
         }
     }
-    else
+    else    // Switch off
     {
         NORMALLED=0;
         BKLED=0;
@@ -446,6 +491,19 @@ dutycycle_chk=0;
     }
 
 }
+/*void PID_check(void)
+{
+    error= setpoint - actual;
+    if(error<integrallimit)
+    {
+        integral = integral + error;
+    }
+    else
+        integral = 0;
+ P = error* kp;
+ I = integral * ki;
+ D = (prev-actual)*kd;
+}*/
 void ExtINT2_Init(void)
 {
     INTCON2bits.INT2EP =0;
