@@ -25,7 +25,7 @@ void InitPID(void);
 const uint16_t *ADC16ptr;
 uint16_t count;
 int k=0;
-
+bool Bst_flag=false;
 /* Declare a PID Data Structure named, stabPID */
 tPID stabPID;
 
@@ -396,26 +396,37 @@ void stab(void)
 {
     if(sw==true)
     {
-        if(((inputvoltage>>2)>=LowInVolt)&&((inputvoltage>>2)<=MaxInVolt))
+
+    //if(sec_chk)
         {
-            if (((inputvoltage>>2)>=SetInVolt2)&&((inputvoltage>>2)<=MaxInVolt))
+
+      //  sec_chk=false;
+        if(((inputvoltage>>SAMPLE)>=LowInVolt)&&((inputvoltage>>SAMPLE)<=MaxInVolt))
+        {
+            if (((inputvoltage>>SAMPLE)>=SetInVolt2)&&((inputvoltage>>SAMPLE)<=MaxInVolt))
             {
                 BKLED=1;
                 BSTLED=0;
                 NORMALLED=0;
+                Bst_flag=false;
                 bypass_chk=false;
                 PWM_BstBk_chk=0;
             }
-            if (((inputvoltage>>2)<=SetInVolt1)&&((inputvoltage>>2)>=LowInVolt))
+            if (((inputvoltage>>SAMPLE)<=SetInVolt1)&&((inputvoltage>>SAMPLE)>=LowInVolt))
             {
                 BKLED=0;
                 BSTLED=1;
                 NORMALLED=0;
+                Bst_flag=true;
                 bypass_chk=false;
                 PWM_BstBk_chk=1;
             }
-            if (((inputvoltage>>2)>=SetInVolt1)&&((inputvoltage>>2)<=SetInVolt2))  //Normal mode
+            if (((inputvoltage>>SAMPLE)>=SetInVolt1)&&((inputvoltage>>SAMPLE)<=SetInVolt2))  //Normal mode
             {
+                 if(sec_chk)
+            {
+                sec_chk=false;
+
                 BKLED=0;
                 BSTLED=0;
                 NORMALLED=1;
@@ -428,12 +439,24 @@ void stab(void)
                 PDC1=0;
                 //PDC1 =(2 * PTPER)*0.1;
                 //PDC2 = (2 * PTPER)*0.1;
+                 }
             }
         }
         else   //Over voltage and UNder voltage for input
         {
-            BKLED=0;
-            BSTLED=0;
+            if(sec_chk)
+            {
+                sec_chk=false;
+                //if(Bst_flag)
+                {
+                    BKLED=~BKLED;
+                  //  BSTLED=0;
+                }
+                //else
+                {
+                    BSTLED=~BSTLED;
+                    //BKLED=0;
+                }
             NORMALLED=0;
         //    OVDCONbits.POVD1L = 1;
           //  OVDCONbits.POVD2L = 1;
@@ -441,7 +464,9 @@ void stab(void)
                 OVDCONbits.POVD2L = 0;
             PDC1 =0;
             PDC2 = 0;
+            }
         }
+    }
     }
     else    // Switch off
     {
@@ -454,7 +479,7 @@ void stab(void)
         PDC2 = 0;
     }
     
-    if (((inputvoltage>>2) >=LowInVolt)&&((inputvoltage>>2)<=MaxInVolt))
+    if (((inputvoltage>>SAMPLE) >=LowInVolt)&&((inputvoltage>>SAMPLE)<=MaxInVolt))
     {
         if(dutycycle_chk)
         {
