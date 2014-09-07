@@ -85,7 +85,9 @@ uint32_t outputcurrent=0;
 static uint16_t timePeriod[10];
 uint16_t i=0,j=0;
 
-unsigned char PWM_Halfcycle_chk=0;
+volatile bool PWM_Halfcycle_chk=false;
+volatile bool Prev_Halfcycle_chk=false;
+volatile bool Int_chk=false;
 unsigned char PWM_BstBk_chk=0;
 volatile bool bypass_chk=false;
 uint16_t seccount=0,mseccount=0;
@@ -207,7 +209,9 @@ timePeriod[i] = t2-t1;
 else
 timePeriod[i] = (PR3 - t1) + t2;
 //if((timePeriod[i] >=0xFA00)&&(timePeriod[i]<=0xFB00))
+/*if(Int_chk)
 {
+    Int_chk=false;
  // NORMALLED=~NORMALLED;
     if(sw==true)
     {
@@ -215,20 +219,20 @@ timePeriod[i] = (PR3 - t1) + t2;
     {
    if(PWM_BstBk_chk)
    {
-    if(PWM_Halfcycle_chk)
+    if(PWM_Halfcycle_chk & !Prev_Halfcycle_chk)
   {
-      
+        Prev_Halfcycle_chk=true;
       //if(!PTCONbits.PTEN) PTCONbits.PTEN = 1;     /* Turn ON PWM module */
-      OVDCONbits.POVD1L = 0;    //override
-      OVDCONbits.POVD2L = 1;    //override
+  //    OVDCONbits.POVD1L = 0;    //override
+    //OVDCONbits.POVD2L = 1;    //override
       //OVDCONbits.POVD1L =1;
       //OVDCONbits.POVD2L = 1;
     //  _PEN1L = 1;
     //  _PEN2L = 1;
-  }
-  else
+ /* }
+  else if(!PWM_Halfcycle_chk & Prev_Halfcycle_chk)
   {
-
+        Prev_Halfcycle_chk=false;
       OVDCONbits.POVD1L = 1;
       OVDCONbits.POVD2L = 0;
       //OVDCONbits.POVD1L =0;
@@ -237,19 +241,20 @@ timePeriod[i] = (PR3 - t1) + t2;
    }
   else
    {
-    if(PWM_Halfcycle_chk)
+    if(PWM_Halfcycle_chk & !Prev_Halfcycle_chk)
   {
-
+Prev_Halfcycle_chk=true;
       //if(!PTCONbits.PTEN) PTCONbits.PTEN = 1;     /* Turn ON PWM module */
-      OVDCONbits.POVD1L = 1;    //override
+   /*   OVDCONbits.POVD1L = 1;    //override
       OVDCONbits.POVD2L = 0;    //override
       //OVDCONbits.POVD1L =1;
       //OVDCONbits.POVD2L = 1;
     //  _PEN1L = 1;
     //  _PEN2L = 1;
   }
-  else
+  else if(!PWM_Halfcycle_chk & Prev_Halfcycle_chk)
   {
+        Prev_Halfcycle_chk=false;
 
       OVDCONbits.POVD1L = 0;
       OVDCONbits.POVD2L = 1;
@@ -259,13 +264,14 @@ timePeriod[i] = (PR3 - t1) + t2;
    }
     }
 }
-}
-i++;
-if(i>10)
-    i=0;
+}*/
+//i++;
+//if(i>10)
+  //  i=0;
 }
 void __attribute__((interrupt, no_auto_psv)) _INT2Interrupt(void)
 {
+    Int_chk=true;
     if(INTCON2bits.INT2EP)
     {
         INTCON2bits.INT2EP=0;
@@ -279,6 +285,60 @@ void __attribute__((interrupt, no_auto_psv)) _INT2Interrupt(void)
         PWM_Halfcycle_chk=1;
     }
     IFS1bits.INT2IF=0;
-
+    if(Int_chk)
+        {
+        Int_chk=false;
+        // NORMALLED=~NORMALLED;
+        if(sw==true)
+            {
+            if(bypass_chk==false)
+                {
+                if(PWM_BstBk_chk)
+                    {
+                    if(PWM_Halfcycle_chk & !Prev_Halfcycle_chk)
+                        {
+                        Prev_Halfcycle_chk=true;
+                        //if(!PTCONbits.PTEN) PTCONbits.PTEN = 1;     /* Turn ON PWM module */
+                        OVDCONbits.POVD1L = 0;    //override
+                        OVDCONbits.POVD2L = 1;    //override
+                        //OVDCONbits.POVD1L =1;
+                        //OVDCONbits.POVD2L = 1;
+                        //  _PEN1L = 1;
+                        //  _PEN2L = 1;
+                        }
+                    else if(!PWM_Halfcycle_chk & Prev_Halfcycle_chk)
+                        {
+                        Prev_Halfcycle_chk=false;
+                        OVDCONbits.POVD1L = 1;
+                        OVDCONbits.POVD2L = 0;
+                        //OVDCONbits.POVD1L =0;
+                        // OVDCONbits.POVD2L = 0;
+                        }
+                    }
+                 else
+                    {
+                    if(PWM_Halfcycle_chk & !Prev_Halfcycle_chk)
+                        {
+                        Prev_Halfcycle_chk=true;
+                        //if(!PTCONbits.PTEN) PTCONbits.PTEN = 1;     /* Turn ON PWM module */
+                        OVDCONbits.POVD1L = 1;    //override
+                        OVDCONbits.POVD2L = 0;    //override
+                        //OVDCONbits.POVD1L =1;
+                        //OVDCONbits.POVD2L = 1;
+                        //  _PEN1L = 1;
+                        //  _PEN2L = 1;
+                        }
+                    else if(!PWM_Halfcycle_chk & Prev_Halfcycle_chk)
+                        {
+                        Prev_Halfcycle_chk=false;
+                        OVDCONbits.POVD1L = 0;
+                        OVDCONbits.POVD2L = 1;
+                        //OVDCONbits.POVD1L =0;
+                        // OVDCONbits.POVD2L = 0;
+                        }
+                    }
+                }
+            }
+    }
 
 }

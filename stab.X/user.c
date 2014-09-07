@@ -26,41 +26,33 @@ const uint16_t *ADC16ptr;
 uint16_t count;
 int k=0;
 bool Bst_flag=false;
+//
+float error;
+float current_value=0,last=0;
+float setpoint=92;
+float integral_error=0;
+float propational=0;
+float integral=0;
+float derivative = 0;
+float kp=0.0025;
+float ki=0.001;
+float kd=0;
+float pid=0;
+//
+void PID_Update(void);
+
 /* Declare a PID Data Structure named, stabPID */
-tPID stabPID;
+//tPID stabPID;
 
 /* The fooPID data structure contains a pointer to derived coefficients in X-space and */
 /* pointer to controler state (history) samples in Y-space. So declare variables for the */
 /* derived coefficients and the controller history samples */
-fractional abcCoefficient[3] __attribute__ ((section (".xbss, bss, xmemory")));
-fractional controlHistory[3] __attribute__ ((section (".ybss, bss, ymemory")));
+//fractional abcCoefficient[3] __attribute__ ((section (".xbss, bss, xmemory")));
+//fractional controlHistory[3] __attribute__ ((section (".ybss, bss, ymemory")));
 /* The abcCoefficients referenced by the fooPID data structure */
 /* are derived from the gain coefficients, Kp, Ki and Kd */
 /* So, declare Kp, Ki and Kd in an array */
-fractional kCoeffs[] = {0,0,0};
-void InitPID(void)
-{
-    /*
-Step 1: Initialize the PID data structure, fooPID
-*/
-        stabPID.abcCoefficients = &abcCoefficient[0];    /*Set up pointer to derived coefficients */
-        stabPID.controlHistory = &controlHistory[0];     /*Set up pointer to controller history samples */
-        //PIDInit(&stabPID);                               /*Clear the controler history and the controller output */
-	kCoeffs[0] = Q15(0.7);
-	kCoeffs[1] = Q15(0.2);
-	kCoeffs[2] = Q15(0.07);
-      //  PIDCoeffCalc(&kCoeffs[0], &stabPID);             /*Derive the a,b, & c coefficients from the Kp, Ki & Kd */
-
-/*
-Step 2: Use the PID Controller
-*/
-        stabPID.controlReference = Q15(0.74) ;           /*Set the Reference Input for your controller */
-        stabPID.measuredOutput = Q15(0.453) ;            /*Typically the measuredOutput variable is a plant response*/
-                                                        /*measured from an A/D input or a sensor. */
-                                                        /*In this example we manually set it to some value for */
-                                                        /*demonstration but the user should note that this value will */
-                                                        /*keep changing in a real application*/
-}
+//fractional kCoeffs[] = {0,0,0};
 void InitApp(void)
 {
     TRISB = 0x000F;
@@ -90,7 +82,7 @@ void InitApp(void)
     Capture_Init();
     ExtINT2_Init();
     Self_Test();
-    InitPID();
+    //InitPID();
     if(_RB3==0)
     {
         if(_RB3==0)
@@ -488,12 +480,17 @@ void stab(void)
      //       Run_PWM();
             //if (((outputvoltage>>2)<=SetOutVolt)&&((outputvoltage>>2)>=LowOutVolt))
             {
-               PDC1=PDC1+2;
-               if(PDC1>((2*PTPER)*.9))
-                      PDC1=((2*PTPER)*.9);
-               PDC2=PDC2+2;
-               if(PDC2>((2*PTPER)*.9))
-                      PDC2=((2*PTPER)*.9);
+              //  PID_Update();
+               PDC1=PDC1+2;//(int)pid;
+               if(PDC1>((2*PTPER)*.8))
+                      PDC1=((2*PTPER)*.8);
+             //  if(PDC1<((2*PTPER)*.1))
+               //       PDC1=((2*PTPER)*.1);
+               PDC2=PDC2+2;//(int)pid;
+               if(PDC2>((2*PTPER)*.8))
+                      PDC2=((2*PTPER)*.8);
+   //            if(PDC2<((2*PTPER)*.1))
+     //                 PDC2=((2*PTPER)*.1);
 dutycycle_chk=0;
 //BSTLED=~BSTLED;
             }
@@ -514,6 +511,7 @@ dutycycle_chk=0;
 
       //  Run_PWM();
     }
+    //PID_Update();
 
 }
 /*void PID_check(void)
@@ -556,4 +554,26 @@ void Run_PWM(void)
     if(PTCONbits.PTEN)
 PTCONbits.PTEN = 1;     /* Turn ON PWM module */
 
+}
+
+void PID_Update(void)
+{
+    pid = 0;
+    current_value = (float)(outputvoltage>>SAMPLE);
+   error = setpoint - current_value;
+   
+   if (abs(error) < 1024){ // prevent integral 'windup'
+      integral_error = integral_error + error; // accumulate the error integral
+   }
+   else {
+    integral_error=0; // zero it if out of bounds
+    }
+   propational = error * kp;
+   integral = integral_error * ki;
+   derivative = (last-current_value) * kd;
+
+   pid = propational + integral + derivative;
+
+   
+   last = current_value;
 }
