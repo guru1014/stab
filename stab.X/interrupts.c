@@ -104,7 +104,7 @@ void __attribute__((__interrupt__)) _INT2Interrupt(void);
 void __attribute__((__interrupt__)) _T1Interrupt(void);
 void __attribute__((__interrupt__)) _CNInterrupt(void);
 
-
+extern void PID_Update(void);
 
 //_ADCInterrupt() is the A/D interrupt service routine (ISR).
 //The routine must have global scope in order to be an ISR.
@@ -284,8 +284,7 @@ void __attribute__((interrupt, no_auto_psv)) _INT2Interrupt(void)
         //NORMALLED=1;
         PWM_Halfcycle_chk=1;
     }
-    IFS1bits.INT2IF=0;
-    if(Int_chk)
+      if(Int_chk)
         {
         Int_chk=false;
         // NORMALLED=~NORMALLED;
@@ -340,5 +339,5 @@ void __attribute__((interrupt, no_auto_psv)) _INT2Interrupt(void)
                 }
             }
     }
-
+IFS1bits.INT2IF=0;
 }
