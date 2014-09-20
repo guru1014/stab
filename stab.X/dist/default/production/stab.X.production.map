@@ -1,4 +1,4 @@
-Microchip Technology Inc, vh‚\
+Microchip Technology Inc, vh‚r
 
 Tool Name:
   c:\program files (x86)\microchip\xc16\v1.20\bin\bin\..\bin/elf-ld.exe
@@ -113,11 +113,11 @@ Program Memory  [Origin = 0x100, Length = 0x1efe]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x100               0x6ac           0xa02  (2562)
-.text                        0x7ac               0x782           0xb43  (2883)
-.dinit                       0xf2e                0x5e            0x8d  (141)
-.text                        0xf8c                0x10            0x18  (24)
+.text                        0x7ac               0x710           0xa98  (2712)
+.dinit                       0xebc                0x5e            0x8d  (141)
+.text                        0xf1a                0x10            0x18  (24)
 
-                     Total program memory used (bytes):         0x15ea  (5610) 47%
+                     Total program memory used (bytes):         0x153f  (5439) 45%
 
 
 Data Memory  [Origin = 0x800, Length = 0x200]
@@ -271,25 +271,25 @@ External Symbols in Program Memory (by address):
                   0x000900                  _InitTMR3
                   0x000922                  _Self_Test
                   0x000988                  _stab
-                  0x000d8e                  _ExtINT2_Init
-                  0x000da4                  _Run_PWM
-                  0x000db6                  _PID_Update
-                  0x000f8c                  _main
-                  0x000f96                  _ConfigureOscillator
+                  0x000d8c                  _ExtINT2_Init
+                  0x000da2                  _Run_PWM
+                  0x000db4                  _PID_Update
+                  0x000f1a                  _main
+                  0x000f24                  _ConfigureOscillator
                   0xf8000a                  __FGS.sec
 
 External Symbols in Program Memory (by name):
 
                   0x000816                  _ADC_Init
                   0x0008a6                  _Capture_Init
-                  0x000f96                  _ConfigureOscillator
-                  0x000d8e                  _ExtINT2_Init
+                  0x000f24                  _ConfigureOscillator
+                  0x000d8c                  _ExtINT2_Init
                   0x0007ac                  _InitApp
                   0x0008de                  _InitTMR1
                   0x000900                  _InitTMR3
-                  0x000db6                  _PID_Update
+                  0x000db4                  _PID_Update
                   0x00083a                  _PWM_Init
-                  0x000da4                  _Run_PWM
+                  0x000da2                  _Run_PWM
                   0x000922                  _Self_Test
                   0x000194                  __ADCInterrupt
                   0x0003f2                  __AddressError
@@ -333,7 +333,7 @@ External Symbols in Program Memory (by name):
                   0x000660                  __funpack2
                   0x000126                  __psv_init
                   0x000100                  __resetPRI
-                  0x000f8c                  _main
+                  0x000f1a                  _main
                   0x000988                  _stab
 
 Memory Configuration
@@ -548,14 +548,14 @@ userdata
  .debug_abbrev    0x000232         0x7d build/default/production/traps.o
  .debug_abbrev    0x0002af        0x152 build/default/production/user.o
 
-.debug_line       0x000000        0xe93
+.debug_line       0x000000        0xe63
  *(.debug_line)
  .debug_line      0x000000         0x7f build/default/production/configuration_bits.o
  .debug_line      0x00007f        0x38c build/default/production/interrupts.o
  .debug_line      0x00040b         0xae build/default/production/main.o
  .debug_line      0x0004b9         0x4a build/default/production/system.o
  .debug_line      0x000503        0x1b4 build/default/production/traps.o
- .debug_line      0x0006b7        0x7dc build/default/production/user.o
+ .debug_line      0x0006b7        0x7ac build/default/production/user.o
 
 .debug_frame      0x000000        0x224
  *(.debug_frame)
@@ -1311,8 +1311,8 @@ __c30_signature
  .ndata             0x0960          0x4 build/default/production/main.o
                     0x0960                  _period
 
-.text             0x0007ac        0x782
- .text            0x0007ac        0x782 build/default/production/user.o
+.text             0x0007ac        0x710
+ .text            0x0007ac        0x710 build/default/production/user.o
                   0x0007ac                  _InitApp
                   0x000816                  _ADC_Init
                   0x00083a                  _PWM_Init
@@ -1321,15 +1321,15 @@ __c30_signature
                   0x000900                  _InitTMR3
                   0x000922                  _Self_Test
                   0x000988                  _stab
-                  0x000d8e                  _ExtINT2_Init
-                  0x000da4                  _Run_PWM
-                  0x000db6                  _PID_Update
+                  0x000d8c                  _ExtINT2_Init
+                  0x000da2                  _Run_PWM
+                  0x000db4                  _PID_Update
 
-.dinit            0x000f2e         0x5e
- .dinit           0x000f2e         0x5e data_init
+.dinit            0x000ebc         0x5e
+ .dinit           0x000ebc         0x5e data_init
 
-.text             0x000f8c         0x10
- .text            0x000f8c          0xa build/default/production/main.o
-                  0x000f8c                  _main
- .text            0x000f96          0x6 build/default/production/system.o
-                  0x000f96                  _ConfigureOscillator
+.text             0x000f1a         0x10
+ .text            0x000f1a          0xa build/default/production/main.o
+                  0x000f1a                  _main
+ .text            0x000f24          0x6 build/default/production/system.o
+                  0x000f24                  _ConfigureOscillator
