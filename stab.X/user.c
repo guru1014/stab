@@ -29,13 +29,13 @@ bool Bst_flag=false;
 //
 float error;
 float current_value=0,last=0;
-float setpoint=90;
+float setpoint=480;
 float integral_error=0;
 float propational=0;
 float integral=0;
 float derivative = 0;
-float kp=1;
-float ki=0.1;
+float kp=0.1;
+float ki=0.09;
 float kd=0;
 int pid=0;
 //float e[20],i=0;
@@ -481,8 +481,9 @@ void stab(void)
      //       Run_PWM();
             //if (((outputvoltage>>2)<=SetOutVolt)&&((outputvoltage>>2)>=LowOutVolt))
             {
-                //PID_Update();
+    //            PID_Update();
                //PDC1=PDC1+2;//-pid;
+      /*
                 if(Bst_flag==true)
                 PDC1 = ((2*PTPER)-(outputvoltage>>SAMPLE))*1.33;
                 else
@@ -500,6 +501,25 @@ void stab(void)
                       PDC2=((2*PTPER)*.8);
                if(PDC2<((2*PTPER)*.1))
                       PDC2=((2*PTPER)*.1);
+       */
+                 if(Bst_flag==true)
+                PDC1 = ((2*PTPER)-(PDC1-(pid/1.5)));
+                else
+                 PDC1 = (PDC1-(pid/1.5));
+               if(PDC1>((2*PTPER)*.95))
+                      PDC1=((2*PTPER)*.95);
+               if(PDC1<((2*PTPER)*.05))
+                      PDC1=((2*PTPER)*.05);
+               //PDC2=PDC2+2;//-pid;
+                if(Bst_flag==true)
+                PDC2 = ((2*PTPER)-(PDC2-(pid/1.5)));
+                else
+                 PDC2 = (PDC2-(pid/1.5));
+               if(PDC2>((2*PTPER)*.95))
+                      PDC2=((2*PTPER)*.95);
+               if(PDC2<((2*PTPER)*.05))
+                      PDC2=((2*PTPER)*.05);
+
 dutycycle_chk=0;
 //BSTLED=~BSTLED;
             }
@@ -520,7 +540,7 @@ dutycycle_chk=0;
 
       //  Run_PWM();
     }
-    //PID_Update();
+    PID_Update();
 
 }
 /*void PID_check(void)
@@ -570,6 +590,7 @@ void PID_Update(void)
     pid = 0;
     current_value = (float)(outputvoltage>>SAMPLE);
    error = setpoint - current_value;
+//    error = 485 - 100;
    //e[i]=error;
   // i++;
     //       if(i>10)
@@ -577,34 +598,40 @@ void PID_Update(void)
    if (abs(error) > 5){ // prevent integral 'windup'
       integral_error = integral_error + error; // accumulate the error integral
    }
-  // else {
- //   integral_error=0; // zero it if out of bounds
-//    }
+   else if(abs(error)>1000){
+       if(error>1000)
+       integral_error=1000; // zero it if out of bounds
+       else  if(error<-1000)
+           integral_error = -1000;
+
+    }
+   
    propational = error * kp;
    integral = integral_error * ki;
    derivative = ((error-last)/0.01) * kd;
 
    pid =(int) propational + (int)integral + derivative;
 
-
+    
    if(pid<0)
    {
        NORMALLED = 1;
        OLLED =0;
-
+       if(pid<-1000)pid = -1000;
    }
    else
    {
        OLLED =1;
        NORMALLED =0;
+       if(pid>1000)pid = 1000;
    }
-   /*if(pid > 100)
+ /*  if(pid > 340)
    {
-     pid =100;
+     pid =340;
    }
-   else if(pid < -100)
+   else if(pid < -340)
    {
-       pid =-100;
+       pid =-340;
    }*/
    
    last = error;
