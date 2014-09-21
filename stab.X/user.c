@@ -390,36 +390,45 @@ void stab(void)
     if(sw==true)
     {
 
-    //if(sec_chk)
-        {
-
-      //  sec_chk=false;
         if(((inputvoltage>>SAMPLE)>=LowInVolt)&&((inputvoltage>>SAMPLE)<=MaxInVolt))
         {
-            if (((inputvoltage>>SAMPLE)>=SetInVolt2)&&((inputvoltage>>SAMPLE)<=MaxInVolt))
-            {
-                BKLED=1;
-                BSTLED=0;
-                NORMALLED=0;
-                Bst_flag=false;
-                bypass_chk=false;
-                PWM_BstBk_chk=0;
-            }
              if (((inputvoltage>>SAMPLE)<=SetInVolt1)&&((inputvoltage>>SAMPLE)>=LowInVolt))
             {
                 BKLED=0;
                 BSTLED=1;
                 NORMALLED=0;
+                if(Bst_flag == false)
+                {
+                    PDC1=((2*PTPER)*.1);
+                    PDC2=((2*PTPER)*.1);
+                    pid=0;
+                    propational =0;
+                    integral_error = 0;
+                }
                 Bst_flag=true;
                 bypass_chk=false;
                 PWM_BstBk_chk=1;
             }
-            if (((inputvoltage>>SAMPLE)>=SetInVolt1)&&((inputvoltage>>SAMPLE)<=SetInVolt2))  //Normal mode
+             else if (((inputvoltage>>SAMPLE)>=SetInVolt2)&&((inputvoltage>>SAMPLE)<=MaxInVolt))
             {
-                //propational=0;
-                //integral_error=0;
-                //pid =0;
-                 if(sec_chk)
+                BKLED=1;
+                BSTLED=0;
+                NORMALLED=0;
+                if(Bst_flag == true)
+                {
+                    //PDC1=((2*PTPER)*.9);;
+                    //PDC2=((2*PTPER)*.9);;
+                }
+                Bst_flag=false;
+                bypass_chk=false;
+                PWM_BstBk_chk=0;
+            }
+            else if (((inputvoltage>>SAMPLE)>=SetInVolt1)&&((inputvoltage>>SAMPLE)<=SetInVolt2))  //Normal mode
+            {
+                propational=0;
+                integral_error=0;
+                pid =0;
+  //               if(sec_chk)
             {
                 sec_chk=false;
 
@@ -431,11 +440,12 @@ void stab(void)
                 OVDCONbits.POVD1L = 0;
                 OVDCONbits.POVD2L = 0;
                 
-                PDC1=0;
-                PDC2=0;
-                //PDC1 =(2 * PTPER)*0.1;
-                //PDC2 = (2 * PTPER)*0.1;
+                //PDC1=0;
+                //PDC2=0;
+                PDC1 =(2 * PTPER)*0.1;
+                PDC2 = (2 * PTPER)*0.1;
                  }
+                return;
             }
         }
         else   //Over voltage and UNder voltage for input
@@ -464,9 +474,8 @@ void stab(void)
             PDC1 =0;
             PDC2 = 0;
             }
-        //        return;
+                return;
         }
-    }
     }
     else    // Switch off
     {
@@ -477,10 +486,10 @@ void stab(void)
                 OVDCONbits.POVD2L = 0;
         PDC1 =0;
         PDC2 = 0;
-        //propational=0;
-           //     integral_error=0;
-          //      pid =0;
-      //          return;
+        propational=0;
+                integral_error=0;
+                pid =0;
+               return;
     }
     //if(bypass_chk) return;
     if (((inputvoltage>>SAMPLE) >=LowInVolt)&&((inputvoltage>>SAMPLE)<=MaxInVolt))
@@ -513,19 +522,19 @@ void stab(void)
                 PDC1 = ((2*PTPER)-(PDC1-(pid/1.5)));
                 else
                  PDC1 = (PDC1-(pid/1.5));
-               if(PDC1>((2*PTPER)*.95))
-                      PDC1=((2*PTPER)*.95);
-               if(PDC1<((2*PTPER)*.05))
-                      PDC1=((2*PTPER)*.05);
+               if(PDC1>((2*PTPER)*.90))
+                      PDC1=((2*PTPER)*.90);
+               if(PDC1<((2*PTPER)*.1))
+                      PDC1=((2*PTPER)*.1);
                //PDC2=PDC2+2;//-pid;
                 if(Bst_flag==true)
                 PDC2 = ((2*PTPER)-(PDC2-(pid/1.5)));
                 else
                  PDC2 = (PDC2-(pid/1.5));
-               if(PDC2>((2*PTPER)*.95))
-                      PDC2=((2*PTPER)*.95);
-               if(PDC2<((2*PTPER)*.05))
-                      PDC2=((2*PTPER)*.05);
+               if(PDC2>((2*PTPER)*.90))
+                      PDC2=((2*PTPER)*.9);
+               if(PDC2<((2*PTPER)*.1))
+                      PDC2=((2*PTPER)*.1);
 
 dutycycle_chk=0;
 //BSTLED=~BSTLED;
