@@ -33,7 +33,7 @@
 #define LowOutVolt  420
 #define SetOutVolt 470
 
-#define SAMPLE 16
+#define SAMPLE 2
 #define BUZZER _RC14
 
 #define OverLoad 614

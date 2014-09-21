@@ -29,13 +29,13 @@ bool Bst_flag=false;
 //
 float error;
 float current_value=0,last=0;
-float setpoint=480;
+float setpoint=475;
 float integral_error=0;
 float propational=0;
 float integral=0;
 float derivative = 0;
-float kp=1;
-float ki=1;
+float kp=0.5;
+float ki=0.5;
 float kd=0;
 int pid=0;
 //float e[20],i=0;
@@ -405,7 +405,7 @@ void stab(void)
                 bypass_chk=false;
                 PWM_BstBk_chk=0;
             }
-            else if (((inputvoltage>>SAMPLE)<=SetInVolt1)&&((inputvoltage>>SAMPLE)>=LowInVolt))
+             if (((inputvoltage>>SAMPLE)<=SetInVolt1)&&((inputvoltage>>SAMPLE)>=LowInVolt))
             {
                 BKLED=0;
                 BSTLED=1;
@@ -414,8 +414,11 @@ void stab(void)
                 bypass_chk=false;
                 PWM_BstBk_chk=1;
             }
-            else if (((inputvoltage>>SAMPLE)>=SetInVolt1)&&((inputvoltage>>SAMPLE)<=SetInVolt2))  //Normal mode
+            if (((inputvoltage>>SAMPLE)>=SetInVolt1)&&((inputvoltage>>SAMPLE)<=SetInVolt2))  //Normal mode
             {
+                //propational=0;
+                //integral_error=0;
+                //pid =0;
                  if(sec_chk)
             {
                 sec_chk=false;
@@ -427,8 +430,7 @@ void stab(void)
                 // PTCONbits.PTEN = 0;     /* Turn ON PWM module */
                 OVDCONbits.POVD1L = 0;
                 OVDCONbits.POVD2L = 0;
-                propational=0;
-                integral_error=0;
+                
                 PDC1=0;
                 PDC2=0;
                 //PDC1 =(2 * PTPER)*0.1;
@@ -438,6 +440,9 @@ void stab(void)
         }
         else   //Over voltage and UNder voltage for input
         {
+          //  propational=0;
+            //    integral_error=0;
+              //  pid =0;
             if(sec_chk)
             {
                 sec_chk=false;
@@ -459,6 +464,7 @@ void stab(void)
             PDC1 =0;
             PDC2 = 0;
             }
+        //        return;
         }
     }
     }
@@ -471,17 +477,16 @@ void stab(void)
                 OVDCONbits.POVD2L = 0;
         PDC1 =0;
         PDC2 = 0;
+        //propational=0;
+           //     integral_error=0;
+          //      pid =0;
+      //          return;
     }
-    
+    //if(bypass_chk) return;
     if (((inputvoltage>>SAMPLE) >=LowInVolt)&&((inputvoltage>>SAMPLE)<=MaxInVolt))
     {
-      //  if(dutycycle_chk)
+        //if(dutycycle_chk)
         {
-            //if(PWM_BstBk_chk)
-            {
-     //       Run_PWM();
-  //          if (((outputvoltage>>2)<=SetOutVolt)&&((outputvoltage>>2)>=LowOutVolt))
-            {
                 PID_Update();
                //PDC1=PDC1+2;//-pid;
       /*
@@ -503,44 +508,30 @@ void stab(void)
                if(PDC2<((2*PTPER)*.1))
                       PDC2=((2*PTPER)*.1);
        */
-              //  if((PDC1-(pid/1.5))<((2*PTPER)*.1))
-                {
-             //       pid =0;
-                }
-            //    if((PDC1-(pid/1.5))>((2*PTPER)*.9))
-                {
-               //     pid=0;
-                }
-
+     
                  if(Bst_flag==true)
                 PDC1 = ((2*PTPER)-(PDC1-(pid/1.5)));
                 else
                  PDC1 = (PDC1-(pid/1.5));
-               if(PDC1>((2*PTPER)*.9))
-                      PDC1=((2*PTPER)*.9);
-               if(PDC1<((2*PTPER)*.1))
-                      PDC1=((2*PTPER)*.1);
+               if(PDC1>((2*PTPER)*.95))
+                      PDC1=((2*PTPER)*.95);
+               if(PDC1<((2*PTPER)*.05))
+                      PDC1=((2*PTPER)*.05);
                //PDC2=PDC2+2;//-pid;
                 if(Bst_flag==true)
                 PDC2 = ((2*PTPER)-(PDC2-(pid/1.5)));
                 else
                  PDC2 = (PDC2-(pid/1.5));
-               if(PDC2>((2*PTPER)*.9))
-                      PDC2=((2*PTPER)*.9);
-               if(PDC2<((2*PTPER)*.1))
-                      PDC2=((2*PTPER)*.1);
+               if(PDC2>((2*PTPER)*.95))
+                      PDC2=((2*PTPER)*.95);
+               if(PDC2<((2*PTPER)*.05))
+                      PDC2=((2*PTPER)*.05);
 
 dutycycle_chk=0;
 //BSTLED=~BSTLED;
             }
-            }
             
-        }
-
-      //  Run_PWM();
     }
-   // PID_Update();
-
 }
 /*void PID_check(void)
 {
@@ -594,11 +585,11 @@ void PID_Update(void)
   // i++;
     //       if(i>10)
       //         i=0;
-   if (abs(error) > 5){ // prevent integral 'windup'
+   if (abs(error) < 1024){ // prevent integral 'windup'
       integral_error = integral_error + error; // accumulate the error integral
    }
    else{
-       integral_error = 0;
+   //    integral_error = 0;
 
     }
    
@@ -606,7 +597,7 @@ void PID_Update(void)
    integral = integral_error * ki;
    derivative = ((error-last)/0.01) * kd;
 
-   pid =(int) propational + (int)integral + derivative;
+   pid =((int) propational + (int)integral + derivative);
 
     
    if(pid<0)
