@@ -22,18 +22,19 @@
 #define NormalOPVolt 512
 
 // ADC count values
-#define MaxInVolt 580                          // 614 - 2.85 V, 634 - 2.95 v
+#define MaxInVolt 560                          // 614 - 2.85 V, 634 - 2.95 v
 #define LowInVolt 200                            //  205 - 1.0 v ,165 - 0.8 v
 
 
-#define SetInVolt1 445
-#define SetInVolt2 480
+#define SetInVolt1 440
+#define SetInVolt2 460
 
 #define MaxOutVolt 501
 #define LowOutVolt  420
 #define SetOutVolt 470
 
-#define SAMPLE 2
+#define SAMPLE 16
+#define SAMPLE1 2
 #define BUZZER _RC14
 
 #define OverLoad 614

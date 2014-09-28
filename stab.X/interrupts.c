@@ -75,7 +75,8 @@ unsigned int ADResult4 = 0;
 #define OLLED _RC13
 #define FLTLED _RE8
 
-#define SAMPLE 2
+#define SAMPLE 16
+#define SAMPLE1 2
 
 #define BUZZER _RC14
 uint32_t inputvoltage=0;
@@ -113,12 +114,12 @@ void __attribute__((interrupt, no_auto_psv)) _ADCInterrupt(void)
 {
 	//ADResult1 = ADCBUF0;
     inputvoltage = inputvoltage - (inputvoltage>>SAMPLE)+(uint32_t)ADCBUF1;
-    outputvoltage =outputvoltage - (outputvoltage>>SAMPLE)+ (uint32_t)ADCBUF2;
+    outputvoltage =outputvoltage - (outputvoltage>>SAMPLE1)+ (uint32_t)ADCBUF2;
     outputcurrent = outputcurrent - (outputcurrent>>SAMPLE)+(uint32_t)ADCBUF3;
     //dcdc_avg1= dcdc_avg1 - (dcdc_avg1>>DCDCVOLT_AVG) + DCDC_Out1;
     //outputvoltage >>=2;
     in1[j]=inputvoltage>>SAMPLE;
-    out1[j]=outputvoltage>>SAMPLE;
+    out1[j]=outputvoltage>>SAMPLE1;
     out2[j]=outputcurrent>>SAMPLE;
     j++;
     if(j>19)
