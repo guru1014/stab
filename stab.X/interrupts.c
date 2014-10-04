@@ -114,12 +114,12 @@ void __attribute__((interrupt, no_auto_psv)) _ADCInterrupt(void)
 {
 	//ADResult1 = ADCBUF0;
     inputvoltage = inputvoltage - (inputvoltage>>SAMPLE)+(uint32_t)ADCBUF1;
-    outputvoltage =outputvoltage - (outputvoltage>>SAMPLE)+ (uint32_t)ADCBUF2;
+    outputvoltage =outputvoltage - (outputvoltage>>SAMPLE1)+ (uint32_t)ADCBUF2;
     outputcurrent = outputcurrent - (outputcurrent>>SAMPLE)+(uint32_t)ADCBUF3;
     //dcdc_avg1= dcdc_avg1 - (dcdc_avg1>>DCDCVOLT_AVG) + DCDC_Out1;
     //outputvoltage >>=2;
     in1[j]=inputvoltage>>SAMPLE;
-    out1[j]=outputvoltage>>SAMPLE;
+    out1[j]=outputvoltage>>SAMPLE1;
     out2[j]=outputcurrent>>SAMPLE;
     j++;
     if(j>19)
@@ -171,13 +171,13 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)
 
     //OLLED=~OLLED;
     mseccount++;
-    if(mseccount>100)
+    if(mseccount>15)
     {
         mseccount=0;
         dutycycle_chk=true;
         seccount++;
-        if(seccount>100) // 1 sec
-            if(seccount>50) // .5 sec
+        //if(seccount>200) // 1 sec
+            if(seccount>800) // .5 sec
         {
             seccount=0;
             sec_chk=true;

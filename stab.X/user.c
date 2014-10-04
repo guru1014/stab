@@ -491,29 +491,29 @@ void stab(void)
     //if(bypass_chk) return;
     if (((inputvoltage>>SAMPLE) >=LowInVolt)&&((inputvoltage>>SAMPLE)<=MaxInVolt))
     {
-        if(dutycycle_chk)
+        //if(dutycycle_chk)
         {
                 PID_Update();
             //    PDC1=((2*PTPER)*.50);
              //   PDC2=((2*PTPER)*.50);
      
-           //      if(Bst_flag==true)
+                 if(Bst_flag==true)
                 PDC1 = (((int32_t)(pid/1.5)));
-       //         else
-         //        PDC1 = ((2*PTPER)-(PDC1+(pid/1.5)));
-               if(PDC1>((2*PTPER)*.90))
-                      PDC1=((2*PTPER)*.90);
-               if(PDC1<((2*PTPER)*.1))
-                      PDC1=((2*PTPER)*.1);
+                else
+                 PDC1 = (int32_t)((2*PTPER)-(pid/1.5));
+               if(PDC1>((2*PTPER)*.950))
+                      PDC1=((2*PTPER)*.980);
+               if(PDC1<((2*PTPER)*.05))
+                      PDC1=((2*PTPER)*.02);
                //PDC2=PDC2+2;//-pid;
-             //   if(Bst_flag==true)
+                if(Bst_flag==true)
                 PDC2 = (((int32_t)(pid/1.5)));
-         //       else
-           //      PDC2 = ((2*PTPER)-(PDC2+(pid/1.5)));
-               if(PDC2>((2*PTPER)*.90))
-                      PDC2=((2*PTPER)*.9);
-               if(PDC2<((2*PTPER)*.1))
-                      PDC2=((2*PTPER)*.1);
+              else
+                 PDC2 = (int32_t)((2*PTPER)-(pid/1.5));
+               if(PDC2>((2*PTPER)*.95))
+                      PDC2=((2*PTPER)*.98);
+               if(PDC2<((2*PTPER)*.05))
+                      PDC2=((2*PTPER)*.02);
 
 dutycycle_chk=0;
         }
@@ -565,14 +565,16 @@ PTCONbits.PTEN = 1;     /* Turn ON PWM module */
 void PID_Update(void)
 {
    //pid = 0;
-   current_value = (outputvoltage>>SAMPLE);
-   current_value=0;
+   current_value = (outputvoltage>>SAMPLE1);
+  // current_value=0;
    error =setpoint - current_value;
 
    if (abs(error) <1024){ // prevent integral 'windup'
       integral_error = integral_error + error; // accumulate the error integral
    }
-   
+   else
+       integral_error=0;
+
    propational = error * kp;
    integral = integral_error * ki;
   // derivative = ((error-last)/0.01) * kd;
