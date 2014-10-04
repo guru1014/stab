@@ -114,12 +114,12 @@ void __attribute__((interrupt, no_auto_psv)) _ADCInterrupt(void)
 {
 	//ADResult1 = ADCBUF0;
     inputvoltage = inputvoltage - (inputvoltage>>SAMPLE)+(uint32_t)ADCBUF1;
-    outputvoltage =outputvoltage - (outputvoltage>>SAMPLE1)+ (uint32_t)ADCBUF2;
+    outputvoltage =outputvoltage - (outputvoltage>>SAMPLE)+ (uint32_t)ADCBUF2;
     outputcurrent = outputcurrent - (outputcurrent>>SAMPLE)+(uint32_t)ADCBUF3;
     //dcdc_avg1= dcdc_avg1 - (dcdc_avg1>>DCDCVOLT_AVG) + DCDC_Out1;
     //outputvoltage >>=2;
     in1[j]=inputvoltage>>SAMPLE;
-    out1[j]=outputvoltage>>SAMPLE1;
+    out1[j]=outputvoltage>>SAMPLE;
     out2[j]=outputcurrent>>SAMPLE;
     j++;
     if(j>19)
