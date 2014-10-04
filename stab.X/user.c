@@ -39,6 +39,7 @@ float ki=0.005;
 float kd=0;
 float pid=0;
 unsigned int normalcount=0;
+unsigned int duty=0;
 //float e[20],i=0;
 //
 void PID_Update(void);
@@ -406,8 +407,8 @@ void stab(void)
                 NORMALLED=0;
                 if(Bst_flag == false)
                 {
-                    PDC1=((2*PTPER)*.1);
-                    PDC2=((2*PTPER)*.1);
+                    PDC1=((2*PTPER)*0.0);
+                    PDC2=((2*PTPER)*0.0);
                     pid=0;
                     propational =0;
                     integral_error = 0;
@@ -423,8 +424,8 @@ void stab(void)
                 NORMALLED=0;
                 if(Bst_flag == true)
                 {
-                    PDC1=((2*PTPER)*.9);
-                    PDC2=((2*PTPER)*.9);
+                    PDC1=((2*PTPER)*1);
+                    PDC2=((2*PTPER)*1);
                     pid=0;
                     propational =0;
                     integral_error = 0;
@@ -498,23 +499,24 @@ void stab(void)
              //   PDC2=((2*PTPER)*.50);
      
                  if(Bst_flag==true)
-                PDC1 = (((int32_t)(pid/1.5)));
+                duty = (((int32_t)(pid/1.5)));
                 else
-                 PDC1 = (int32_t)((2*PTPER)-(pid/1.5));
-               if(PDC1>((2*PTPER)*.950))
-                      PDC1=((2*PTPER)*.980);
-               if(PDC1<((2*PTPER)*.05))
-                      PDC1=((2*PTPER)*.02);
+                 duty = (int32_t)((2*PTPER)-(pid/1.5));
+               if(duty>((2*PTPER)*1))
+                      duty=((2*PTPER)*1);
+               if(duty<((2*PTPER)*0.0))
+                      duty=((2*PTPER)*0.0);
                //PDC2=PDC2+2;//-pid;
-                if(Bst_flag==true)
-                PDC2 = (((int32_t)(pid/1.5)));
-              else
-                 PDC2 = (int32_t)((2*PTPER)-(pid/1.5));
-               if(PDC2>((2*PTPER)*.95))
-                      PDC2=((2*PTPER)*.98);
-               if(PDC2<((2*PTPER)*.05))
-                      PDC2=((2*PTPER)*.02);
-
+          //      if(Bst_flag==true)
+            //    PDC2 = (((int32_t)(pid/1.5)));
+             // else
+               //  PDC2 = (int32_t)((2*PTPER)-(pid/1.5));
+              // if(PDC2>((2*PTPER)*.95))
+               //       PDC2=((2*PTPER)*.98);
+               //if(PDC2<((2*PTPER)*.05))
+                 //     PDC2=((2*PTPER)*.02);
+                PDC1=duty;
+                PDC2=duty;
 dutycycle_chk=0;
         }
     }
