@@ -424,8 +424,8 @@ void stab(void)
                 NORMALLED=0;
                 if(Bst_flag == true)
                 {
-                    PDC1=((2*PTPER)*1);
-                    PDC2=((2*PTPER)*1);
+                    PDC1=((1.4*PTPER));
+                    PDC2=((1.4*PTPER));
                     pid=0;
                     propational =0;
                     integral_error = 0;
@@ -468,8 +468,11 @@ void stab(void)
         //    OVDCONbits.POVD1L = 1;
           //  OVDCONbits.POVD2L = 1;
             OVDCONbits.POVD1L = 0;
-                OVDCONbits.POVD2L = 0;
+            OVDCONbits.POVD2L = 0;
            
+           //PDC1=((1.4*PTPER));
+           //PDC2=((1.4*PTPER));
+
                 return;
         }
         }
@@ -499,11 +502,19 @@ void stab(void)
              //   PDC2=((2*PTPER)*.50);
      
                  if(Bst_flag==true)
+                 {
                 duty = (((int32_t)(pid/1.5)));
+                if(duty>((2*PTPER)))
+                      duty=((2*PTPER));
+
+                 }
                 else
-                 duty = (int32_t)((2*PTPER)-(pid/1.5));
-               if(duty>((2*PTPER)*1))
-                      duty=((2*PTPER)*1);
+                {
+                 duty = (int32_t)((1.4*PTPER)-(pid/1.5));
+                 if(duty>((1.4*PTPER)))
+                      duty=((1.4*PTPER));
+
+                }
                if(duty<((2*PTPER)*0.0))
                       duty=((2*PTPER)*0.0);
                //PDC2=PDC2+2;//-pid;
@@ -596,14 +607,14 @@ void PID_Update(void)
       // NORMALLED =0;
       
    }
- /*  if(pid > 340)
+   if(pid > ((2*PTPER)*1.5))
    {
-     pid =340;
+     pid =((2*PTPER)*1.5);
    }
-   else if(pid < -340)
+   else if(pid < -((2*PTPER)*1.5))
    {
-       pid =-340;
-   }*/
+       pid =-((2*PTPER)*1.5);
+   }
    
    last = error;
 }
