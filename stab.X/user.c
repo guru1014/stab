@@ -20,6 +20,8 @@ void InitTMR3(void);
 void InitTMR1(void);
 void Self_Test(void);
 void InitPID(void);
+
+#define DELAYCOUNT 25
 //void Read_ADC(void);
 /* TODO Initialize User Ports/Peripherals/Project here */
 const uint16_t *ADC16ptr;
@@ -38,10 +40,10 @@ float kp=0.05;
 float ki=0.05;
 float kd=0;
 float pid=0;
-unsigned int normalcount=5;
-unsigned int bstcount=5;
-unsigned int bkcount=5;
-unsigned int overcount =5;
+unsigned int normalcount=DELAYCOUNT;
+unsigned int bstcount=DELAYCOUNT;
+unsigned int bkcount=DELAYCOUNT;
+unsigned int overcount =DELAYCOUNT;
 unsigned int duty=0;
 //float e[20],i=0;
 //
@@ -395,7 +397,7 @@ void stab(void)
     if(sec_chk)
     {
         sec_chk=false;
-        OLLED=~OLLED;
+       // OLLED=~OLLED;
     }
     if(sw==true)
     {
@@ -409,9 +411,9 @@ void stab(void)
                  if(bstcount==0)
                  {
                      bstcount =1;
-                     normalcount =5;
-                     bkcount=5;
-                     overcount=5;
+                     normalcount =DELAYCOUNT;
+                     bkcount=DELAYCOUNT;
+                     overcount=DELAYCOUNT;
                 BKLED=0;
                 BSTLED=1;
                 NORMALLED=0;
@@ -434,9 +436,9 @@ void stab(void)
                  if(bkcount==0)
                  {
                      bkcount =1;
-                     normalcount =5;
-                     bstcount=5;
-                     overcount=5;
+                     normalcount =DELAYCOUNT;
+                     bstcount=DELAYCOUNT;
+                     overcount=DELAYCOUNT;
 
                 BKLED=1;
                 BSTLED=0;
@@ -460,9 +462,9 @@ void stab(void)
                  if(normalcount==0)
                  {
                      normalcount =1;
-                     bstcount =5;
-                     bkcount=5;
-                     overcount=5;
+                     bstcount =DELAYCOUNT;
+                     bkcount=DELAYCOUNT;
+                     overcount=DELAYCOUNT;
                 propational=0;
                 integral_error=0;
                 pid =0;
@@ -486,9 +488,9 @@ void stab(void)
                  if(overcount==0)
                  {
                      overcount =1;
-                     bstcount =5;
-                     bkcount=5;
-                     normalcount=5;
+                     bstcount =DELAYCOUNT;
+                     bkcount=DELAYCOUNT;
+                     normalcount=DELAYCOUNT;
                      BSTLED=1;
                      BKLED=1;
                      NORMALLED=1;

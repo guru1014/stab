@@ -27,13 +27,13 @@
 
 
 #define SetInVolt1 446
-#define SetInVolt2 454
+#define SetInVolt2 470
 
 #define MaxOutVolt 501
 #define LowOutVolt  420
 #define SetOutVolt 470
 
-#define SAMPLE 16
+#define SAMPLE 8
 #define SAMPLE1 4
 #define BUZZER _RC14
 
