@@ -26,15 +26,15 @@
 #define LowInVolt 200                            //  205 - 1.0 v ,165 - 0.8 v
 
 
-#define SetInVolt1 440
-#define SetInVolt2 460
+#define SetInVolt1 446
+#define SetInVolt2 454
 
 #define MaxOutVolt 501
 #define LowOutVolt  420
 #define SetOutVolt 470
 
 #define SAMPLE 16
-#define SAMPLE1 2
+#define SAMPLE1 4
 #define BUZZER _RC14
 
 #define OverLoad 614

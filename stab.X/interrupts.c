@@ -76,7 +76,7 @@ unsigned int ADResult4 = 0;
 #define FLTLED _RE8
 
 #define SAMPLE 16
-#define SAMPLE1 2
+#define SAMPLE1 4
 
 #define BUZZER _RC14
 uint32_t inputvoltage=0;
