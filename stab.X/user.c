@@ -401,7 +401,7 @@ void stab(void)
     if(sec_chk)
     {
         sec_chk=false;
-       // OLLED=~OLLED;
+        OLLED=~OLLED;
     }
     if(sw==true)
     {
@@ -460,7 +460,7 @@ void stab(void)
                 PWM_BstBk_chk=0;
                  }
             }
-             else if (((inputvoltage>>SAMPLE)>=SetInVolt1)&&((inputvoltage>>SAMPLE)<=SetInVolt2))  //Normal mode
+             /*else if (((inputvoltage>>SAMPLE)>=SetInVolt1)&&((inputvoltage>>SAMPLE)<=SetInVolt2))  //Normal mode
             {
                 normalcount--;
                  if(normalcount==0)
@@ -478,13 +478,13 @@ void stab(void)
                 NORMALLED=1;
                 bypass_chk=false;
                 // PTCONbits.PTEN = 0;     /* Turn ON PWM module */
-                OVDCONbits.POVD1L = 0;
-                OVDCONbits.POVD2L = 0;
-                return;
-                 }
+                //OVDCONbits.POVD1L = 0;
+                //OVDCONbits.POVD2L = 0;
+                //return;
+                 //}
                 
 
-            }
+            //}
         }
         else if(((inputvoltage>>SAMPLE)<=LowInVolt)||((inputvoltage>>SAMPLE)>=MaxInVolt))  //Over voltage and UNder voltage for input
         {
@@ -561,7 +561,9 @@ void stab(void)
                  }
                 else
                 {
-                 duty = (int32_t)((2*PTPER)-(pid/1.5));
+                 //duty = (int32_t)((2*PTPER)-(pid/1.5));
+                     if(pid>0)pid=0;
+                     duty = (((int32_t)(-pid/1.5)));
                  if(duty>((1*PTPER)))
                       duty=((1*PTPER));
 
@@ -649,12 +651,12 @@ void PID_Update(void)
    if(pid<0)
    {
        //NORMALLED = 1;
-       OLLED =0;
+       //OLLED =0;
       
    }
    else
    {
-       OLLED =1;
+       //OLLED =1;
       // NORMALLED =0;
       
    }
