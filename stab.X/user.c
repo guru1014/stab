@@ -68,6 +68,7 @@ void InitApp(void)
     TRISD = 0x0002;
     TRISE = 0x0100;
     TRISF = 0x0000;
+    _RE8=1;
     //_RC14=1;
    // BSTLED = 1;
    // BKLED  = 1;
@@ -255,7 +256,10 @@ void PWM_Init(void)
 
 //OVDCONbits.POVD1L = 0;
   //              OVDCONbits.POVD2L = 0;
-
+    _FLTAIP=7;
+    _FLTAIF=0;
+    _FLTAIE=1;
+    FLTACON = 0x0F;
 OVDCONbits.POUT1L=1;
 OVDCONbits.POUT1H=0;
 OVDCONbits.POUT2L=1;

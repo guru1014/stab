@@ -104,8 +104,29 @@ void __attribute__((__interrupt__)) _T3Interrupt(void);
 void __attribute__((__interrupt__)) _INT2Interrupt(void);
 void __attribute__((__interrupt__)) _T1Interrupt(void);
 void __attribute__((__interrupt__)) _CNInterrupt(void);
+void __attribute__((__interrupt__)) _FLTAInterrupt(void);
 
 extern void PID_Update(void);
+
+void __attribute__((interrupt, no_auto_psv)) _FLTAInterrupt(void)
+{
+    bypass_chk=true;
+       NORMALLED=1;
+        BKLED=1;
+        BSTLED=1;
+
+        OVDCONbits.POVD1L = 0;
+        OVDCONbits.POVD2L = 0;
+        sw=false;
+        _FLTAIF=0;
+        //PDC1 =0;
+       // PDC2 = 0;
+     //   propational=0;
+       //         integral_error=0;
+         //       pid =0;
+
+}
+
 
 //_ADCInterrupt() is the A/D interrupt service routine (ISR).
 //The routine must have global scope in order to be an ISR.
