@@ -260,6 +260,9 @@ void PWM_Init(void)
     _FLTAIF=0;
     _FLTAIE=1;
     FLTACON = 0x0F;
+     OVDCONbits.POVD1L = 0;
+     OVDCONbits.POVD2L = 0;
+
 OVDCONbits.POUT1L=1;
 OVDCONbits.POUT1H=0;
 OVDCONbits.POUT2L=1;
@@ -555,8 +558,8 @@ void stab(void)
                  {
                      if(pid<0)pid=0;
                 duty = (((int32_t)(pid/1.5)));
-                if(duty>((2*PTPER)))
-                      duty=((2*PTPER));
+                if(duty>((2*PTPER)*0.85))
+                      duty=((2*PTPER)*0.85);
 
                  }
                 else
