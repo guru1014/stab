@@ -8,6 +8,7 @@
 #include <dsp.h>
 #include <libq.h>
 #include "user.h"            /* variables/params used by user.c               */
+#include "lcd.h"
 
 /******************************************************************************/
 /* User Functions                                                             */
@@ -114,6 +115,13 @@ void InitApp(void)
         }
     }
     /* Initialize peripherals */
+
+//       lcd_init();                                                //Intilize LCD in 4-Bit Mode
+  //     lcd_command(0x80);      // Start Cursor From First Line
+    //   lcd_puts("Hello");  //Print HELLO on LCD
+      // lcd_command(0xC0);         // Start Cursor From Second Line
+      // lcd_puts("World"); //Print HELLO on LCD
+
 }
 
 void ADC_Init(void)
@@ -260,6 +268,9 @@ void PWM_Init(void)
     _FLTAIF=0;
     _FLTAIE=1;
     FLTACON = 0x0F;
+     OVDCONbits.POVD1L = 0;
+    OVDCONbits.POVD2L = 0;
+
 OVDCONbits.POUT1L=1;
 OVDCONbits.POUT1H=0;
 OVDCONbits.POUT2L=1;
