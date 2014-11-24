@@ -68,6 +68,7 @@ void InitApp(void)
     TRISC = 0x0000;
     TRISD = 0x0002;
     TRISE = 0x0100;
+    LATE=0x00;
     TRISF = 0x0000;
     _RE8=1;
     //_RC14=1;
@@ -83,17 +84,21 @@ void InitApp(void)
    _CN5PUE=1;
    _CNIF=0;
    _CNIE=1;
-    
+  // LCD_RS=1;
+  // LCD_DB=1;
+   LCD_CLK=0;
+ //  LCD_EN=1;
+  // while(1);
     /* Setup analog functionality and port direction */
-    ADC_Init();
-    PWM_Init();
-    InitTMR1();
-    InitTMR3();
-    Capture_Init();
-    ExtINT2_Init();
-    Self_Test();
+   // ADC_Init();
+    //PWM_Init();
+    //InitTMR1();
+    //InitTMR3();
+    //Capture_Init();
+    //ExtINT2_Init();
+    //Self_Test();
     //InitPID();
-    if(_RB3==0)
+    /*if(_RB3==0)
     {
         if(_RB3==0)
         {
@@ -113,16 +118,17 @@ void InitApp(void)
 
             PTCONbits.PTEN = 1;
         }
-    }
+    }*/
     /* Initialize peripherals */
 
-//       lcd_init();                                                //Intilize LCD in 4-Bit Mode
+       lcd_init();                                                //Intilize LCD in 4-Bit Mode
   //     lcd_command(0x80);      // Start Cursor From First Line
     //   lcd_puts("Hello");  //Print HELLO on LCD
       // lcd_command(0xC0);         // Start Cursor From Second Line
       // lcd_puts("World"); //Print HELLO on LCD
 
 }
+
 
 void ADC_Init(void)
 {

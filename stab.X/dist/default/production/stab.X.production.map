@@ -1,4 +1,4 @@
-Microchip Technology Inc, vêÇQ
+Microchip Technology Inc, vêÇW
 
 Tool Name:
   c:\program files (x86)\microchip\xc16\v1.20\bin\bin\..\bin/elf-ld.exe
@@ -110,11 +110,12 @@ Program Memory  [Origin = 0x100, Length = 0x1efe]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x100               0x6ba           0xa17  (2583)
-.text                        0x7ba               0x79a           0xb67  (2919)
-.dinit                       0xf54                0x6e            0xa5  (165)
-.text                        0xfc2                0x10            0x18  (24)
+.const                       0x7ba                0x14            0x1e  (30)
+.text                        0x7ce               0x872           0xcab  (3243)
+.dinit                      0x1040                0x6e            0xa5  (165)
+.text                       0x10ae                 0xe            0x15  (21)
 
-                     Total program memory used (bytes):         0x163b  (5691) 47%
+                     Total program memory used (bytes):         0x179a  (6042) 50%
 
 
 Data Memory  [Origin = 0x800, Length = 0x200]
@@ -233,8 +234,8 @@ External Symbols in Program Memory (by address):
 
                   0x000100                  __resetPRI
                   0x000126                  __psv_init
-                  0x000136                  __data_init_standard
                   0x000136                  __data_init
+                  0x000136                  __data_init_standard
                   0x000194                  __FLTAInterrupt
                   0x0001b6                  __ADCInterrupt
                   0x000280                  __CNInterrupt
@@ -257,8 +258,8 @@ External Symbols in Program Memory (by address):
                   0x000594                  ___ltsf2
                   0x000594                  ___eqsf2
                   0x000594                  ___lesf2
-                  0x000598                  ___gesf2
                   0x000598                  ___gtsf2
+                  0x000598                  ___gesf2
                   0x00059c                  ___fixsfsi
                   0x0005de                  ___fixunssfsi
                   0x000614                  ___floatunsisf
@@ -271,40 +272,39 @@ External Symbols in Program Memory (by address):
                   0x0006be                  ___mulsf3
                   0x000726                  __fcompare
                   0x00075c                  ___floatundisf
-                  0x0007ba                  _InitApp
-                  0x000826                  _ADC_Init
-                  0x00084a                  _PWM_Init
-                  0x0008cc                  _Capture_Init
-                  0x000904                  _InitTMR1
-                  0x000926                  _InitTMR3
-                  0x000948                  _Self_Test
-                  0x0009ae                  _stab
-                  0x000d28                  _ExtINT2_Init
-                  0x000d3e                  _Run_PWM
-                  0x000d50                  _PID_Update
-                  0x000eac                  _delay
-                  0x000ec8                  _lcd_init
-                  0x000eee                  _lcd_init_write
-                  0x000f04                  _lcd_command
-                  0x000f1a                  _lcd_data
-                  0x000f30                  _lcd_puts
-                  0x000fc2                  _main
-                  0x000fcc                  _ConfigureOscillator
+                  0x0007ce                  _InitApp
+                  0x000804                  _ADC_Init
+                  0x000828                  _PWM_Init
+                  0x0008aa                  _Capture_Init
+                  0x0008e2                  _InitTMR1
+                  0x000904                  _InitTMR3
+                  0x000926                  _Self_Test
+                  0x00098c                  _stab
+                  0x000d06                  _ExtINT2_Init
+                  0x000d1c                  _Run_PWM
+                  0x000d2e                  _PID_Update
+                  0x000e8a                  _delay
+                  0x000ebe                  _lcd_init
+                  0x000f1c                  _lcd_command
+                  0x000f9c                  _lcd_data
+                  0x00101c                  _lcd_puts
+                  0x0010ae                  _main
+                  0x0010b6                  _ConfigureOscillator
                   0xf8000a                  __FGS.sec
 
 External Symbols in Program Memory (by name):
 
-                  0x000826                  _ADC_Init
-                  0x0008cc                  _Capture_Init
-                  0x000fcc                  _ConfigureOscillator
-                  0x000d28                  _ExtINT2_Init
-                  0x0007ba                  _InitApp
-                  0x000904                  _InitTMR1
-                  0x000926                  _InitTMR3
-                  0x000d50                  _PID_Update
-                  0x00084a                  _PWM_Init
-                  0x000d3e                  _Run_PWM
-                  0x000948                  _Self_Test
+                  0x000804                  _ADC_Init
+                  0x0008aa                  _Capture_Init
+                  0x0010b6                  _ConfigureOscillator
+                  0x000d06                  _ExtINT2_Init
+                  0x0007ce                  _InitApp
+                  0x0008e2                  _InitTMR1
+                  0x000904                  _InitTMR3
+                  0x000d2e                  _PID_Update
+                  0x000828                  _PWM_Init
+                  0x000d1c                  _Run_PWM
+                  0x000926                  _Self_Test
                   0x0001b6                  __ADCInterrupt
                   0x000426                  __AddressError
                   0x00043e                  __AltAddressError
@@ -346,14 +346,13 @@ External Symbols in Program Memory (by name):
                   0x00068e                  __funpack2
                   0x000126                  __psv_init
                   0x000100                  __resetPRI
-                  0x000eac                  _delay
-                  0x000f04                  _lcd_command
-                  0x000f1a                  _lcd_data
-                  0x000ec8                  _lcd_init
-                  0x000eee                  _lcd_init_write
-                  0x000f30                  _lcd_puts
-                  0x000fc2                  _main
-                  0x0009ae                  _stab
+                  0x000e8a                  _delay
+                  0x000f1c                  _lcd_command
+                  0x000f9c                  _lcd_data
+                  0x000ebe                  _lcd_init
+                  0x00101c                  _lcd_puts
+                  0x0010ae                  _main
+                  0x00098c                  _stab
 
 Memory Configuration
 
@@ -544,18 +543,18 @@ userdata
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x3d87
+.debug_info       0x000000       0x3f35
  *(.debug_info)
  .debug_info      0x000000        0x10a build/default/production/configuration_bits.o
  .debug_info      0x00010a        0xd75 build/default/production/interrupts.o
  .debug_info      0x000e7f        0x154 build/default/production/main.o
  .debug_info      0x000fd3        0x12d build/default/production/system.o
  .debug_info      0x001100        0x302 build/default/production/traps.o
- .debug_info      0x001402       0x2663 build/default/production/user.o
- .debug_info      0x003a65        0x322 build/default/production/lcd.o
+ .debug_info      0x001402       0x2755 build/default/production/user.o
+ .debug_info      0x003b57        0x3de build/default/production/lcd.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x4de
+.debug_abbrev     0x000000        0x4c9
  *(.debug_abbrev)
  .debug_abbrev    0x000000         0x30 build/default/production/configuration_bits.o
  .debug_abbrev    0x000030        0x17a build/default/production/interrupts.o
@@ -563,33 +562,33 @@ userdata
  .debug_abbrev    0x0001fe         0x34 build/default/production/system.o
  .debug_abbrev    0x000232         0x7d build/default/production/traps.o
  .debug_abbrev    0x0002af        0x152 build/default/production/user.o
- .debug_abbrev    0x000401         0xdd build/default/production/lcd.o
+ .debug_abbrev    0x000401         0xc8 build/default/production/lcd.o
 
-.debug_line       0x000000       0x11cd
+.debug_line       0x000000       0x127b
  *(.debug_line)
  .debug_line      0x000000         0x7f build/default/production/configuration_bits.o
  .debug_line      0x00007f        0x3de build/default/production/interrupts.o
- .debug_line      0x00045d         0xae build/default/production/main.o
- .debug_line      0x00050b         0x4a build/default/production/system.o
- .debug_line      0x000555        0x1b4 build/default/production/traps.o
- .debug_line      0x000709        0x8b8 build/default/production/user.o
- .debug_line      0x000fc1        0x20c build/default/production/lcd.o
+ .debug_line      0x00045d         0xa6 build/default/production/main.o
+ .debug_line      0x000503         0x4a build/default/production/system.o
+ .debug_line      0x00054d        0x1b4 build/default/production/traps.o
+ .debug_line      0x000701        0x850 build/default/production/user.o
+ .debug_line      0x000f51        0x32a build/default/production/lcd.o
 
-.debug_frame      0x000000        0x2a8
+.debug_frame      0x000000        0x298
  *(.debug_frame)
  .debug_frame     0x000000         0x84 build/default/production/interrupts.o
  .debug_frame     0x000084         0x24 build/default/production/main.o
  .debug_frame     0x0000a8         0x24 build/default/production/system.o
  .debug_frame     0x0000cc         0xa4 build/default/production/traps.o
  .debug_frame     0x000170         0xc4 build/default/production/user.o
- .debug_frame     0x000234         0x74 build/default/production/lcd.o
+ .debug_frame     0x000234         0x64 build/default/production/lcd.o
 
-.debug_str        0x000000        0x2bf
+.debug_str        0x000000        0x2d0
  *(.debug_str)
  .debug_str       0x000000         0xec build/default/production/interrupts.o
  .debug_str       0x0000ec          0xc build/default/production/traps.o
- .debug_str       0x0000f8        0x1a7 build/default/production/user.o
- .debug_str       0x00029f         0x20 build/default/production/lcd.o
+ .debug_str       0x0000f8        0x1b0 build/default/production/user.o
+ .debug_str       0x0002a8         0x28 build/default/production/lcd.o
 
 .debug_loc
  *(.debug_loc)
@@ -598,7 +597,7 @@ userdata
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x500
+                  0x000000        0x4ed
  *(.debug_pubnames)
  .debug_pubnames
                   0x000000         0x3c build/default/production/configuration_bits.o
@@ -613,7 +612,7 @@ userdata
  .debug_pubnames
                   0x0002ec        0x19e build/default/production/user.o
  .debug_pubnames
-                  0x00048a         0x76 build/default/production/lcd.o
+                  0x00048a         0x63 build/default/production/lcd.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -1221,7 +1220,7 @@ LOAD FGS
 LOAD data_init
 
 .debug_pubtypes
-                  0x000090        0x571
+                  0x000090        0x5a9
  .debug_pubtypes
                   0x000090         0x12 build/default/production/configuration_bits.o
  .debug_pubtypes
@@ -1233,58 +1232,58 @@ LOAD data_init
  .debug_pubtypes
                   0x000222         0x35 build/default/production/traps.o
  .debug_pubtypes
-                  0x000257        0x35a build/default/production/user.o
+                  0x000257        0x377 build/default/production/user.o
  .debug_pubtypes
-                  0x0005b1         0x50 build/default/production/lcd.o
+                  0x0005ce         0x6b build/default/production/lcd.o
 
 __c30_signature
-                  0x000602         0x8a
+                  0x00063a         0x8a
  __c30_signature
-                  0x000602          0x6 build/default/production/configuration_bits.o
+                  0x00063a          0x6 build/default/production/configuration_bits.o
  __c30_signature
-                  0x000608          0x6 build/default/production/interrupts.o
+                  0x000640          0x6 build/default/production/interrupts.o
  __c30_signature
-                  0x00060e          0x6 build/default/production/main.o
+                  0x000646          0x6 build/default/production/main.o
  __c30_signature
-                  0x000614          0x6 build/default/production/system.o
+                  0x00064c          0x6 build/default/production/system.o
  __c30_signature
-                  0x00061a          0x6 build/default/production/traps.o
+                  0x000652          0x6 build/default/production/traps.o
  __c30_signature
-                  0x000620          0x6 build/default/production/user.o
+                  0x000658          0x6 build/default/production/user.o
  __c30_signature
-                  0x000626          0x6 build/default/production/lcd.o
+                  0x00065e          0x6 build/default/production/lcd.o
  __c30_signature
-                  0x00062c          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o)
+                  0x000664          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o)
  __c30_signature
-                  0x000632          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libpic30-elf.a(data_init_standard.o)
+                  0x00066a          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libpic30-elf.a(data_init_standard.o)
  __c30_signature
-                  0x000638          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(addsf3.eo)
+                  0x000670          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(addsf3.eo)
  __c30_signature
-                  0x00063e          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(divsf3.eo)
+                  0x000676          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(divsf3.eo)
  __c30_signature
-                  0x000644          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(feqltle.eo)
+                  0x00067c          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(feqltle.eo)
  __c30_signature
-                  0x00064a          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fgtge.eo)
+                  0x000682          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fgtge.eo)
  __c30_signature
-                  0x000650          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fixsfsi.eo)
+                  0x000688          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fixsfsi.eo)
  __c30_signature
-                  0x000656          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fixunssfsi.eo)
+                  0x00068e          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fixunssfsi.eo)
  __c30_signature
-                  0x00065c          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(floatunsisf.eo)
+                  0x000694          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(floatunsisf.eo)
  __c30_signature
-                  0x000662          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fpack.eo)
+                  0x00069a          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fpack.eo)
  __c30_signature
-                  0x000668          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(funpack.eo)
+                  0x0006a0          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(funpack.eo)
  __c30_signature
-                  0x00066e          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(funpack2.eo)
+                  0x0006a6          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(funpack2.eo)
  __c30_signature
-                  0x000674          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(futil.eo)
+                  0x0006ac          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(futil.eo)
  __c30_signature
-                  0x00067a          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(mulsf3.eo)
+                  0x0006b2          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(mulsf3.eo)
  __c30_signature
-                  0x000680          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fcompare.eo)
+                  0x0006b8          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fcompare.eo)
  __c30_signature
-                  0x000686          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(floatundisf.eo)
+                  0x0006be          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(floatundisf.eo)
 
 .nbss               0x0800        0x104
  .nbss              0x0800        0x104 build/default/production/interrupts.o
@@ -1342,32 +1341,34 @@ __c30_signature
  .ndata             0x0970          0x2 build/default/production/lcd.o
                     0x0970                  _shift_count
 
-.text             0x0007ba        0x79a
- .text            0x0007ba        0x6f2 build/default/production/user.o
-                  0x0007ba                  _InitApp
-                  0x000826                  _ADC_Init
-                  0x00084a                  _PWM_Init
-                  0x0008cc                  _Capture_Init
-                  0x000904                  _InitTMR1
-                  0x000926                  _InitTMR3
-                  0x000948                  _Self_Test
-                  0x0009ae                  _stab
-                  0x000d28                  _ExtINT2_Init
-                  0x000d3e                  _Run_PWM
-                  0x000d50                  _PID_Update
- .text            0x000eac         0xa8 build/default/production/lcd.o
-                  0x000eac                  _delay
-                  0x000ec8                  _lcd_init
-                  0x000eee                  _lcd_init_write
-                  0x000f04                  _lcd_command
-                  0x000f1a                  _lcd_data
-                  0x000f30                  _lcd_puts
+.const              0x87ba         0x14 load address 0x0007ba  
+ .const             0x87ba         0x14 build/default/production/lcd.o
 
-.dinit            0x000f54         0x6e
- .dinit           0x000f54         0x6e data_init
+.text             0x0007ce        0x872
+ .text            0x0007ce        0x6bc build/default/production/user.o
+                  0x0007ce                  _InitApp
+                  0x000804                  _ADC_Init
+                  0x000828                  _PWM_Init
+                  0x0008aa                  _Capture_Init
+                  0x0008e2                  _InitTMR1
+                  0x000904                  _InitTMR3
+                  0x000926                  _Self_Test
+                  0x00098c                  _stab
+                  0x000d06                  _ExtINT2_Init
+                  0x000d1c                  _Run_PWM
+                  0x000d2e                  _PID_Update
+ .text            0x000e8a        0x1b6 build/default/production/lcd.o
+                  0x000e8a                  _delay
+                  0x000ebe                  _lcd_init
+                  0x000f1c                  _lcd_command
+                  0x000f9c                  _lcd_data
+                  0x00101c                  _lcd_puts
 
-.text             0x000fc2         0x10
- .text            0x000fc2          0xa build/default/production/main.o
-                  0x000fc2                  _main
- .text            0x000fcc          0x6 build/default/production/system.o
-                  0x000fcc                  _ConfigureOscillator
+.dinit            0x001040         0x6e
+ .dinit           0x001040         0x6e data_init
+
+.text             0x0010ae          0xe
+ .text            0x0010ae          0x8 build/default/production/main.o
+                  0x0010ae                  _main
+ .text            0x0010b6          0x6 build/default/production/system.o
+                  0x0010b6                  _ConfigureOscillator

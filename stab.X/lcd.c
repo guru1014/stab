@@ -6,86 +6,104 @@
  */
 #include "lcd.h"
 
-unsigned int shift_count=0;
+int shift_count=0;
 
 void delay(unsigned int j)
 {
+    unsigned int k=0;
                 unsigned int i=0;
-                for(i=0;i<j;i++);
+                for(i=0;i<j;i++)
+                {
+                    for(k=0;k<j;k++)
+                    {
+                        
+                    }
+                }
 }
 
 void lcd_init(void)
 {
+    int i=0;
+    //LCD_EN=1;
+   // LCD_RS=0;
+  //  while(1);
+    LCD_CLK=0;
+    LCD_DB=0;
+    LCD_RS=0;
+    LCD_EN=0;
+    _RB4=1;
+   
+
+    delay(lcd_delay);
+    delay(lcd_delay);
+    delay(lcd_delay);
+    delay(lcd_delay);
+
+     delay(lcd_delay);
+    delay(lcd_delay);
+    delay(lcd_delay);
+    delay(lcd_delay);
+
+   
+    
+_RB4=0;
+   
     lcd_command(0x38);
     delay(lcd_delay);
-    lcd_command(0x0E);
+    lcd_command(0x0C);
     delay(lcd_delay);
     lcd_command(0x01);
     delay(lcd_delay);
     lcd_command(0x06);
     delay(lcd_delay);
 
-              /*  delay(lcd_delay);
-                lcd_init_write(0x30);   //Special Sequence:Write Function Set.
-                delay(lcd_delay);
-                lcd_init_write(0x30);              //Special Sequence:Write Function Set.
-                delay(lcd_delay);
-                lcd_init_write(0x30);              //Special Sequence:Write Function Set.
-                delay(lcd_delay);
-                lcd_init_write(0x20);   // 0x20 for 4-bit
-                delay(lcd_delay);
-                lcd_command(0x28);         //Display Off, Cursor Off, Blink Off
-                delay(lcd_delay);
-                lcd_command(4);                                                // Clear Screen & Returns the Cursor Home
-                delay(lcd_delay);
-                lcd_command(0x85);
-                delay(lcd_delay);
-                lcd_command(6);           //Inc cursor to the right when writing and don?t shift screen
-                delay(lcd_delay);
-                lcd_command(1);
-                delay(lcd_delay);
-                */
+    lcd_puts("Hello");
+    lcd_puts("Good Morning");
+   
+ 
 }
-
-
-void lcd_init_write(unsigned char a)
+void lcd_command(unsigned char st)
 {
-    for(shift_count=8;shift_count<0;shift_count--)
-       {
        LCD_CLK=0;
-       LCD_DB=((a>>shift_count) & 0x01)?1:0;
+       LCD_DB=((st>>3) & 0x01)?1:0;
+       delay(shift_delay);
        LCD_CLK=1;
        delay(shift_delay);
+      for(shift_count=7;shift_count>=0;shift_count--)
+       {
+          if(shift_count!=3)
+          {
+       LCD_CLK=0;
+       LCD_DB=((st>>shift_count) & 0x01)?1:0;
+       delay(shift_delay);
+       LCD_CLK=1;
+       delay(shift_delay);
+          }
        }
     LCD_RS=0;
     LCD_EN=1;
     delay(lcd_delay);
     LCD_EN=0;
-}
-
-void lcd_command(unsigned char a)
-{
-    for(shift_count=8;shift_count<0;shift_count--)
-       {
-       LCD_CLK=0;
-       LCD_DB=((a>>shift_count) & 0x01)?1:0;
-       LCD_CLK=1;
-       delay(shift_delay);
-       }
-    LCD_RS=0;
-    LCD_EN=1;
-    delay(lcd_delay);
-    LCD_EN=0;
+   //  delay(lcd_delay);
 }
 
 void lcd_data(unsigned char a)
 {
-    for(shift_count=8;shift_count<0;shift_count--)
-       {
        LCD_CLK=0;
-       LCD_DB=((a>>shift_count) & 0x01)?1:0;
+       LCD_DB=((a>>3) & 0x01)?1:0;
+       delay(shift_delay);
        LCD_CLK=1;
        delay(shift_delay);
+      for(shift_count=7;shift_count>=0;shift_count--)
+       {
+          if(shift_count!=3)
+          {
+       LCD_CLK=0;
+       LCD_DB=((a>>shift_count) & 0x01)?1:0;
+       delay(shift_delay);
+       LCD_CLK=1;
+       delay(shift_delay);
+          }
        }
     LCD_RS=1;
     LCD_EN=1;
