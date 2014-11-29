@@ -558,8 +558,8 @@ void stab(void)
                  {
                      if(pid<0)pid=0;
                 duty = (((int32_t)(pid/1.5)));
-                if(duty>((2*PTPER)*0.85))
-                      duty=((2*PTPER)*0.85);
+                if(duty>((2*PTPER)*1))
+                      duty=((2*PTPER)*1);
 
                  }
                 else

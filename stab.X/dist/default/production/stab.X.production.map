@@ -1,4 +1,4 @@
-Microchip Technology Inc, vh‚d
+Microchip Technology Inc, vh‚
 
 Tool Name:
   c:\program files (x86)\microchip\xc16\v1.20\bin\bin\..\bin/elf-ld.exe
@@ -109,11 +109,11 @@ Program Memory  [Origin = 0x100, Length = 0x1efe]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x100               0x6ba           0xa17  (2583)
-.text                        0x7ba               0x734           0xace  (2766)
-.dinit                       0xeee                0x66            0x99  (153)
-.text                        0xf54                0x10            0x18  (24)
+.text                        0x7ba               0x6f2           0xa6b  (2667)
+.dinit                       0xeac                0x66            0x99  (153)
+.text                        0xf12                0x3c            0x5a  (90)
 
-                     Total program memory used (bytes):         0x1596  (5526) 46%
+                     Total program memory used (bytes):         0x1575  (5493) 46%
 
 
 Data Memory  [Origin = 0x800, Length = 0x200]
@@ -276,25 +276,25 @@ External Symbols in Program Memory (by address):
                   0x000926                  _InitTMR3
                   0x000948                  _Self_Test
                   0x0009ae                  _stab
-                  0x000d6a                  _ExtINT2_Init
-                  0x000d80                  _Run_PWM
-                  0x000d92                  _PID_Update
-                  0x000f54                  _main
-                  0x000f5e                  _ConfigureOscillator
+                  0x000d28                  _ExtINT2_Init
+                  0x000d3e                  _Run_PWM
+                  0x000d50                  _PID_Update
+                  0x000f12                  _ConfigureOscillator
+                  0x000f44                  _main
                   0xf8000a                  __FGS.sec
 
 External Symbols in Program Memory (by name):
 
                   0x000826                  _ADC_Init
                   0x0008cc                  _Capture_Init
-                  0x000f5e                  _ConfigureOscillator
-                  0x000d6a                  _ExtINT2_Init
+                  0x000f12                  _ConfigureOscillator
+                  0x000d28                  _ExtINT2_Init
                   0x0007ba                  _InitApp
                   0x000904                  _InitTMR1
                   0x000926                  _InitTMR3
-                  0x000d92                  _PID_Update
+                  0x000d50                  _PID_Update
                   0x00084a                  _PWM_Init
-                  0x000d80                  _Run_PWM
+                  0x000d3e                  _Run_PWM
                   0x000948                  _Self_Test
                   0x0001b6                  __ADCInterrupt
                   0x000426                  __AddressError
@@ -337,7 +337,7 @@ External Symbols in Program Memory (by name):
                   0x00068e                  __funpack2
                   0x000126                  __psv_init
                   0x000100                  __resetPRI
-                  0x000f54                  _main
+                  0x000f44                  _main
                   0x0009ae                  _stab
 
 Memory Configuration
@@ -528,33 +528,33 @@ userdata
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x3a65
+.debug_info       0x000000       0x3d48
  *(.debug_info)
  .debug_info      0x000000        0x10a build/default/production/configuration_bits.o
  .debug_info      0x00010a        0xd75 build/default/production/interrupts.o
  .debug_info      0x000e7f        0x154 build/default/production/main.o
- .debug_info      0x000fd3        0x12d build/default/production/system.o
- .debug_info      0x001100        0x302 build/default/production/traps.o
- .debug_info      0x001402       0x2663 build/default/production/user.o
+ .debug_info      0x000fd3        0x410 build/default/production/system.o
+ .debug_info      0x0013e3        0x302 build/default/production/traps.o
+ .debug_info      0x0016e5       0x2663 build/default/production/user.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x401
+.debug_abbrev     0x000000        0x474
  *(.debug_abbrev)
  .debug_abbrev    0x000000         0x30 build/default/production/configuration_bits.o
  .debug_abbrev    0x000030        0x17a build/default/production/interrupts.o
  .debug_abbrev    0x0001aa         0x54 build/default/production/main.o
- .debug_abbrev    0x0001fe         0x34 build/default/production/system.o
- .debug_abbrev    0x000232         0x7d build/default/production/traps.o
- .debug_abbrev    0x0002af        0x152 build/default/production/user.o
+ .debug_abbrev    0x0001fe         0xa7 build/default/production/system.o
+ .debug_abbrev    0x0002a5         0x7d build/default/production/traps.o
+ .debug_abbrev    0x000322        0x152 build/default/production/user.o
 
-.debug_line       0x000000        0xfc1
+.debug_line       0x000000       0x103c
  *(.debug_line)
  .debug_line      0x000000         0x7f build/default/production/configuration_bits.o
  .debug_line      0x00007f        0x3de build/default/production/interrupts.o
  .debug_line      0x00045d         0xae build/default/production/main.o
- .debug_line      0x00050b         0x4a build/default/production/system.o
- .debug_line      0x000555        0x1b4 build/default/production/traps.o
- .debug_line      0x000709        0x8b8 build/default/production/user.o
+ .debug_line      0x00050b         0xc5 build/default/production/system.o
+ .debug_line      0x0005d0        0x1b4 build/default/production/traps.o
+ .debug_line      0x000784        0x8b8 build/default/production/user.o
 
 .debug_frame      0x000000        0x234
  *(.debug_frame)
@@ -564,11 +564,12 @@ userdata
  .debug_frame     0x0000cc         0xa4 build/default/production/traps.o
  .debug_frame     0x000170         0xc4 build/default/production/user.o
 
-.debug_str        0x000000        0x29f
+.debug_str        0x000000        0x2b3
  *(.debug_str)
  .debug_str       0x000000         0xec build/default/production/interrupts.o
- .debug_str       0x0000ec          0xc build/default/production/traps.o
- .debug_str       0x0000f8        0x1a7 build/default/production/user.o
+ .debug_str       0x0000ec         0x14 build/default/production/system.o
+ .debug_str       0x000100          0xc build/default/production/traps.o
+ .debug_str       0x00010c        0x1a7 build/default/production/user.o
 
 .debug_loc
  *(.debug_loc)
@@ -1196,7 +1197,7 @@ LOAD FGS
 LOAD data_init
 
 .debug_pubtypes
-                  0x000078        0x521
+                  0x000078        0x55f
  .debug_pubtypes
                   0x000078         0x12 build/default/production/configuration_bits.o
  .debug_pubtypes
@@ -1204,58 +1205,58 @@ LOAD data_init
  .debug_pubtypes
                   0x0001cd         0x2b build/default/production/main.o
  .debug_pubtypes
-                  0x0001f8         0x12 build/default/production/system.o
+                  0x0001f8         0x50 build/default/production/system.o
  .debug_pubtypes
-                  0x00020a         0x35 build/default/production/traps.o
+                  0x000248         0x35 build/default/production/traps.o
  .debug_pubtypes
-                  0x00023f        0x35a build/default/production/user.o
+                  0x00027d        0x35a build/default/production/user.o
 
 __c30_signature
-                  0x00059a         0x84
+                  0x0005d8         0x84
  __c30_signature
-                  0x00059a          0x6 build/default/production/configuration_bits.o
+                  0x0005d8          0x6 build/default/production/configuration_bits.o
  __c30_signature
-                  0x0005a0          0x6 build/default/production/interrupts.o
+                  0x0005de          0x6 build/default/production/interrupts.o
  __c30_signature
-                  0x0005a6          0x6 build/default/production/main.o
+                  0x0005e4          0x6 build/default/production/main.o
  __c30_signature
-                  0x0005ac          0x6 build/default/production/system.o
+                  0x0005ea          0x6 build/default/production/system.o
  __c30_signature
-                  0x0005b2          0x6 build/default/production/traps.o
+                  0x0005f0          0x6 build/default/production/traps.o
  __c30_signature
-                  0x0005b8          0x6 build/default/production/user.o
+                  0x0005f6          0x6 build/default/production/user.o
  __c30_signature
-                  0x0005be          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o)
+                  0x0005fc          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o)
  __c30_signature
-                  0x0005c4          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libpic30-elf.a(data_init_standard.o)
+                  0x000602          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libpic30-elf.a(data_init_standard.o)
  __c30_signature
-                  0x0005ca          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(addsf3.eo)
+                  0x000608          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(addsf3.eo)
  __c30_signature
-                  0x0005d0          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(divsf3.eo)
+                  0x00060e          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(divsf3.eo)
  __c30_signature
-                  0x0005d6          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(feqltle.eo)
+                  0x000614          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(feqltle.eo)
  __c30_signature
-                  0x0005dc          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fgtge.eo)
+                  0x00061a          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fgtge.eo)
  __c30_signature
-                  0x0005e2          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fixsfsi.eo)
+                  0x000620          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fixsfsi.eo)
  __c30_signature
-                  0x0005e8          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fixunssfsi.eo)
+                  0x000626          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fixunssfsi.eo)
  __c30_signature
-                  0x0005ee          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(floatunsisf.eo)
+                  0x00062c          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(floatunsisf.eo)
  __c30_signature
-                  0x0005f4          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fpack.eo)
+                  0x000632          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fpack.eo)
  __c30_signature
-                  0x0005fa          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(funpack.eo)
+                  0x000638          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(funpack.eo)
  __c30_signature
-                  0x000600          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(funpack2.eo)
+                  0x00063e          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(funpack2.eo)
  __c30_signature
-                  0x000606          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(futil.eo)
+                  0x000644          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(futil.eo)
  __c30_signature
-                  0x00060c          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(mulsf3.eo)
+                  0x00064a          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(mulsf3.eo)
  __c30_signature
-                  0x000612          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fcompare.eo)
+                  0x000650          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fcompare.eo)
  __c30_signature
-                  0x000618          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(floatundisf.eo)
+                  0x000656          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(floatundisf.eo)
 
 .nbss               0x0800        0x104
  .nbss              0x0800        0x104 build/default/production/interrupts.o
@@ -1311,8 +1312,8 @@ __c30_signature
  .ndata             0x096c          0x4 build/default/production/main.o
                     0x096c                  _period
 
-.text             0x0007ba        0x734
- .text            0x0007ba        0x734 build/default/production/user.o
+.text             0x0007ba        0x6f2
+ .text            0x0007ba        0x6f2 build/default/production/user.o
                   0x0007ba                  _InitApp
                   0x000826                  _ADC_Init
                   0x00084a                  _PWM_Init
@@ -1321,15 +1322,15 @@ __c30_signature
                   0x000926                  _InitTMR3
                   0x000948                  _Self_Test
                   0x0009ae                  _stab
-                  0x000d6a                  _ExtINT2_Init
-                  0x000d80                  _Run_PWM
-                  0x000d92                  _PID_Update
+                  0x000d28                  _ExtINT2_Init
+                  0x000d3e                  _Run_PWM
+                  0x000d50                  _PID_Update
 
-.dinit            0x000eee         0x66
- .dinit           0x000eee         0x66 data_init
+.dinit            0x000eac         0x66
+ .dinit           0x000eac         0x66 data_init
 
-.text             0x000f54         0x10
- .text            0x000f54          0xa build/default/production/main.o
-                  0x000f54                  _main
- .text            0x000f5e          0x6 build/default/production/system.o
-                  0x000f5e                  _ConfigureOscillator
+.text             0x000f12         0x3c
+ .text            0x000f12         0x32 build/default/production/system.o
+                  0x000f12                  _ConfigureOscillator
+ .text            0x000f44          0xa build/default/production/main.o
+                  0x000f44                  _main
