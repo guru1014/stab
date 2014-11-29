@@ -75,7 +75,7 @@ unsigned int ADResult4 = 0;
 #define OLLED _RC13
 #define FLTLED _RE8
 
-#define SAMPLE 8
+#define SAMPLE 4
 #define SAMPLE1 4
 
 #define BUZZER _RC14
