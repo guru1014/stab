@@ -42,7 +42,7 @@
 /******************************************************************************/
 /* User Function Prototypes                                                   */
 /******************************************************************************/
-void stab(void);
+
 /* TODO User level functions prototypes (i.e. InitApp) go here */
 
 void InitApp(void); /* I/O and Peripheral Initialization */
@@ -50,7 +50,7 @@ void Run_PWM(void);
 void Read_ADC(void);
 void Capture_Init(void);
 void ExtINT2_Init(void);
-
+volatile void stab(void);
 
 extern uint32_t inputvoltage;
 extern uint32_t outputvoltage;

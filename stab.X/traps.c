@@ -95,5 +95,6 @@ void __attribute__((interrupt,no_auto_psv)) _AltMathError(void)
 void __attribute__((interrupt,no_auto_psv)) _DefaultInterrupt(void)
 {
         //while(1);
+    RCON=0;
 }
 

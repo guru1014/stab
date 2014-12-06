@@ -399,7 +399,7 @@ void Self_Test(void)
 }
 
 
-void stab(void)
+volatile void stab(void)
 {
     if(sec_chk)
     {
@@ -553,25 +553,36 @@ void stab(void)
                 PID_Update();
             //    PDC1=((2*PTPER)*.50);
              //   PDC2=((2*PTPER)*.50);
-     
+              //  NORMALLED=~NORMALLED;
                  if(Bst_flag==true)
                  {
-                     if(pid<0)pid=0;
+                     if(pid<=0){
+                         pid=0;
+                         integral_error=0;
+                         propational=0;
+        //                 NORMALLED=1;
+                     }
                 duty = (((int32_t)(pid/1.5)));
-                if(duty>((2*PTPER)*1))
+                if(duty>=((2*PTPER)*1))
                       duty=((2*PTPER)*1);
 
                  }
                 else
                 {
                  //duty = (int32_t)((2*PTPER)-(pid/1.5));
-                     if(pid>0)pid=0;
+                     if(pid>=0)
+                     {
+                         pid=0;
+    //                     integral_error=0;
+      //                   propational=0;
+      //                   NORMALLED=1;
+                     }
                      duty = (((int32_t)(-pid/1.5)));
-                 if(duty>((1*PTPER)))
+                 if(duty>=((1*PTPER)))
                       duty=((1*PTPER));
 
                 }
-               if(duty<((2*PTPER)*0.0))
+               if(duty<=((2*PTPER)*0.0))
                       duty=((2*PTPER)*0.0);
                //PDC2=PDC2+2;//-pid;
           //      if(Bst_flag==true)
@@ -634,7 +645,7 @@ PTCONbits.PTEN = 1;     /* Turn ON PWM module */
 void PID_Update(void)
 {
    //pid = 0;
-   current_value = (outputvoltage>>SAMPLE1);
+   current_value = (outputvoltage>>SAMPLE);
   // current_value=0;
    error =setpoint - current_value;
 
@@ -651,23 +662,23 @@ void PID_Update(void)
    pid =( propational + integral);// + derivative);
 
     
-   if(pid<0)
+   if(pid<=0)
    {
-       //NORMALLED = 1;
+       NORMALLED = 1;
        //OLLED =0;
       
    }
    else
    {
        //OLLED =1;
-      // NORMALLED =0;
+       NORMALLED =0;
       
    }
-   if(pid > ((2*PTPER)*1.5))
+   if(pid >=((2*PTPER)*1.5))
    {
      pid =((2*PTPER)*1.5);
    }
-   else if(pid < -((2*PTPER)*1.5))
+   else if(pid <= -((2*PTPER)*1.5))
    {
        pid =-((2*PTPER)*1.5);
    }
