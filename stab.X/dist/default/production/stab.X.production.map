@@ -1,4 +1,4 @@
-Microchip Technology Inc, vh‚~
+Microchip Technology Inc, vh‚x
 
 Tool Name:
   c:\program files (x86)\microchip\xc16\v1.20\bin\bin\..\bin/elf-ld.exe
@@ -109,11 +109,11 @@ Program Memory  [Origin = 0x100, Length = 0x1efe]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x100               0x6d4           0xa3e  (2622)
-.text                        0x7d4               0x712           0xa9b  (2715)
-.dinit                       0xee6                0x66            0x99  (153)
-.text                        0xf4c                0x48            0x6c  (108)
+.text                        0x7d4               0x726           0xab9  (2745)
+.dinit                       0xefa                0x66            0x99  (153)
+.text                        0xf60                0x48            0x6c  (108)
 
-                     Total program memory used (bytes):         0x15de  (5598) 47%
+                     Total program memory used (bytes):         0x15fc  (5628) 47%
 
 
 Data Memory  [Origin = 0x800, Length = 0x200]
@@ -276,25 +276,25 @@ External Symbols in Program Memory (by address):
                   0x000940                  _InitTMR3
                   0x000962                  _Self_Test
                   0x0009c8                  _stab
-                  0x000d4e                  _ExtINT2_Init
-                  0x000d64                  _Run_PWM
-                  0x000d76                  _PID_Update
-                  0x000f4c                  _ConfigureOscillator
-                  0x000f8a                  _main
+                  0x000d62                  _ExtINT2_Init
+                  0x000d78                  _Run_PWM
+                  0x000d8a                  _PID_Update
+                  0x000f60                  _ConfigureOscillator
+                  0x000f9e                  _main
                   0xf8000a                  __FGS.sec
 
 External Symbols in Program Memory (by name):
 
                   0x000840                  _ADC_Init
                   0x0008e6                  _Capture_Init
-                  0x000f4c                  _ConfigureOscillator
-                  0x000d4e                  _ExtINT2_Init
+                  0x000f60                  _ConfigureOscillator
+                  0x000d62                  _ExtINT2_Init
                   0x0007d4                  _InitApp
                   0x00091e                  _InitTMR1
                   0x000940                  _InitTMR3
-                  0x000d76                  _PID_Update
+                  0x000d8a                  _PID_Update
                   0x000864                  _PWM_Init
-                  0x000d64                  _Run_PWM
+                  0x000d78                  _Run_PWM
                   0x000962                  _Self_Test
                   0x0001b6                  __ADCInterrupt
                   0x000428                  __AddressError
@@ -337,7 +337,7 @@ External Symbols in Program Memory (by name):
                   0x0006a8                  __funpack2
                   0x000126                  __psv_init
                   0x000100                  __resetPRI
-                  0x000f8a                  _main
+                  0x000f9e                  _main
                   0x0009c8                  _stab
 
 Memory Configuration
@@ -1312,8 +1312,8 @@ __c30_signature
  .ndata             0x096c          0x4 build/default/production/main.o
                     0x096c                  _period
 
-.text             0x0007d4        0x712
- .text            0x0007d4        0x712 build/default/production/user.o
+.text             0x0007d4        0x726
+ .text            0x0007d4        0x726 build/default/production/user.o
                   0x0007d4                  _InitApp
                   0x000840                  _ADC_Init
                   0x000864                  _PWM_Init
@@ -1322,15 +1322,15 @@ __c30_signature
                   0x000940                  _InitTMR3
                   0x000962                  _Self_Test
                   0x0009c8                  _stab
-                  0x000d4e                  _ExtINT2_Init
-                  0x000d64                  _Run_PWM
-                  0x000d76                  _PID_Update
+                  0x000d62                  _ExtINT2_Init
+                  0x000d78                  _Run_PWM
+                  0x000d8a                  _PID_Update
 
-.dinit            0x000ee6         0x66
- .dinit           0x000ee6         0x66 data_init
+.dinit            0x000efa         0x66
+ .dinit           0x000efa         0x66 data_init
 
-.text             0x000f4c         0x48
- .text            0x000f4c         0x3e build/default/production/system.o
-                  0x000f4c                  _ConfigureOscillator
- .text            0x000f8a          0xa build/default/production/main.o
-                  0x000f8a                  _main
+.text             0x000f60         0x48
+ .text            0x000f60         0x3e build/default/production/system.o
+                  0x000f60                  _ConfigureOscillator
+ .text            0x000f9e          0xa build/default/production/main.o
+                  0x000f9e                  _main

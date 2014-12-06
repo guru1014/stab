@@ -572,7 +572,7 @@ volatile void stab(void)
                  //duty = (int32_t)((2*PTPER)-(pid/1.5));
                      if(pid>=0)
                      {
-                         pid=0;
+                         pid =-((1*PTPER)*1.5);;
     //                     integral_error=0;
       //                   propational=0;
       //                   NORMALLED=1;
