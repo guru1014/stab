@@ -8,6 +8,7 @@
 #include <dsp.h>
 #include <libq.h>
 #include "user.h"            /* variables/params used by user.c               */
+#include "lcd.h"
 
 /******************************************************************************/
 /* User Functions                                                             */
@@ -98,7 +99,7 @@ void InitApp(void)
         {
            // NORMALLED=1;
             sw=true;
-            BUZZER=0;
+          //  BUZZER=0;
             PTCONbits.PTEN = 1;
         }
     }
@@ -108,11 +109,12 @@ void InitApp(void)
         {
          //   NORMALLED=0;
             sw=false;
-            BUZZER=1;
+          //  BUZZER=1;
 
             PTCONbits.PTEN = 1;
         }
     }
+    sw=true;
     /* Initialize peripherals */
 }
 
@@ -381,7 +383,7 @@ void Self_Test(void)
     //BSTLED=0;
         //for(k=0;k<2;k++)
         {
-        OLLED=1;
+       // OLLED=1;
         sec_chk=false;
      while(sec_chk==false){}
         }
@@ -392,19 +394,21 @@ void Self_Test(void)
         sec_chk=false;
      while(sec_chk==false){}
       }
-        BKLED=0;BSTLED=0;NORMALLED=0;OLLED=0;
+        BKLED=0;BSTLED=0;NORMALLED=0;//OLLED=0;
 
 
 
 }
 
 
-volatile void stab(void)
+void stab(void)
 {
     if(sec_chk)
     {
         sec_chk=false;
-        OLLED=~OLLED;
+        //OLLED=~OLLED;
+        lcd_command(0x02);
+        lcd_update();
     }
     if(sw==true)
     {
@@ -480,14 +484,14 @@ volatile void stab(void)
                 BSTLED=0;
                 NORMALLED=1;
                 bypass_chk=false;
-                // PTCONbits.PTEN = 0;     /* Turn ON PWM module */
+                // PTCONbits.PTEN = 0;     
                 //OVDCONbits.POVD1L = 0;
                 //OVDCONbits.POVD2L = 0;
                 //return;
                  //}
                 
 
-            //}
+            //}*/
         }
         else if(((inputvoltage>>SAMPLE)<=LowInVolt)||((inputvoltage>>SAMPLE)>=MaxInVolt))  //Over voltage and UNder voltage for input
         {
@@ -516,7 +520,7 @@ volatile void stab(void)
                 pid =0;
      
             //NORMALLED=0;
-            OLLED=1;
+          //  OLLED=1;
         //    OVDCONbits.POVD1L = 1;
           //  OVDCONbits.POVD2L = 1;
             OVDCONbits.POVD1L = 0;
@@ -684,4 +688,42 @@ void PID_Update(void)
    }
    
    last = error;
+}
+void lcd_update(void)
+{
+    char s1[7];
+    uint32_t tmp;
+  /*  s1[5]=0;
+   // tmp=(uint32_t)(outputvoltage>>SAMPLE);
+    tmp = check_cou;
+    s1[4]=((long)tmp%10)+48;
+   // tmp=tmp/10;
+    s1[3]='.';
+    tmp=tmp/10;
+    s1[2]=((long)tmp%10)+48;
+    tmp=tmp/10;
+    s1[1]=((long)tmp%10)+48;
+    tmp=tmp/10;
+    s1[0]=((long)tmp%10)+48;*/
+      s1[6]=0;
+   // tmp=(uint32_t)(outputvoltage>>SAMPLE);
+    tmp = check_cou;
+    s1[5]=((long)tmp%10)+48;
+    tmp=tmp/10;
+    s1[4]=((long)tmp%10)+48;
+    tmp=tmp/10;
+    s1[3]=((long)tmp%10)+48;
+    tmp=tmp/10;
+    s1[2]=((long)tmp%10)+48;
+    tmp=tmp/10;
+    s1[1]=((long)tmp%10)+48;
+    tmp=tmp/10;
+    s1[0]=((long)tmp%10)+48;
+    //lcd_command(0x01);
+    lcd_command(0x02);
+    lcd_command(0x80);
+    lcd_puts("Output Voltage ");
+    lcd_command(0xc0);
+    lcd_puts(s1);
+    lcd_puts(" V");
 }

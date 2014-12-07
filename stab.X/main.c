@@ -8,6 +8,7 @@
 
 #include "system.h"        /* System funct/params, like osc/peripheral config */
 #include "user.h"          /* User funct/params, such as InitApp              */
+#include "lcd.h"
 
 /******************************************************************************/
 /* Global Variable Declaration                                                */
@@ -30,9 +31,12 @@ int16_t main(void)
     InitApp();
 
     /* TODO <INSERT USER APPLICATION CODE HERE> */
-
+    lcd_init();
+    lcd_puts("Hello");
+   // lcd_puts("Hi");
     while(1)
     {
+       
      stab();
     }
 }

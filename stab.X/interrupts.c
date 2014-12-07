@@ -72,16 +72,16 @@ unsigned int ADResult4 = 0;
 #define BKLED _RB4
 #define BSTLED  _RB5
 #define NORMALLED _RD0
-#define OLLED _RC13
+//#define OLLED _RC13
 #define FLTLED _RE8
 
-#define SAMPLE 4
+#define SAMPLE 7
 #define SAMPLE1 4
 
-#define BUZZER _RC14
+//#define BUZZER _RC14
 uint32_t inputvoltage=0;
 uint32_t outputvoltage=0;
-static uint32_t out1[20],out2[20],in1[20];
+//static uint32_t out1[20],out2[20],in1[20];
 uint32_t outputcurrent=0;
 static uint16_t timePeriod[10];
 uint16_t i=0,j=0;
@@ -95,7 +95,7 @@ uint16_t seccount=0,mseccount=0;
 volatile bool dutycycle_chk=false;
 volatile bool sec_chk=false;
 volatile bool sw=false;
-
+volatile uint16_t adc_cou=0,check_cou=0;
 //Functions and Variables with Global Scope:
 
 void __attribute__((__interrupt__)) _ADCInterrupt(void);
@@ -134,22 +134,22 @@ void __attribute__((interrupt, no_auto_psv)) _FLTAInterrupt(void)
 void __attribute__((interrupt, no_auto_psv)) _ADCInterrupt(void)
 {
 	//ADResult1 = ADCBUF0;
-    inputvoltage = inputvoltage - (inputvoltage>>SAMPLE)+(uint32_t)ADCBUF1;
-    outputvoltage =outputvoltage - (outputvoltage>>SAMPLE1)+ (uint32_t)ADCBUF2;
-    outputcurrent = outputcurrent - (outputcurrent>>SAMPLE)+(uint32_t)ADCBUF3;
+    inputvoltage = inputvoltage - (uint32_t)(inputvoltage>>SAMPLE)+(uint32_t)ADCBUF1;
+    outputvoltage =outputvoltage - (uint32_t)(outputvoltage>>SAMPLE1)+ (uint32_t)ADCBUF2;
+    outputcurrent = outputcurrent - (uint32_t)(outputcurrent>>SAMPLE)+(uint32_t)ADCBUF3;
     //dcdc_avg1= dcdc_avg1 - (dcdc_avg1>>DCDCVOLT_AVG) + DCDC_Out1;
     //outputvoltage >>=2;
-    in1[j]=inputvoltage>>SAMPLE;
-    out1[j]=outputvoltage>>SAMPLE1;
-    out2[j]=outputcurrent>>SAMPLE;
-    j++;
-    if(j>19)
-        j=0;
+   // in1[j]=inputvoltage>>SAMPLE;
+  //  out1[j]=outputvoltage>>SAMPLE1;
+  //  out2[j]=outputcurrent>>SAMPLE;
+  //  j++;
+ //   if(j>19)
+ //       j=0;
     //outputcurrent = ADCBUF3;
 	ADResult2 = ADCBUF0;
   //      ADResult3 = ADCBUF2;
        // ADResult4 = ADCBUF3;
-
+        adc_cou++;
         //Clear the A/D Interrupt flag bit or else the CPU will
         //keep vectoring back to the ISR
         IFS0bits.ADIF = 0;
@@ -165,7 +165,7 @@ void __attribute__((__interrupt__, no_auto_psv)) _CNInterrupt(void)
         {
            // NORMALLED=1;
             sw=true;
-            BUZZER=0;
+            //BUZZER=0;
             PTCONbits.PTEN = 1;
         }
     }
@@ -175,12 +175,12 @@ void __attribute__((__interrupt__, no_auto_psv)) _CNInterrupt(void)
         {
          //   NORMALLED=0;
             sw=false;
-            BUZZER=1;
+          //  BUZZER=1;
 
             PTCONbits.PTEN = 1;
         }
     }
-
+    sw=true;
     _CNIF=0;
 }
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)
@@ -202,6 +202,8 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)
         {
             seccount=0;
             sec_chk=true;
+            check_cou=adc_cou;
+            adc_cou=0;
         }
     }
     IFS0bits.T1IF=0;
@@ -244,13 +246,13 @@ timePeriod[i] = (PR3 - t1) + t2;
     if(PWM_Halfcycle_chk & !Prev_Halfcycle_chk)
   {
         Prev_Halfcycle_chk=true;
-      //if(!PTCONbits.PTEN) PTCONbits.PTEN = 1;     /* Turn ON PWM module */
+      //if(!PTCONbits.PTEN) PTCONbits.PTEN = 1;     
   //    OVDCONbits.POVD1L = 0;    //override
     //OVDCONbits.POVD2L = 1;    //override
       //OVDCONbits.POVD1L =1;
       //OVDCONbits.POVD2L = 1;
     //  _PEN1L = 1;
-    //  _PEN2L = 1;
+    //  _PEN2L = 1;*/
  /* }
   else if(!PWM_Halfcycle_chk & Prev_Halfcycle_chk)
   {
@@ -266,7 +268,7 @@ timePeriod[i] = (PR3 - t1) + t2;
     if(PWM_Halfcycle_chk & !Prev_Halfcycle_chk)
   {
 Prev_Halfcycle_chk=true;
-      //if(!PTCONbits.PTEN) PTCONbits.PTEN = 1;     /* Turn ON PWM module */
+      //if(!PTCONbits.PTEN) PTCONbits.PTEN = 1;  */
    /*   OVDCONbits.POVD1L = 1;    //override
       OVDCONbits.POVD2L = 0;    //override
       //OVDCONbits.POVD1L =1;

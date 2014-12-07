@@ -28,7 +28,7 @@ __builtin functions. */
 /* TODO Add clock switching code if appropriate.  An example stub is below.   */
 void ConfigureOscillator(void)
 {
-#if 1
+#if 0
         /* Disable Watch Dog Timer */
         RCONbits.SWDTEN = 0;
 
@@ -39,7 +39,7 @@ void ConfigureOscillator(void)
 
         /* Wait for Clock switch to occur */
         /* Wait for PLL to lock, if PLL is used */
-         while(OSCCONbits.LOCK != 1); 
+      //   while(OSCCONbits.LOCK != 1);
 #endif
 
 }
