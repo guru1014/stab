@@ -1,4 +1,4 @@
-Microchip Technology Inc, v€‚g
+Microchip Technology Inc, v€‚
 
 Tool Name:
   c:\program files (x86)\microchip\xc16\v1.20\bin\bin\..\bin/elf-ld.exe
@@ -576,7 +576,7 @@ userdata
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x3e4a
+.debug_info       0x000000       0x3f1e
  *(.debug_info)
  .debug_info      0x000000        0x10a build/default/production/configuration_bits.o
  .debug_info      0x00010a        0xd12 build/default/production/interrupts.o
@@ -584,7 +584,7 @@ userdata
  .debug_info      0x000f70        0x12d build/default/production/system.o
  .debug_info      0x00109d        0x325 build/default/production/traps.o
  .debug_info      0x0013c2       0x276c build/default/production/user.o
- .debug_info      0x003b2e        0x31c build/default/production/lcd.o
+ .debug_info      0x003b2e        0x3f0 build/default/production/lcd.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x536
@@ -616,12 +616,12 @@ userdata
  .debug_frame     0x000170         0xf4 build/default/production/user.o
  .debug_frame     0x000264         0x64 build/default/production/lcd.o
 
-.debug_str        0x000000        0x2c2
+.debug_str        0x000000        0x2cb
  *(.debug_str)
  .debug_str       0x000000         0xec build/default/production/interrupts.o
  .debug_str       0x0000ec          0xc build/default/production/traps.o
  .debug_str       0x0000f8        0x1ab build/default/production/user.o
- .debug_str       0x0002a3         0x1f build/default/production/lcd.o
+ .debug_str       0x0002a3         0x28 build/default/production/lcd.o
 
 .debug_loc
  *(.debug_loc)
@@ -1253,7 +1253,7 @@ LOAD FGS
 LOAD data_init
 
 .debug_pubtypes
-                  0x000090        0x531
+                  0x000090        0x54e
  .debug_pubtypes
                   0x000090         0x12 build/default/production/configuration_bits.o
  .debug_pubtypes
@@ -1267,62 +1267,62 @@ LOAD data_init
  .debug_pubtypes
                   0x000238        0x33b build/default/production/user.o
  .debug_pubtypes
-                  0x000573         0x4e build/default/production/lcd.o
+                  0x000573         0x6b build/default/production/lcd.o
 
 __c30_signature
-                  0x0005c2         0x9c
+                  0x0005de         0x9c
  __c30_signature
-                  0x0005c2          0x6 build/default/production/configuration_bits.o
+                  0x0005de          0x6 build/default/production/configuration_bits.o
  __c30_signature
-                  0x0005c8          0x6 build/default/production/interrupts.o
+                  0x0005e4          0x6 build/default/production/interrupts.o
  __c30_signature
-                  0x0005ce          0x6 build/default/production/main.o
+                  0x0005ea          0x6 build/default/production/main.o
  __c30_signature
-                  0x0005d4          0x6 build/default/production/system.o
+                  0x0005f0          0x6 build/default/production/system.o
  __c30_signature
-                  0x0005da          0x6 build/default/production/traps.o
+                  0x0005f6          0x6 build/default/production/traps.o
  __c30_signature
-                  0x0005e0          0x6 build/default/production/user.o
+                  0x0005fc          0x6 build/default/production/user.o
  __c30_signature
-                  0x0005e6          0x6 build/default/production/lcd.o
+                  0x000602          0x6 build/default/production/lcd.o
  __c30_signature
-                  0x0005ec          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o)
+                  0x000608          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o)
  __c30_signature
-                  0x0005f2          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libpic30-elf.a(data_init_standard.o)
+                  0x00060e          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libpic30-elf.a(data_init_standard.o)
  __c30_signature
-                  0x0005f8          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(addsf3.eo)
+                  0x000614          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(addsf3.eo)
  __c30_signature
-                  0x0005fe          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(divsf3.eo)
+                  0x00061a          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(divsf3.eo)
  __c30_signature
-                  0x000604          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(feqltle.eo)
+                  0x000620          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(feqltle.eo)
  __c30_signature
-                  0x00060a          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fgtge.eo)
+                  0x000626          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fgtge.eo)
  __c30_signature
-                  0x000610          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fixsfsi.eo)
+                  0x00062c          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fixsfsi.eo)
  __c30_signature
-                  0x000616          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fixunssfsi.eo)
+                  0x000632          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fixunssfsi.eo)
  __c30_signature
-                  0x00061c          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(floatunsisf.eo)
+                  0x000638          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(floatunsisf.eo)
  __c30_signature
-                  0x000622          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fpack.eo)
+                  0x00063e          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fpack.eo)
  __c30_signature
-                  0x000628          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(funpack.eo)
+                  0x000644          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(funpack.eo)
  __c30_signature
-                  0x00062e          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(funpack2.eo)
+                  0x00064a          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(funpack2.eo)
  __c30_signature
-                  0x000634          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(futil.eo)
+                  0x000650          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(futil.eo)
  __c30_signature
-                  0x00063a          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(modsi3.eo)
+                  0x000656          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(modsi3.eo)
  __c30_signature
-                  0x000640          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(mulsf3.eo)
+                  0x00065c          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(mulsf3.eo)
  __c30_signature
-                  0x000646          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(udivsi3.eo)
+                  0x000662          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(udivsi3.eo)
  __c30_signature
-                  0x00064c          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(umodsi3.eo)
+                  0x000668          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(umodsi3.eo)
  __c30_signature
-                  0x000652          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fcompare.eo)
+                  0x00066e          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fcompare.eo)
  __c30_signature
-                  0x000658          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(floatundisf.eo)
+                  0x000674          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(floatundisf.eo)
 
 .ndata              0x0800         0x6a
  .ndata             0x0800         0x3e build/default/production/user.o
