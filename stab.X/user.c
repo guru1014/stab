@@ -46,6 +46,7 @@ unsigned int bstcount=DELAYCOUNT;
 unsigned int bkcount=DELAYCOUNT;
 unsigned int overcount =DELAYCOUNT;
 unsigned int duty=0;
+unsigned int dcou=0,ddelay=0;
 //float e[20],i=0;
 //
 void PID_Update(void);
@@ -127,7 +128,7 @@ ADCON1 = 0x00EC; // SIMSAM bit = 1 implies ...
 // SSRC = 111 for 3Tad sample time
 ADCHS = 0x0003; // Connect AN3 as CH0 input
 ADCSSL = 0;
-ADCON3 = 0x0302; // Auto Sampling 3 Tad, Tad = internal 2 Tcy
+ADCON3 = 0x0A08; // Auto Sampling f Tad, Tad = internal 2 Tcy
 ADCON2 = 0x030C; // CHPS = 1x implies simultaneous ...
  IFS0bits.ADIF = 0;
 
@@ -407,16 +408,20 @@ void stab(void)
     {
         sec_chk=false;
         //OLLED=~OLLED;
-        lcd_command(0x02);
-        lcd_update();
+        if(++ddelay==3)
+        {
+            ddelay=0;
+        display(++dcou);
+        if(dcou==3)dcou=0;
+        }
     }
     if(sw==true)
     {
         if(sec_chk==false)
         {
-        if(((inputvoltage>>SAMPLE)>=LowInVolt)&&((inputvoltage>>SAMPLE)<=MaxInVolt))
+        if(((inputvoltage>>avgcou)>=LowInVolt)&&((inputvoltage>>avgcou)<=MaxInVolt))
         {
-             if (((inputvoltage>>SAMPLE)<=SetInVolt1)&&((inputvoltage>>SAMPLE)>=LowInVolt))
+             if (((inputvoltage>>avgcou)<=SetInVolt1)&&((inputvoltage>>avgcou)>=LowInVolt))
             {
                  bstcount--;
                  if(bstcount==0)
@@ -441,7 +446,7 @@ void stab(void)
                 PWM_BstBk_chk=1;
                  }
             }
-             else if (((inputvoltage>>SAMPLE)>=SetInVolt2)&&((inputvoltage>>SAMPLE)<=MaxInVolt))
+             else if (((inputvoltage>>avgcou)>=SetInVolt2)&&((inputvoltage>>avgcou)<=MaxInVolt))
             {
                  bkcount--;
                  if(bkcount==0)
@@ -467,7 +472,7 @@ void stab(void)
                 PWM_BstBk_chk=0;
                  }
             }
-             /*else if (((inputvoltage>>SAMPLE)>=SetInVolt1)&&((inputvoltage>>SAMPLE)<=SetInVolt2))  //Normal mode
+             /*else if (((inputvoltage>>avgcou)>=SetInVolt1)&&((inputvoltage>>avgcou)<=SetInVolt2))  //Normal mode
             {
                 normalcount--;
                  if(normalcount==0)
@@ -493,7 +498,7 @@ void stab(void)
 
             //}*/
         }
-        else if(((inputvoltage>>SAMPLE)<=LowInVolt)||((inputvoltage>>SAMPLE)>=MaxInVolt))  //Over voltage and UNder voltage for input
+        else if(((inputvoltage>>avgcou)<=LowInVolt)||((inputvoltage>>avgcou)>=MaxInVolt))  //Over voltage and UNder voltage for input
         {
                 overcount--;
                  if(overcount==0)
@@ -550,10 +555,11 @@ void stab(void)
                return;
     }
     //if(bypass_chk) return;
-    if (((inputvoltage>>SAMPLE) >=LowInVolt)&&((inputvoltage>>SAMPLE)<=MaxInVolt))
+    if (((inputvoltage>>avgcou) >=LowInVolt)&&((inputvoltage>>avgcou)<=MaxInVolt))
     {
         //if(dutycycle_chk)
         {
+       //    PORTBbits.RB5=1;
                 PID_Update();
             //    PDC1=((2*PTPER)*.50);
              //   PDC2=((2*PTPER)*.50);
@@ -600,6 +606,7 @@ void stab(void)
                 PDC1=duty;
                 PDC2=duty;
 dutycycle_chk=0;
+//PORTBbits.RB5=0;
         }
     }
    
@@ -649,7 +656,7 @@ PTCONbits.PTEN = 1;     /* Turn ON PWM module */
 void PID_Update(void)
 {
    //pid = 0;
-   current_value = (outputvoltage>>SAMPLE);
+   current_value = (outputvoltage>>avgcou);
   // current_value=0;
    error =setpoint - current_value;
 
@@ -689,13 +696,38 @@ void PID_Update(void)
    
    last = error;
 }
-void lcd_update(void)
+
+void display(unsigned int dispcou)
 {
-    char s1[7];
+    switch(dispcou)
+    {
+        default:
+        case 1:lcd_displayname("Output Voltage",0x80);
+              lcd_parameter((outputvoltage>>avgcou),0xc0,'V');break;
+        case 2:lcd_displayname("Load Current  ",0x80);
+              lcd_parameter((outputcurrent>>avgcou),0xc0,'A');break;
+        case 3:lcd_displayname("Input Voltage ",0x80);
+              lcd_parameter((inputvoltage>>avgcou),0xc0,'V');break;
+
+    }
+}
+void lcd_displayname(char *str1,unsigned char lineno)
+{
+    lcd_command(0x02);
+    lcd_command(lineno);
+    lcd_puts(str1);
+}
+void lcd_parameter(uint32_t parameter,unsigned char lineno,unsigned char unit)
+{
+  //  PORTBbits.RB5=~PORTBbits.RB5;
+    char s1[8];
     uint32_t tmp;
-  /*  s1[5]=0;
-   // tmp=(uint32_t)(outputvoltage>>SAMPLE);
-    tmp = check_cou;
+    s1[5]=' ';
+    s1[6]=unit;
+    s1[7]=0;
+    tmp=(uint32_t)parameter*488.828125;
+   // tmp = check_cou;
+    tmp=tmp/100;
     s1[4]=((long)tmp%10)+48;
    // tmp=tmp/10;
     s1[3]='.';
@@ -704,10 +736,10 @@ void lcd_update(void)
     tmp=tmp/10;
     s1[1]=((long)tmp%10)+48;
     tmp=tmp/10;
-    s1[0]=((long)tmp%10)+48;*/
-      s1[6]=0;
-   // tmp=(uint32_t)(outputvoltage>>SAMPLE);
-    tmp = check_cou;
+    s1[0]=((long)tmp%10)+48;
+    //  s1[6]=0;
+   /* tmp=(uint32_t)(outputvoltage>>avgcou)*0.48828;
+   // tmp = check_cou;
     s1[5]=((long)tmp%10)+48;
     tmp=tmp/10;
     s1[4]=((long)tmp%10)+48;
@@ -718,12 +750,8 @@ void lcd_update(void)
     tmp=tmp/10;
     s1[1]=((long)tmp%10)+48;
     tmp=tmp/10;
-    s1[0]=((long)tmp%10)+48;
+    s1[0]=((long)tmp%10)+48;*/
     //lcd_command(0x01);
-    lcd_command(0x02);
-    lcd_command(0x80);
-    lcd_puts("Output Voltage ");
-    lcd_command(0xc0);
+    lcd_command(lineno);
     lcd_puts(s1);
-    lcd_puts(" V");
 }

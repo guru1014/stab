@@ -10,7 +10,8 @@
 //#define PERIOD  614   // 20 KHz
 //#define PERIOD  682   // 18 KHz
 #define BKLED _RB4
-#define BSTLED  _RB5
+//#define BSTLED  _RB5
+#define BSTLED  _RB4
 #define NORMALLED _RD0
 //#define OLLED _RC13
 #define FLTLED _RE8
@@ -33,8 +34,7 @@
 #define LowOutVolt  420
 #define SetOutVolt 470
 
-#define SAMPLE 7
-#define SAMPLE1 4
+
 //#define BUZZER _RC14
 
 #define OverLoad 614
@@ -52,6 +52,9 @@ void Capture_Init(void);
 void ExtINT2_Init(void);
 void stab(void);
 void lcd_update(void);
+void lcd_parameter(uint32_t parameter,unsigned char lineno,unsigned char unit);
+void lcd_displayname(char *str1,unsigned char lineno);
+void display(unsigned int dispcou);
 
 extern uint32_t inputvoltage;
 extern uint32_t outputvoltage;
@@ -63,4 +66,6 @@ extern unsigned char PWM_BstBk_chk;
 extern bool sw;
 extern bool bypass_chk;
 extern volatile uint16_t adc_cou,check_cou;
+
+extern int avgcou;
 

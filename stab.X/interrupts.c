@@ -6,6 +6,7 @@
 #include <stdint.h>        /* Includes uint16_t definition                    */
 #include <stdbool.h>       /* Includes true/false definition                  */
 
+
 /******************************************************************************/
 /* Interrupt Vector Options                                                   */
 /******************************************************************************/
@@ -75,8 +76,6 @@ unsigned int ADResult4 = 0;
 //#define OLLED _RC13
 #define FLTLED _RE8
 
-#define SAMPLE 7
-#define SAMPLE1 4
 
 //#define BUZZER _RC14
 uint32_t inputvoltage=0;
@@ -96,6 +95,8 @@ volatile bool dutycycle_chk=false;
 volatile bool sec_chk=false;
 volatile bool sw=false;
 volatile uint16_t adc_cou=0,check_cou=0;
+
+int avgcou=10;
 //Functions and Variables with Global Scope:
 
 void __attribute__((__interrupt__)) _ADCInterrupt(void);
@@ -133,25 +134,14 @@ void __attribute__((interrupt, no_auto_psv)) _FLTAInterrupt(void)
 //The ISR name is chosen from the device linker script.
 void __attribute__((interrupt, no_auto_psv)) _ADCInterrupt(void)
 {
-	//ADResult1 = ADCBUF0;
-    inputvoltage = inputvoltage - (uint32_t)(inputvoltage>>SAMPLE)+(uint32_t)ADCBUF1;
-    outputvoltage =outputvoltage - (uint32_t)(outputvoltage>>SAMPLE1)+ (uint32_t)ADCBUF2;
-    outputcurrent = outputcurrent - (uint32_t)(outputcurrent>>SAMPLE)+(uint32_t)ADCBUF3;
-    //dcdc_avg1= dcdc_avg1 - (dcdc_avg1>>DCDCVOLT_AVG) + DCDC_Out1;
-    //outputvoltage >>=2;
-   // in1[j]=inputvoltage>>SAMPLE;
-  //  out1[j]=outputvoltage>>SAMPLE1;
-  //  out2[j]=outputcurrent>>SAMPLE;
-  //  j++;
- //   if(j>19)
- //       j=0;
+    	//ADResult1 = ADCBUF0;
+    inputvoltage = inputvoltage - (uint32_t)(inputvoltage>>avgcou)+(uint32_t)ADCBUF1;
+    outputvoltage =outputvoltage - (uint32_t)(outputvoltage>>avgcou)+ (uint32_t)ADCBUF2;
+   //  outputvoltage =(uint32_t)ADCBUF2;
+    outputcurrent = outputcurrent - (uint32_t)(outputcurrent>>avgcou)+(uint32_t)ADCBUF3;
+  
     //outputcurrent = ADCBUF3;
 	ADResult2 = ADCBUF0;
-  //      ADResult3 = ADCBUF2;
-       // ADResult4 = ADCBUF3;
-        adc_cou++;
-        //Clear the A/D Interrupt flag bit or else the CPU will
-        //keep vectoring back to the ISR
         IFS0bits.ADIF = 0;
 
 

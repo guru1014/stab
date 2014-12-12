@@ -6,7 +6,6 @@
  */
 #include "lcd.h"
 #include <stdio.h>
-
 int shift_count=0;
 
 void delay(unsigned int j)

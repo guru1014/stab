@@ -9,13 +9,16 @@
 #define LCD_RS LATCbits.LATC14
 #define LCD_EN LATCbits.LATC13
 
-#define LCD_DB LATEbits.LATE4
-#define LCD_CLK LATEbits.LATE5
+#define LCD_DB LATCbits.LATC14
+#define LCD_CLK LATCbits.LATC13
+
+//#define LCD_DB LATEbits.LATE4
+//#define LCD_CLK LATEbits.LATE5
 //#define LCD_DB5 _RF2
 //#define LCD_DB4 _RF3
 
-#define lcd_delay 50
-#define shift_delay 50
+#define lcd_delay 20
+#define shift_delay 1
 
 
 
