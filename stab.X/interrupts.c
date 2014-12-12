@@ -170,7 +170,7 @@ void __attribute__((__interrupt__, no_auto_psv)) _CNInterrupt(void)
             PTCONbits.PTEN = 1;
         }
     }
-    sw=true;
+    sw=true;PTCONbits.PTEN = 1;
     _CNIF=0;
 }
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)

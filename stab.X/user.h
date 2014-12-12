@@ -10,8 +10,7 @@
 //#define PERIOD  614   // 20 KHz
 //#define PERIOD  682   // 18 KHz
 #define BKLED _RB4
-//#define BSTLED  _RB5
-#define BSTLED  _RB4
+#define BSTLED  _RB5
 #define NORMALLED _RD0
 //#define OLLED _RC13
 #define FLTLED _RE8

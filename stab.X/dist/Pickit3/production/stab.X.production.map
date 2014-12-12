@@ -1,4 +1,4 @@
-Microchip Technology Inc, v€‚|
+Microchip Technology Inc, v€‚q
 
 Tool Name:
   c:\program files (x86)\microchip\xc16\v1.20\bin\bin\..\bin/elf-ld.exe
@@ -6,7 +6,7 @@ Tool Name:
 Command:
   -p30F2010 \
   -o \
-  dist/default/production/stab.X.production.elf \
+  dist/Pickit3/production/stab.X.production.elf \
   -Lc:/program files (x86)/microchip/xc16/v1.20/bin/bin/.. \
   -Lc:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib \
   -Lc:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib/PIC24E \
@@ -21,13 +21,13 @@ Command:
   -Lc:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../support/dsPIC33E/gld \
   -Lc:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib/dsPIC33F \
   -Lc:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../support/dsPIC33F/gld \
-  build/default/production/configuration_bits.o \
-  build/default/production/interrupts.o \
-  build/default/production/main.o \
-  build/default/production/system.o \
-  build/default/production/traps.o \
-  build/default/production/user.o \
-  build/default/production/lcd.o \
+  build/Pickit3/production/configuration_bits.o \
+  build/Pickit3/production/interrupts.o \
+  build/Pickit3/production/main.o \
+  build/Pickit3/production/system.o \
+  build/Pickit3/production/traps.o \
+  build/Pickit3/production/user.o \
+  build/Pickit3/production/lcd.o \
   --defsym=__MPLAB_BUILD=1 \
   -Tp30F2010.gld.00 \
   --stack=16 \
@@ -41,7 +41,7 @@ Command:
   --stackguard=16 \
   --no-force-link \
   --smart-io \
-  -Map=dist/default/production/stab.X.production.map \
+  -Map=dist/Pickit3/production/stab.X.production.map \
   --report-mem \
   -start-group \
   --library=fx-elf \
@@ -57,19 +57,19 @@ c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libpic30-elf.a(crt
 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libpic30-elf.a(data_init_standard.o)
                               c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o) (__data_init_standard)
 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(addsf3.eo)
-                              build/default/production/user.o (___subsf3)
+                              build/Pickit3/production/user.o (___subsf3)
 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(divsf3.eo)
-                              build/default/production/user.o (___divsf3)
+                              build/Pickit3/production/user.o (___divsf3)
 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(feqltle.eo)
-                              build/default/production/user.o (___lesf2)
+                              build/Pickit3/production/user.o (___lesf2)
 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fgtge.eo)
-                              build/default/production/user.o (___gesf2)
+                              build/Pickit3/production/user.o (___gesf2)
 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fixsfsi.eo)
-                              build/default/production/user.o (_(float, int, long long, short, float, short, int))
+                              build/Pickit3/production/user.o (_(float, int, long long, short, float, short, int))
 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fixunssfsi.eo)
-                              build/default/production/user.o (___fixunssfsi)
+                              build/Pickit3/production/user.o (___fixunssfsi)
 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(floatunsisf.eo)
-                              build/default/production/user.o (___floatunsisf)
+                              build/Pickit3/production/user.o (___floatunsisf)
 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fpack.eo)
                               c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(addsf3.eo) (__fpack)
 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(funpack.eo)
@@ -79,11 +79,11 @@ c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(funpack
 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(futil.eo)
                               c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(addsf3.eo) (__fPropagateNaN)
 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(modsi3.eo)
-                              build/default/production/user.o (___modsi3)
+                              build/Pickit3/production/user.o (___modsi3)
 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(mulsf3.eo)
-                              build/default/production/user.o (___mulsf3)
+                              build/Pickit3/production/user.o (___mulsf3)
 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(udivsi3.eo)
-                              build/default/production/user.o (___udivsi3)
+                              build/Pickit3/production/user.o (___udivsi3)
 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(umodsi3.eo)
                               c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(modsi3.eo) (___umodsi3)
 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(fcompare.eo)
@@ -116,12 +116,12 @@ Program Memory  [Origin = 0x100, Length = 0x1efe]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x100               0x6e4           0xa56  (2646)
-.const                       0x7e4                0x16            0x21  (33)
-.text                        0x7fa               0xa32           0xf4b  (3915)
-.dinit                      0x122c                0x74            0xae  (174)
-.text                       0x12a0                0x16            0x21  (33)
+.const                       0x7e4                0x34            0x4e  (78)
+.text                        0x818               0xa6e           0xfa5  (4005)
+.dinit                      0x1286                0x74            0xae  (174)
+.text                       0x12fa                0x16            0x21  (33)
 
-                     Total program memory used (bytes):         0x1a91  (6801) 57%
+                     Total program memory used (bytes):         0x1b18  (6936) 58%
 
 
 Data Memory  [Origin = 0x800, Length = 0x200]
@@ -290,42 +290,42 @@ External Symbols in Program Memory (by address):
                   0x00074a                  ___umodsi3
                   0x000750                  __fcompare
                   0x000786                  ___floatundisf
-                  0x0007fa                  _InitApp
-                  0x00086a                  _ADC_Init
-                  0x00088e                  _PWM_Init
-                  0x0008fe                  _Capture_Init
-                  0x000936                  _InitTMR1
-                  0x000958                  _InitTMR3
-                  0x00097a                  _Self_Test
-                  0x0009dc                  _stab
-                  0x000de4                  _ExtINT2_Init
-                  0x000dfa                  _Run_PWM
-                  0x000e0c                  _PID_Update
-                  0x000f82                  _display
-                  0x000faa                  _lcd_displayname
-                  0x000fc0                  _lcd_parameter
-                  0x001082                  _delay
-                  0x0010b6                  _lcd_init
-                  0x001108                  _lcd_command
-                  0x001188                  _lcd_data
-                  0x001208                  _lcd_puts
-                  0x0012a0                  _main
-                  0x0012b0                  _ConfigureOscillator
+                  0x000818                  _InitApp
+                  0x000888                  _ADC_Init
+                  0x0008ac                  _PWM_Init
+                  0x00091c                  _Capture_Init
+                  0x000954                  _InitTMR1
+                  0x000976                  _InitTMR3
+                  0x000998                  _Self_Test
+                  0x0009fa                  _stab
+                  0x000e02                  _ExtINT2_Init
+                  0x000e18                  _Run_PWM
+                  0x000e2a                  _PID_Update
+                  0x000f8c                  _display
+                  0x001004                  _lcd_displayname
+                  0x00101a                  _lcd_parameter
+                  0x0010dc                  _delay
+                  0x001110                  _lcd_init
+                  0x001162                  _lcd_command
+                  0x0011e2                  _lcd_data
+                  0x001262                  _lcd_puts
+                  0x0012fa                  _main
+                  0x00130a                  _ConfigureOscillator
                   0xf8000a                  __FGS.sec
 
 External Symbols in Program Memory (by name):
 
-                  0x00086a                  _ADC_Init
-                  0x0008fe                  _Capture_Init
-                  0x0012b0                  _ConfigureOscillator
-                  0x000de4                  _ExtINT2_Init
-                  0x0007fa                  _InitApp
-                  0x000936                  _InitTMR1
-                  0x000958                  _InitTMR3
-                  0x000e0c                  _PID_Update
-                  0x00088e                  _PWM_Init
-                  0x000dfa                  _Run_PWM
-                  0x00097a                  _Self_Test
+                  0x000888                  _ADC_Init
+                  0x00091c                  _Capture_Init
+                  0x00130a                  _ConfigureOscillator
+                  0x000e02                  _ExtINT2_Init
+                  0x000818                  _InitApp
+                  0x000954                  _InitTMR1
+                  0x000976                  _InitTMR3
+                  0x000e2a                  _PID_Update
+                  0x0008ac                  _PWM_Init
+                  0x000e18                  _Run_PWM
+                  0x000998                  _Self_Test
                   0x0001b6                  __ADCInterrupt
                   0x0003f4                  __AddressError
                   0x000414                  __AltAddressError
@@ -370,16 +370,16 @@ External Symbols in Program Memory (by name):
                   0x000674                  __funpack2
                   0x000126                  __psv_init
                   0x000100                  __resetPRI
-                  0x001082                  _delay
-                  0x000f82                  _display
-                  0x001108                  _lcd_command
-                  0x001188                  _lcd_data
-                  0x000faa                  _lcd_displayname
-                  0x0010b6                  _lcd_init
-                  0x000fc0                  _lcd_parameter
-                  0x001208                  _lcd_puts
-                  0x0012a0                  _main
-                  0x0009dc                  _stab
+                  0x0010dc                  _delay
+                  0x000f8c                  _display
+                  0x001162                  _lcd_command
+                  0x0011e2                  _lcd_data
+                  0x001004                  _lcd_displayname
+                  0x001110                  _lcd_init
+                  0x00101a                  _lcd_parameter
+                  0x001262                  _lcd_puts
+                  0x0012fa                  _main
+                  0x0009fa                  _stab
 
 Memory Configuration
 
@@ -406,13 +406,13 @@ FICD             0xf8000c           0x000002
 
 Linker script and memory map
 
-LOAD build/default/production/configuration_bits.o
-LOAD build/default/production/interrupts.o
-LOAD build/default/production/main.o
-LOAD build/default/production/system.o
-LOAD build/default/production/traps.o
-LOAD build/default/production/user.o
-LOAD build/default/production/lcd.o
+LOAD build/Pickit3/production/configuration_bits.o
+LOAD build/Pickit3/production/interrupts.o
+LOAD build/Pickit3/production/main.o
+LOAD build/Pickit3/production/system.o
+LOAD build/Pickit3/production/traps.o
+LOAD build/Pickit3/production/user.o
+LOAD build/Pickit3/production/lcd.o
                     0x0001                  __MPLAB_BUILD = 0x1
 LOAD c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib/dsPIC30F\libp30F2010-elf.a
                     0x8005c0                  __FUID0 = 0x8005c0
@@ -453,7 +453,7 @@ LOAD c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib/dsPIC30F\libp
  *(.user_init)
  *(.handle)
  *(.isr*)
- .isr.text        0x000194        0x258 build/default/production/interrupts.o
+ .isr.text        0x000194        0x258 build/Pickit3/production/interrupts.o
                   0x000194                  __FLTAInterrupt
                   0x0001b6                  __ADCInterrupt
                   0x000240                  __CNInterrupt
@@ -461,7 +461,7 @@ LOAD c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib/dsPIC30F\libp
                   0x0002c4                  __T3Interrupt
                   0x0002cc                  __IC2Interrupt
                   0x00030c                  __INT2Interrupt
- .isr.text        0x0003ec         0x4e build/default/production/traps.o
+ .isr.text        0x0003ec         0x4e build/Pickit3/production/traps.o
                   0x0003ec                  __OscillatorFail
                   0x0003f4                  __AddressError
                   0x0003fc                  __StackError
@@ -543,15 +543,15 @@ __FUID3
 
 __FOSC            0xf80000          0x2
  *(__FOSC.sec*)
- __FOSC.sec       0xf80000          0x2 build/default/production/configuration_bits.o
+ __FOSC.sec       0xf80000          0x2 build/Pickit3/production/configuration_bits.o
 
 __FWDT            0xf80002          0x2
  *(__FWDT.sec*)
- __FWDT.sec       0xf80002          0x2 build/default/production/configuration_bits.o
+ __FWDT.sec       0xf80002          0x2 build/Pickit3/production/configuration_bits.o
 
 __FBORPOR         0xf80004          0x2
  *(__FBORPOR.sec*)
- __FBORPOR.sec    0xf80004          0x2 build/default/production/configuration_bits.o
+ __FBORPOR.sec    0xf80004          0x2 build/Pickit3/production/configuration_bits.o
 
 __RESERVED1
  *(__RESERVED1.sec*)
@@ -576,52 +576,52 @@ userdata
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x3ccc
+.debug_info       0x000000       0x3cc8
  *(.debug_info)
- .debug_info      0x000000        0x10a build/default/production/configuration_bits.o
- .debug_info      0x00010a        0xd12 build/default/production/interrupts.o
- .debug_info      0x000e1c        0x154 build/default/production/main.o
- .debug_info      0x000f70        0x12d build/default/production/system.o
- .debug_info      0x00109d        0x325 build/default/production/traps.o
- .debug_info      0x0013c2       0x251a build/default/production/user.o
- .debug_info      0x0038dc        0x3f0 build/default/production/lcd.o
+ .debug_info      0x000000        0x10a build/Pickit3/production/configuration_bits.o
+ .debug_info      0x00010a        0xd12 build/Pickit3/production/interrupts.o
+ .debug_info      0x000e1c        0x154 build/Pickit3/production/main.o
+ .debug_info      0x000f70        0x12d build/Pickit3/production/system.o
+ .debug_info      0x00109d        0x325 build/Pickit3/production/traps.o
+ .debug_info      0x0013c2       0x2516 build/Pickit3/production/user.o
+ .debug_info      0x0038d8        0x3f0 build/Pickit3/production/lcd.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x536
  *(.debug_abbrev)
- .debug_abbrev    0x000000         0x30 build/default/production/configuration_bits.o
- .debug_abbrev    0x000030        0x17a build/default/production/interrupts.o
- .debug_abbrev    0x0001aa         0x54 build/default/production/main.o
- .debug_abbrev    0x0001fe         0x34 build/default/production/system.o
- .debug_abbrev    0x000232         0x8e build/default/production/traps.o
- .debug_abbrev    0x0002c0        0x199 build/default/production/user.o
- .debug_abbrev    0x000459         0xdd build/default/production/lcd.o
+ .debug_abbrev    0x000000         0x30 build/Pickit3/production/configuration_bits.o
+ .debug_abbrev    0x000030        0x17a build/Pickit3/production/interrupts.o
+ .debug_abbrev    0x0001aa         0x54 build/Pickit3/production/main.o
+ .debug_abbrev    0x0001fe         0x34 build/Pickit3/production/system.o
+ .debug_abbrev    0x000232         0x8e build/Pickit3/production/traps.o
+ .debug_abbrev    0x0002c0        0x199 build/Pickit3/production/user.o
+ .debug_abbrev    0x000459         0xdd build/Pickit3/production/lcd.o
 
-.debug_line       0x000000       0x13ca
+.debug_line       0x000000       0x13e9
  *(.debug_line)
- .debug_line      0x000000         0x7f build/default/production/configuration_bits.o
- .debug_line      0x00007f        0x3b6 build/default/production/interrupts.o
- .debug_line      0x000435         0xbe build/default/production/main.o
- .debug_line      0x0004f3         0x4a build/default/production/system.o
- .debug_line      0x00053d        0x1bc build/default/production/traps.o
- .debug_line      0x0006f9        0x9bf build/default/production/user.o
- .debug_line      0x0010b8        0x312 build/default/production/lcd.o
+ .debug_line      0x000000         0x7f build/Pickit3/production/configuration_bits.o
+ .debug_line      0x00007f        0x3b6 build/Pickit3/production/interrupts.o
+ .debug_line      0x000435         0xbe build/Pickit3/production/main.o
+ .debug_line      0x0004f3         0x4a build/Pickit3/production/system.o
+ .debug_line      0x00053d        0x1bc build/Pickit3/production/traps.o
+ .debug_line      0x0006f9        0x9de build/Pickit3/production/user.o
+ .debug_line      0x0010d7        0x312 build/Pickit3/production/lcd.o
 
 .debug_frame      0x000000        0x2c8
  *(.debug_frame)
- .debug_frame     0x000000         0x84 build/default/production/interrupts.o
- .debug_frame     0x000084         0x24 build/default/production/main.o
- .debug_frame     0x0000a8         0x24 build/default/production/system.o
- .debug_frame     0x0000cc         0xa4 build/default/production/traps.o
- .debug_frame     0x000170         0xf4 build/default/production/user.o
- .debug_frame     0x000264         0x64 build/default/production/lcd.o
+ .debug_frame     0x000000         0x84 build/Pickit3/production/interrupts.o
+ .debug_frame     0x000084         0x24 build/Pickit3/production/main.o
+ .debug_frame     0x0000a8         0x24 build/Pickit3/production/system.o
+ .debug_frame     0x0000cc         0xa4 build/Pickit3/production/traps.o
+ .debug_frame     0x000170         0xf4 build/Pickit3/production/user.o
+ .debug_frame     0x000264         0x64 build/Pickit3/production/lcd.o
 
 .debug_str        0x000000        0x2af
  *(.debug_str)
- .debug_str       0x000000         0xec build/default/production/interrupts.o
- .debug_str       0x0000ec          0xc build/default/production/traps.o
- .debug_str       0x0000f8        0x18f build/default/production/user.o
- .debug_str       0x000287         0x28 build/default/production/lcd.o
+ .debug_str       0x000000         0xec build/Pickit3/production/interrupts.o
+ .debug_str       0x0000ec          0xc build/Pickit3/production/traps.o
+ .debug_str       0x0000f8        0x18f build/Pickit3/production/user.o
+ .debug_str       0x000287         0x28 build/Pickit3/production/lcd.o
 
 .debug_loc
  *(.debug_loc)
@@ -633,19 +633,19 @@ userdata
                   0x000000        0x558
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000         0x3c build/default/production/configuration_bits.o
+                  0x000000         0x3c build/Pickit3/production/configuration_bits.o
  .debug_pubnames
-                  0x00003c        0x1c7 build/default/production/interrupts.o
+                  0x00003c        0x1c7 build/Pickit3/production/interrupts.o
  .debug_pubnames
-                  0x000203         0x26 build/default/production/main.o
+                  0x000203         0x26 build/Pickit3/production/main.o
  .debug_pubnames
-                  0x000229         0x2a build/default/production/system.o
+                  0x000229         0x2a build/Pickit3/production/system.o
  .debug_pubnames
-                  0x000253         0xbe build/default/production/traps.o
+                  0x000253         0xbe build/Pickit3/production/traps.o
  .debug_pubnames
-                  0x000311        0x1e4 build/default/production/user.o
+                  0x000311        0x1e4 build/Pickit3/production/user.o
  .debug_pubnames
-                  0x0004f5         0x63 build/default/production/lcd.o
+                  0x0004f5         0x63 build/Pickit3/production/lcd.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -653,17 +653,17 @@ userdata
 .debug_aranges    0x000000         0x90
  *(.debug_aranges)
  .debug_aranges
-                  0x000000         0x18 build/default/production/interrupts.o
+                  0x000000         0x18 build/Pickit3/production/interrupts.o
  .debug_aranges
-                  0x000018         0x18 build/default/production/main.o
+                  0x000018         0x18 build/Pickit3/production/main.o
  .debug_aranges
-                  0x000030         0x18 build/default/production/system.o
+                  0x000030         0x18 build/Pickit3/production/system.o
  .debug_aranges
-                  0x000048         0x18 build/default/production/traps.o
+                  0x000048         0x18 build/Pickit3/production/traps.o
  .debug_aranges
-                  0x000060         0x18 build/default/production/user.o
+                  0x000060         0x18 build/Pickit3/production/user.o
  .debug_aranges
-                  0x000078         0x18 build/default/production/lcd.o
+                  0x000078         0x18 build/Pickit3/production/lcd.o
 
 .ivt              0x000004         0x7c
                   0x000004          0x4 LONG 0x42c DEFINED (__ReservedTrap0)?ABSOLUTE (__ReservedTrap0):ABSOLUTE (__DefaultInterrupt)
@@ -1248,43 +1248,43 @@ LOAD c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libpic30-elf.
 LOAD c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a
 LOAD c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libc-elf.a
 END GROUP
-OUTPUT(dist/default/production/stab.X.production.elf elf32-pic30)
+OUTPUT(dist/Pickit3/production/stab.X.production.elf elf32-pic30)
 LOAD FGS
 LOAD data_init
 
 .debug_pubtypes
                   0x000090        0x4f5
  .debug_pubtypes
-                  0x000090         0x12 build/default/production/configuration_bits.o
+                  0x000090         0x12 build/Pickit3/production/configuration_bits.o
  .debug_pubtypes
-                  0x0000a2        0x124 build/default/production/interrupts.o
+                  0x0000a2        0x124 build/Pickit3/production/interrupts.o
  .debug_pubtypes
-                  0x0001c6         0x2b build/default/production/main.o
+                  0x0001c6         0x2b build/Pickit3/production/main.o
  .debug_pubtypes
-                  0x0001f1         0x12 build/default/production/system.o
+                  0x0001f1         0x12 build/Pickit3/production/system.o
  .debug_pubtypes
-                  0x000203         0x35 build/default/production/traps.o
+                  0x000203         0x35 build/Pickit3/production/traps.o
  .debug_pubtypes
-                  0x000238        0x2e2 build/default/production/user.o
+                  0x000238        0x2e2 build/Pickit3/production/user.o
  .debug_pubtypes
-                  0x00051a         0x6b build/default/production/lcd.o
+                  0x00051a         0x6b build/Pickit3/production/lcd.o
 
 __c30_signature
                   0x000586         0x9c
  __c30_signature
-                  0x000586          0x6 build/default/production/configuration_bits.o
+                  0x000586          0x6 build/Pickit3/production/configuration_bits.o
  __c30_signature
-                  0x00058c          0x6 build/default/production/interrupts.o
+                  0x00058c          0x6 build/Pickit3/production/interrupts.o
  __c30_signature
-                  0x000592          0x6 build/default/production/main.o
+                  0x000592          0x6 build/Pickit3/production/main.o
  __c30_signature
-                  0x000598          0x6 build/default/production/system.o
+                  0x000598          0x6 build/Pickit3/production/system.o
  __c30_signature
-                  0x00059e          0x6 build/default/production/traps.o
+                  0x00059e          0x6 build/Pickit3/production/traps.o
  __c30_signature
-                  0x0005a4          0x6 build/default/production/user.o
+                  0x0005a4          0x6 build/Pickit3/production/user.o
  __c30_signature
-                  0x0005aa          0x6 build/default/production/lcd.o
+                  0x0005aa          0x6 build/Pickit3/production/lcd.o
  __c30_signature
                   0x0005b0          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o)
  __c30_signature
@@ -1325,7 +1325,7 @@ __c30_signature
                   0x00061c          0x6 c:/program files (x86)/microchip/xc16/v1.20/bin/bin/../../lib\libm-elf.a(floatundisf.eo)
 
 .ndata              0x0800         0x6a
- .ndata             0x0800         0x3e build/default/production/user.o
+ .ndata             0x0800         0x3e build/Pickit3/production/user.o
                     0x0800                  _k
                     0x0802                  _Bst_flag
                     0x0804                  _current_value
@@ -1346,7 +1346,7 @@ __c30_signature
                     0x0838                  _duty
                     0x083a                  _dcou
                     0x083c                  _ddelay
- .ndata             0x083e         0x2c build/default/production/interrupts.o
+ .ndata             0x083e         0x2c build/Pickit3/production/interrupts.o
                     0x083e                  _ADResult1
                     0x0840                  _ADResult2
                     0x0842                  _ADResult3
@@ -1371,50 +1371,50 @@ __c30_signature
                     0x0868                  _avgcou
 
 .nbss               0x086a         0x1c
- .nbss              0x086a         0x14 build/default/production/interrupts.o
- .nbss              0x087e          0x8 build/default/production/user.o
+ .nbss              0x086a         0x14 build/Pickit3/production/interrupts.o
+ .nbss              0x087e          0x8 build/Pickit3/production/user.o
                     0x087e                  _ADC16ptr
                     0x0880                  _count
                     0x0882                  _error
 
 .ndata              0x0886          0x6
- .ndata             0x0886          0x4 build/default/production/main.o
+ .ndata             0x0886          0x4 build/Pickit3/production/main.o
                     0x0886                  _period
- .ndata             0x088a          0x2 build/default/production/lcd.o
+ .ndata             0x088a          0x2 build/Pickit3/production/lcd.o
                     0x088a                  _shift_count
 
-.const              0x87e4         0x16 load address 0x0007e4  
- .const             0x87e4         0x10 build/default/production/user.o
- .const             0x87f4          0x6 build/default/production/main.o
+.const              0x87e4         0x34 load address 0x0007e4  
+ .const             0x87e4         0x2e build/Pickit3/production/user.o
+ .const             0x8812          0x6 build/Pickit3/production/main.o
 
-.text             0x0007fa        0xa32
- .text            0x0007fa        0x888 build/default/production/user.o
-                  0x0007fa                  _InitApp
-                  0x00086a                  _ADC_Init
-                  0x00088e                  _PWM_Init
-                  0x0008fe                  _Capture_Init
-                  0x000936                  _InitTMR1
-                  0x000958                  _InitTMR3
-                  0x00097a                  _Self_Test
-                  0x0009dc                  _stab
-                  0x000de4                  _ExtINT2_Init
-                  0x000dfa                  _Run_PWM
-                  0x000e0c                  _PID_Update
-                  0x000f82                  _display
-                  0x000faa                  _lcd_displayname
-                  0x000fc0                  _lcd_parameter
- .text            0x001082        0x1aa build/default/production/lcd.o
-                  0x001082                  _delay
-                  0x0010b6                  _lcd_init
-                  0x001108                  _lcd_command
-                  0x001188                  _lcd_data
-                  0x001208                  _lcd_puts
+.text             0x000818        0xa6e
+ .text            0x000818        0x8c4 build/Pickit3/production/user.o
+                  0x000818                  _InitApp
+                  0x000888                  _ADC_Init
+                  0x0008ac                  _PWM_Init
+                  0x00091c                  _Capture_Init
+                  0x000954                  _InitTMR1
+                  0x000976                  _InitTMR3
+                  0x000998                  _Self_Test
+                  0x0009fa                  _stab
+                  0x000e02                  _ExtINT2_Init
+                  0x000e18                  _Run_PWM
+                  0x000e2a                  _PID_Update
+                  0x000f8c                  _display
+                  0x001004                  _lcd_displayname
+                  0x00101a                  _lcd_parameter
+ .text            0x0010dc        0x1aa build/Pickit3/production/lcd.o
+                  0x0010dc                  _delay
+                  0x001110                  _lcd_init
+                  0x001162                  _lcd_command
+                  0x0011e2                  _lcd_data
+                  0x001262                  _lcd_puts
 
-.dinit            0x00122c         0x74
- .dinit           0x00122c         0x74 data_init
+.dinit            0x001286         0x74
+ .dinit           0x001286         0x74 data_init
 
-.text             0x0012a0         0x16
- .text            0x0012a0         0x10 build/default/production/main.o
-                  0x0012a0                  _main
- .text            0x0012b0          0x6 build/default/production/system.o
-                  0x0012b0                  _ConfigureOscillator
+.text             0x0012fa         0x16
+ .text            0x0012fa         0x10 build/Pickit3/production/main.o
+                  0x0012fa                  _main
+ .text            0x00130a          0x6 build/Pickit3/production/system.o
+                  0x00130a                  _ConfigureOscillator

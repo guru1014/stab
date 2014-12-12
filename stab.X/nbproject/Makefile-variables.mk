@@ -11,3 +11,10 @@ CND_ARTIFACT_PATH_default=dist/default/production/stab.X.production.hex
 CND_PACKAGE_DIR_default=${CND_DISTDIR}/default/package
 CND_PACKAGE_NAME_default=stab.x.tar
 CND_PACKAGE_PATH_default=${CND_DISTDIR}/default/package/stab.x.tar
+# Pickit3 configuration
+CND_ARTIFACT_DIR_Pickit3=dist/Pickit3/production
+CND_ARTIFACT_NAME_Pickit3=stab.X.production.hex
+CND_ARTIFACT_PATH_Pickit3=dist/Pickit3/production/stab.X.production.hex
+CND_PACKAGE_DIR_Pickit3=${CND_DISTDIR}/Pickit3/package
+CND_PACKAGE_NAME_Pickit3=stab.x.tar
+CND_PACKAGE_PATH_Pickit3=${CND_DISTDIR}/Pickit3/package/stab.x.tar
