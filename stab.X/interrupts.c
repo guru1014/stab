@@ -97,6 +97,7 @@ volatile bool sw=false;
 volatile uint16_t adc_cou=0,check_cou=0;
 
 int avgcou=10;
+int avgcou1=4;
 //Functions and Variables with Global Scope:
 
 void __attribute__((__interrupt__)) _ADCInterrupt(void);
@@ -136,7 +137,7 @@ void __attribute__((interrupt, no_auto_psv)) _ADCInterrupt(void)
 {
     	//ADResult1 = ADCBUF0;
     inputvoltage = inputvoltage - (uint32_t)(inputvoltage>>avgcou)+(uint32_t)ADCBUF1;
-    outputvoltage =outputvoltage - (uint32_t)(outputvoltage>>avgcou)+ (uint32_t)ADCBUF2;
+    outputvoltage =outputvoltage - (uint32_t)(outputvoltage>>avgcou1)+ (uint32_t)ADCBUF2;
    //  outputvoltage =(uint32_t)ADCBUF2;
     outputcurrent = outputcurrent - (uint32_t)(outputcurrent>>avgcou)+(uint32_t)ADCBUF3;
   
@@ -170,7 +171,7 @@ void __attribute__((__interrupt__, no_auto_psv)) _CNInterrupt(void)
             PTCONbits.PTEN = 1;
         }
     }
-    sw=true;PTCONbits.PTEN = 1;
+//    sw=true;PTCONbits.PTEN = 1;
     _CNIF=0;
 }
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)

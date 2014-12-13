@@ -32,7 +32,7 @@ bool Bst_flag=false;
 //
 float error;
 float current_value=0,last=0;
-float setpoint=450;
+float setpoint=470;
 float integral_error=0;
 float propational=0;
 float integral=0;
@@ -92,6 +92,8 @@ void InitApp(void)
     InitTMR3();
     Capture_Init();
     ExtINT2_Init();
+    lcd_init();
+    display(0);
     Self_Test();
     //InitPID();
     if(_RB3==0)
@@ -115,7 +117,10 @@ void InitApp(void)
             PTCONbits.PTEN = 1;
         }
     }
-    sw=true;PTCONbits.PTEN = 1;
+   
+    lcd_command(0x01);
+   
+  //  sw=true;PTCONbits.PTEN = 1;
     /* Initialize peripherals */
 }
 
@@ -170,10 +175,10 @@ void PWM_Init(void)
     PWMCON1bits.PEN3H=0;
 
 
-   //_FLTAIP=7;
-    //_FLTAIF=0;
-    //_FLTAIE=1;
-   // FLTACON = 0x0F;
+   _FLTAIP=7;
+    _FLTAIF=0;
+    _FLTAIE=1;
+    FLTACON = 0x0F;
      OVDCONbits.POVD1L = 0;
      OVDCONbits.POVD2L = 0;
 
@@ -301,8 +306,9 @@ void stab(void)
         if(++ddelay==1)
         {
             ddelay=0;
-        display(++dcou);
-        if(dcou==3)dcou=0;
+       // display(++dcou);
+            display(4);
+        if(dcou==2)dcou=0;
         }
     }
     if(sw==true)
@@ -458,8 +464,8 @@ void stab(void)
                  {
                      if(pid<=0){
                          pid=0;
-                         integral_error=0;
-                         propational=0;
+                    //     integral_error=0;
+                      //   propational=0;
         //                 NORMALLED=1;
                      }
                 duty = (((int32_t)(pid/1.5)));
@@ -470,9 +476,10 @@ void stab(void)
                 else
                 {
                  //duty = (int32_t)((2*PTPER)-(pid/1.5));
-                     if(pid>=0)
+                     if(pid>0)
                      {
-                         pid =-((1*PTPER)*1.5);;
+                        // pid =-((1*PTPER)*1.5);
+                         pid=0;
     //                     integral_error=0;
       //                   propational=0;
       //                   NORMALLED=1;
@@ -546,8 +553,8 @@ PTCONbits.PTEN = 1;     /* Turn ON PWM module */
 void PID_Update(void)
 {
    //pid = 0;
-   //current_value = (outputvoltage>>avgcou);
-   current_value=200;
+   current_value = (outputvoltage>>avgcou1);
+   //current_value=200;
    error =setpoint - current_value;
 
    if (abs(error) <1024){ // prevent integral 'windup'
@@ -590,16 +597,21 @@ void PID_Update(void)
 void display(unsigned int dispcou)
 {
     switch(dispcou)
-   // switch(3)
+    //switch(3)
     {
         default:
-        case 1:lcd_displayname("Output Voltage",0x80);
-              lcd_parameter((outputvoltage>>avgcou),0xc0,'V');break;
-        case 2:lcd_displayname("Load Current  ",0x80);
-              lcd_parameter((outputcurrent>>avgcou),0xc0,'A');break;
-        case 3:lcd_displayname("Input Voltage ",0x80);
+        case 0:lcd_displayname("Velsine         ",0x80);
+              lcd_displayname("StaticStabilizer",0xC0);break;
+        case 1:lcd_displayname("Input Voltage ",0x80);
               lcd_parameter((inputvoltage>>avgcou),0xc0,'V');break;
+        case 2:lcd_displayname("Output Voltage",0x80);
+              lcd_parameter((outputvoltage>>avgcou),0xc0,'V');break;
+        case 3:lcd_displayname("Load Current  ",0x80);
+              lcd_parameter((outputcurrent>>avgcou),0xc0,'A');break;
+        case 4:lcd_parameter((inputvoltage>>avgcou),0x80,'V');
+              lcd_parameter((outputvoltage>>avgcou1),0xc0,'V');break;
 
+        
     }
 }
 void lcd_displayname(char *str1,unsigned char lineno)

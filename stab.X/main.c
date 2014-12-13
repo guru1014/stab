@@ -31,9 +31,7 @@ int16_t main(void)
     InitApp();
 
     /* TODO <INSERT USER APPLICATION CODE HERE> */
-    lcd_init();
-    lcd_puts("Hello");
-   // lcd_puts("Hi");
+    // lcd_puts("Hi");
     while(1)
     {
        
