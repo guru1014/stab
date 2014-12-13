@@ -67,4 +67,5 @@ extern bool bypass_chk;
 extern volatile uint16_t adc_cou,check_cou;
 
 extern int avgcou;
+extern int avgcou1;
 
